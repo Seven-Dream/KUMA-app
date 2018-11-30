@@ -1,2 +1,2 @@
 # KUMA-app
-AndroidStudio
+Android Studioで使用するディレクトリを管理するレポジトリ
