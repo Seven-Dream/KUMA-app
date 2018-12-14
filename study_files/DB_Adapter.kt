@@ -27,16 +27,16 @@ class userDB_Adapter(mContext: Context) {
 
     // １レコード 追加
     fun addRecord(type:Int , day:Int ,memo:String) {
-    val values = ContentValues()
-    values.put("memo", memo)
-    values.put("date", day )
-    values.put("type", type)
+        val values = ContentValues()
+        values.put("memo", memo)
+        values.put("date", day )
+        values.put("type", type)
 
-    // insertOrThrow()
-    // 第1引数はテーブル名
-    // 第2引数はデータを挿入する際にnull値が許可されていないカラムに代わりに利用される値を指定(?)
-    // 第3引数は ContentValue(データ)
-    db.insertOrThrow(DB_TABLE_NAME, null, values)
+        // insertOrThrow()
+        // 第1引数はテーブル名
+        // 第2引数はデータを挿入する際にnull値が許可されていないカラムに代わりに利用される値を指定(?)
+        // 第3引数は ContentValue(データ)
+        db.insertOrThrow(DB_TABLE_NAME, null, values)
 }
 
     // キー(Type,date)を指定してmemoを取得
@@ -56,6 +56,7 @@ class userDB_Adapter(mContext: Context) {
         return Result
     }
 
+
     // キー(Type,date)を指定してmemoを修正
     fun updateMemo(type : Int, day : Int, memo : String ) {
         val values : ContentValues = ContentValues()
@@ -69,4 +70,31 @@ class userDB_Adapter(mContext: Context) {
     fun deleteRecord(type : Int, day : Int) {
         db.delete(DB_TABLE_NAME, "tepe=? AND date=? ", arrayOf(type.toString(),day.toString()))
     }
+    //lectureにレコードを追加
+    fun addRecordLecture(lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
+        val values = ContentValues()
+        values.put("lecture_name", lecture_name)
+        values.put("teacher", teacher)
+        values.put("classroom", classroom)
+        values.put("year", year)
+        values.put("quarter", quarter)
+        //データの追加
+        db.insertOrThrow("lecture", null, values)
+    }
+
+    //lecture_nameを指定して一列を取得
+    fun getLecture(lecture_name:String) :String{
+        val selectSql : String = "select * from lecture where lecture_name = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_name.toString()))
+        var Result : String = ""
+        try{
+            if(cursor.moveToNext()) {
+                Result = cursor.getString(cursor.getColumnIndex("teacher"))//教師名のみ
+            }
+        } finally{
+            cursor.close()
+        }
+        return Result
+    }
+
 }
