@@ -11,11 +11,12 @@ import com.example.androiddev.myapplication.userDB_Helper
 class userDB_Adapter(mContext: Context) {
     private val db: SQLiteDatabase
     private val uaerDB : userDB_Helper
-    init {
-        uaerDB = userDB_Helper(mContext)  // DB生成
-        db = uaerDB.getWritableDatabase()
-    }
-
+        init {
+            uaerDB = userDB_Helper(mContext)  // DB生成
+            db = uaerDB.getWritableDatabase()
+        }
+//---------------------insert文---------------------------
+    //Lecture----------------------
     //lectureにレコードを追加
     fun addRecordLecture(lecture_id:Int,lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
         val values = ContentValues()
@@ -27,8 +28,12 @@ class userDB_Adapter(mContext: Context) {
         values.put("quarter", quarter)
         //データの追加
         //Log.d("opal","前"+values.toString())
-        db.insertOrThrow("lecture", null, values)
-        //Log.d("opal","後"+values.toString())
+        try {
+            db.insertOrThrow("lecture", null, values)
+            //Log.d("opal","後"+values.toString())
+        }catch(e: SQLiteException){
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
     }
 
     //Period_Weekにレコードを追加
@@ -45,6 +50,71 @@ class userDB_Adapter(mContext: Context) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
+    //lecture_testにレコードを追加
+    fun addRecordTest(lecture_id: Int, month:Int, day:Int, classroom:String, comment:String) {
+        val values = ContentValues()
+        values.put("lecture_id", lecture_id)
+        values.put("month", month)
+        values.put("day",day)
+        values.put("classroom", classroom)
+        values.put("comment", comment)
+        //データの追加
+        //Log.d("opal", "前" + values.toString())
+        try {
+            db.insert("lecture_test", null, values)
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+    //lecture_cancelにレコードを追加
+    fun addRecordCancel(lecture_id: Int, month:Int, day:Int, comment:String) {
+        val values = ContentValues()
+        values.put("lecture_id", lecture_id)
+        values.put("month", month)
+        values.put("day",day)
+        values.put("comment", comment)
+        //データの追加
+        //Log.d("opal", "前" + values.toString())
+        try {
+            db.insert("lecture_cancel", null, values)
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+    //lecture_change_classにレコードを追加
+    fun addRecordChange_Class(lecture_id: Int, month:Int, day:Int, classroom:String) {
+        val values = ContentValues()
+        values.put("lecture_id", lecture_id)
+        values.put("month", month)
+        values.put("day",day)
+        values.put("classroom", classroom)
+        //データの追加
+        //Log.d("opal", "前" + values.toString())
+        try {
+            db.insert("lecture_change_class", null, values)
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+    //Event_Uni-----------------------------------------
+    //event_studentにレコードを追加
+    fun addRecordUni(id:Int, name:String, year:Int, month:Int, day:Int, comment: String) {
+        val values = ContentValues()
+        values.put("id", id)
+        values.put("event_name", name)
+        values.put("year", year)
+        values.put("month", month)
+        values.put("day",day)
+        values.put("comment",comment)
+        //データの追加
+        Log.d("opal", "前" + values.toString())
+        try {
+            db.insert("event_uni", null, values)
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+    //Event_Student-------------------------------------
     //event_studentにレコードを追加
     fun addRecordStudent(id:Int, name:String, year:Int, month:Int, day:Int, url:String) {
         val values = ContentValues()
@@ -62,7 +132,8 @@ class userDB_Adapter(mContext: Context) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
-
+//-------------------Select文-------------------
+    //Lecture-------------------------
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
         val selectSql : String = "select * from lecture where lecture_name = ?"
@@ -83,8 +154,6 @@ class userDB_Adapter(mContext: Context) {
         }
         return disp
     }
-
-
     //lectureIDをとってくる
     fun getLecture_id(lecture_name: String, teacher: String, classroom: String, year: Int, quarter: Int): String {
         val selectSql: String = "select * from lecture where lecture_name = ? and teacher = ? and classroom = ? and year = ? and quarter = ?"
@@ -125,7 +194,9 @@ class userDB_Adapter(mContext: Context) {
             return "Failed executeSQL SQLite -- " + e.message
         }
     }
+    //Event_Uni------------------------------------
 
+    //Event_Student--------------------------------
     fun getStudent(): String {
         val selectSql: String = "select * from event_student"
         try {

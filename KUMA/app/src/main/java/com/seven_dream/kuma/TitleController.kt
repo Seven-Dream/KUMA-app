@@ -12,6 +12,7 @@ import org.json.JSONArray
 
 var lectureJson: String? = null//Jsonデータを入れるグローバル変数
 var studentJson: String? = null
+var uniJson: String? = null
 
 class TitleController : AppCompatActivity() {
 
@@ -35,8 +36,12 @@ class TitleController : AppCompatActivity() {
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
+        Log.d("opal","insert:Lecture")
         insertLecture() //Lecture
-        insertEvent_student()
+        Log.d("opal","insert:Event_uni")
+        insertEvent_Uni()
+        Log.d("opal","insert:Event_Student")
+        insertEvent_student()//Event_Student
     }
 }
     fun insertLecture(){
@@ -73,11 +78,35 @@ class TitleController : AppCompatActivity() {
             }
         }
     }
+    fun insertEvent_Uni(){
+        uniJson = "[{\"id\":1, \"event_name\":\"大学祭\", \"year\":2018, \"month\":10, \"day\":14, \"comment\":\"単位を分け与えてもいいのよ\" }" +
+                ",{\"id\":2, \"event_name\":\"卒業式\", \"year\":2018, \"month\":10, \"day\":14, \"comment\":\"着物の予約は早めにしておきましょう\" }" +
+                ",{\"id\":3, \"event_name\":\"大学説明会\", \"year\":2018, \"month\":10, \"day\":14, \"comment\":\"企業さんには挨拶をしましょう\" }]"
+        Log.d("opal", "読み込んだもの：${uniJson}")
+
+        val json = JSONArray(uniJson)
+        //id自動加算をなくした
+        for (i in 0..(json.length() - 1)) {
+            //lecture
+            val jsonObj = json.getJSONObject(i)
+            val id = jsonObj.getInt("id")
+
+            val name = jsonObj.getString("event_name")
+            val year = jsonObj.getInt("year")
+            val month = jsonObj.getInt("month")
+            val day = jsonObj.getInt("day")
+            val comment = jsonObj.getString("comment")
+            //userDB.addRecordLecture(id, name, teacher, classroom, year, quarter)
+            userDB.addRecordUni(id,name, year, month, day, comment)
+            Log.d("opal","insert:"+ name)
+        }
+
+    }
 
     fun insertEvent_student(){
-        studentJson = "[{\"id\":1, \"event_name\":\"大学祭\", \"year\":2018, \"month\":10, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }" +
-                ",{\"id\":2, \"event_name\":\"卒業式\", \"year\":2018, \"month\":10, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }" +
-                ",{\"id\":3, \"event_name\":\"大学説明会\", \"year\":2018, \"month\":10, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }]"
+        studentJson = "[{\"id\":1, \"event_name\":\"軽音ライブ\", \"year\":2018, \"month\":10, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }" +
+                ",{\"id\":2, \"event_name\":\"アカペラライブ\", \"year\":2018, \"month\":10, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }" +
+                ",{\"id\":3, \"event_name\":\"ロボ研ガンダムファイト大会\", \"year\":2018, \"month\":10, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }]"
         //Log.d("opal", "読み込んだもの：${studentJson}")
 
         val json = JSONArray(studentJson)
