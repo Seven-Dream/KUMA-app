@@ -4,7 +4,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.util.Log
+import com.example.androiddev.myapplication.userDB_Helper
 
 class userDB_Adapter(mContext: Context) {
     private val db: SQLiteDatabase
@@ -29,6 +31,38 @@ class userDB_Adapter(mContext: Context) {
         //Log.d("opal","後"+values.toString())
     }
 
+    //Period_Weekにレコードを追加
+    fun addRecordPeriod_Week(lecture_id: Int, week: Int, period:Int) {
+        val values = ContentValues()
+        values.put("lecture_id", lecture_id)
+        values.put("week", week)
+        values.put("period",period)
+        //データの追加
+        Log.d("opal", "前" + values.toString())
+        try {
+            db.insert("lecture_period_week", null, values)
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+    //event_studentにレコードを追加
+    fun addRecordStudent(id:Int, name:String, year:Int, month:Int, day:Int, url:String) {
+        val values = ContentValues()
+        values.put("id", id)
+        values.put("event_name", name)
+        values.put("year", year)
+        values.put("month", month)
+        values.put("day",day)
+        values.put("url",url)
+        //データの追加
+        Log.d("opal", "前" + values.toString())
+        try {
+            db.insert("event_student", null, values)
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
         val selectSql : String = "select * from lecture where lecture_name = ?"
@@ -48,6 +82,75 @@ class userDB_Adapter(mContext: Context) {
             cursor.close()
         }
         return disp
+    }
+
+
+    //lectureIDをとってくる
+    fun getLecture_id(lecture_name: String, teacher: String, classroom: String, year: Int, quarter: Int): String {
+        val selectSql: String = "select * from lecture where lecture_name = ? and teacher = ? and classroom = ? and year = ? and quarter = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_name.toString(), teacher.toString(), classroom.toString(), year.toString(), quarter.toString()))
+        var disp: String = ""//最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(cursor.getColumnIndex("lecture_id"))//教師名のみ
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
+
+    //現状でのweekテーブルを全て表示
+    fun getWeek(): String {
+        val selectSql: String = "select * from lecture_period_week"
+        //Log.d("opal", "check")
+        try {
+            val cursor: Cursor = db.rawQuery(selectSql, null)
+            var disp: String = ""//最終的に表示
+            try {
+                if(cursor.moveToFirst()){
+                    do{
+                        val id = cursor.getInt(cursor.getColumnIndex("lecture_id"))
+                        val week = cursor.getInt(cursor.getColumnIndex("week"))
+                        val period = cursor.getInt(cursor.getColumnIndex("period"))
+                        disp += id.toString() + "," + week.toString() + "," + period.toString() + "\n"
+                    }while(cursor.moveToNext())
+                }
+            } finally {
+                cursor.close()
+            }
+            return disp
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+            return "Failed executeSQL SQLite -- " + e.message
+        }
+    }
+
+    fun getStudent(): String {
+        val selectSql: String = "select * from event_student"
+        try {
+            val cursor: Cursor = db.rawQuery(selectSql, null)
+            var disp: String = ""//最終的に表示
+            try {
+                if(cursor.moveToFirst()){
+                    do{
+                        val id = cursor.getInt(cursor.getColumnIndex("id"))
+                        val name = cursor.getString(cursor.getColumnIndex("event_name"))
+                        val year = cursor.getInt(cursor.getColumnIndex("year"))
+                        val month = cursor.getInt(cursor.getColumnIndex("month"))
+                        val day = cursor.getInt(cursor.getColumnIndex("day"))
+                        val url = cursor.getString(cursor.getColumnIndex("url"))
+                        disp += "id:" + id.toString() + "," + "name:" + name.toString() + ", year:" + year.toString() + ", month: "+ month.toString() + ", day:" + day.toString() + "url:" + url.toString() + "\n"
+                    }while(cursor.moveToNext())
+                }
+            } finally {
+                cursor.close()
+            }
+            return disp
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+            return "Failed executeSQL SQLite -- " + e.message
+        }
     }
 
     // キー(Type,date)を指定してmemoを修正

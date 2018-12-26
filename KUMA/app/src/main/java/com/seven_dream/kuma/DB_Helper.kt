@@ -1,4 +1,4 @@
-package com.seven_dream.kuma
+package com.example.androiddev.myapplication
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -15,45 +15,60 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
     override fun onCreate(db: SQLiteDatabase?) {
         // テーブルがなかったときに が呼ばれる
         // execSQL で　クエリSQL文を実行 これでDBの構造が決定
+        db?.execSQL(
+            "CREATE TABLE " + DB_TABLE_NAME + " ( " +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "type integer not null, "+
+                    "date text not null, " +
+                    "memo text not null " +
+                    ");")
         db?.execSQL(Lecture)
+        db?.execSQL(Period_Week)
+        db?.execSQL(Student)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // バージョンが変わった時に実行される
+        db?.execSQL("DROP TABLE IF EXISTS " + DB_TABLE_NAME + ";")
         db?.execSQL("DROP TABLE IF EXISTS lecture ;")
+        db?.execSQL("DROP TABLE IF EXISTS week ;")
+        db?.execSQL("DROP TABLE IF EXISTS lecture_period_week ;")
         onCreate(db)
         // 今回は,一度消して、作り直ししてます　
     }
     companion object {
-        private val Lecture = "CREATE TABLE lecture ( " +
-                //"lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+        private const val Lecture = "CREATE TABLE lecture ( " +
+                "lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                //"lecture_id INTEGER PRIMARY KEY, " +
                 "lecture_name VARCHAR(64), " +
                 "teacher VARCHAR(64), " +
                 "classroom VARCHAR(64), " +
                 "year INTEGER, " +
-                "quarter INTEGER )"
+                "quarter INTEGER );"
 
-        private val period = "CREATE TABLE lecture_period ( " +
-                "lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "period INTEGER " +
-                "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id))"
+        private const val Period_Week = "CREATE TABLE lecture_period_week ( " +
+                "lecture_id INTEGER PRIMARY KEY, " +
+                "period INTEGER, " +
+                "week INTEGER, " +
+                "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
-        private val week = "CREATE TABLE lecture_period ( " +
-                "lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "week INTEGER " +
-                "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) )"
-
-        private val test = "CREATE TABLE lecture_period ( " +
-                "lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        private val Test = "CREATE TABLE lecture_period ( " +
+                "lecture_id INTEGER PRIMARY KEY, " +
                 "month INTEGER " +
                 "day INTEGER " +
                 "classroom VARCHAR(64) " +
                 "comment TEXT " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) )"
 
+        private val Student = "CREATE TABLE event_student ( " +
+                "id INTEGER PRIMARY KEY, " +
+                "event_name VARCHAR(64), " +
+                "year INTEGER, " +
+                "month INTEGER, " +
+                "day INTEGER, " +
+                "url VARCHAR(64) );"
 
         private val DB_VERSION = 1
-        private val DB_NAME = "KUMA_DB"
+        private val DB_NAME = "sampleDB"
         internal val DB_TABLE_NAME = "sampletable"
     }
 
