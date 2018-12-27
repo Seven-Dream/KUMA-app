@@ -11,6 +11,9 @@ import okhttp3.Request
 import org.json.JSONArray
 
 var lectureJson: String? = null//Jsonデータを入れるグローバル変数
+var testJson: String? = null
+var cancelJson: String? = null
+var classJson: String? = null
 var studentJson: String? = null
 var uniJson: String? = null
 
@@ -38,6 +41,12 @@ class TitleController : AppCompatActivity() {
         super.onPostExecute(result)
         Log.d("opal","insert:Lecture")
         insertLecture() //Lecture
+        Log.d("opal","insert:Lecture_Test")
+        insertTest()
+        Log.d("opal","insert:Lecture_Cancel")
+        insertCancel()
+        Log.d("opal","insert:LectureChange")
+        insertChangeClass()
         Log.d("opal","insert:Event_uni")
         insertEvent_Uni()
         Log.d("opal","insert:Event_Student")
@@ -76,6 +85,59 @@ class TitleController : AppCompatActivity() {
                 userDB.addRecordPeriod_Week(week_id, week,period)
                 //Log.d("opal","addWeek:"+ userDB.getWeek())
             }
+        }
+    }
+    fun insertTest(){
+        testJson = "[{\"lecture_id\":1, \"month\":10, \"day\":10, \"classroom\":\"C101\", \"comment\":\"持ち込み可です\"}," +
+                "{\"lecture_id\":2, \"month\":10, \"day\":12, \"classroom\":\"C102\", \"comment\":\"持ち込み不可です\"}," +
+                "{\"lecture_id\":2, \"month\":12, \"day\":31, \"classroom\":\"C101\", \"comment\":\"持ち込み不可です\"}]"
+        Log.d("opal", "読み込んだもの：${testJson}")
+        val json = JSONArray(testJson)
+        for (i in 0..(json.length() - 1)) {
+            //lecture
+            val jsonObj = json.getJSONObject(i)
+            val id = jsonObj.getInt("lecture_id")
+            val month = jsonObj.getInt("month")
+            val day = jsonObj.getInt("day")
+            val classroom = jsonObj.getString("classroom")
+            val comment = jsonObj.getString("comment")
+            userDB.addRecordTest(id,month, day, classroom,comment)
+            Log.d("opal","insert:${month}/${day}")
+        }
+    }
+
+    fun insertCancel(){
+        cancelJson = "[{\"lecture_id\":1, \"month\":11, \"day\":11,\"comment\":\"宿題はありません\"}," +
+                "{\"lecture_id\":2, \"month\":12, \"day\":12, \"comment\":\"しっかり休んでください\"}," +
+                "{\"lecture_id\":2, \"month\":1, \"day\":1, \"comment\":\"がんばれ\"}]"
+        Log.d("opal", "読み込んだもの：${cancelJson}")
+        val json = JSONArray(cancelJson)
+        for (i in 0..(json.length() - 1)) {
+            //lecture
+            val jsonObj = json.getJSONObject(i)
+            val id = jsonObj.getInt("lecture_id")
+            val month = jsonObj.getInt("month")
+            val day = jsonObj.getInt("day")
+            val comment = jsonObj.getString("comment")
+            userDB.addRecordCancel(id,month, day, comment)
+            Log.d("opal","insert:${month}/${day}")
+        }
+    }
+    fun insertChangeClass(){
+        classJson = "[{\"lecture_id\":1, \"month\":7, \"day\":7, \"classroom\":\"C101\"}," +
+                "{\"lecture_id\":2, \"month\":8, \"day\":8, \"classroom\":\"C102\"}," +
+                "{\"lecture_id\":2, \"month\":9, \"day\":9, \"classroom\":\"C101\"}]"
+        Log.d("opal", "読み込んだもの：$classJson}")
+        val json = JSONArray(classJson)
+        for (i in 0..(json.length() - 1)) {
+            //lecture
+            val jsonObj = json.getJSONObject(i)
+            val id = jsonObj.getInt("lecture_id")
+            val month = jsonObj.getInt("month")
+            val day = jsonObj.getInt("day")
+            val classroom = jsonObj.getString("classroom")
+            userDB.addRecordChange_Class(id,month, day, classroom)
+            Log.d("opal","insert:${month}/${day}")
         }
     }
     fun insertEvent_Uni(){
