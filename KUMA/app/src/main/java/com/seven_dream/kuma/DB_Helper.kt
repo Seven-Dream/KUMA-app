@@ -1,4 +1,4 @@
-package com.example.androiddev.myapplication
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
