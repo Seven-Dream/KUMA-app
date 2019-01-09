@@ -27,7 +27,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // バージョンが変わった時に実行される
-        Log.d("opal","onUpgrade")
+        Log.d("opai","onUpgrade")
         db?.execSQL("DROP TABLE IF EXISTS lecture ;")
         db?.execSQL("DROP TABLE IF EXISTS lecture_period_week ;")
         db?.execSQL("DROP TABLE IF EXISTS lecture_test ;")
@@ -51,31 +51,35 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "quarter INTEGER );"
 
         private const val Period_Week = "CREATE TABLE lecture_period_week ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
-                "period INTEGER, " +
+                "lecture_id INTEGER, " +
+                "period INTEGER , " +
                 "week INTEGER, " +
+                "PRIMARY KEY(lecture_id, week)" +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
         private const val Test = "CREATE TABLE lecture_test ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
                 "comment TEXT, " +
+                "PRIMARY KEY (lecture_id, month, day), " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Cancel = "CREATE TABLE lecture_cancel ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "comment TEXT, " +
+                "PRIMARY KEY (lecture_id, month, day)," +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Change = "CREATE TABLE lecture_change_class ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
+                "PRIMARY KEY (lecture_id, month, day), " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Uni = "CREATE TABLE event_uni ( " +

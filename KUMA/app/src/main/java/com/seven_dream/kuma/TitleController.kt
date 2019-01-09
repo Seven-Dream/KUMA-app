@@ -9,6 +9,8 @@ import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
+import kotlinx.android.synthetic.main.titlecontroller.*
+
 
 var lectureJson: String? = null//Jsonデータを入れるグローバル変数
 var testJson: String? = null
@@ -29,6 +31,11 @@ class TitleController : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.titlecontroller)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
+
+        button.setOnClickListener {
+            Hello.text = userDB_Timetable.getClassroom(userDB_Timetable.getLecture_id(2018,3,3,3)!!)
+            //Hello.text = "Happy"
+        }
     }
 
     //API
@@ -39,6 +46,7 @@ class TitleController : AppCompatActivity() {
             //getHtml("https://www.nicovideo.jp")
             //各グローバル変数にJSONデータを格納する
             //lectureJson = getHtml("http://172.21.34.153/json")
+            Log.d("opall", "start get HTML")
             getHtml()
             Log.d("opall", "lectureJson=$lectureJson")
             //testJson = getHtml("URL")
@@ -63,6 +71,8 @@ class TitleController : AppCompatActivity() {
             insertEvent_Uni()
             Log.d("opal", "insert:Event_Student")
             insertEvent_student()//Event_Student
+
+            //-------画面遷移する-------
         }
     }
 
@@ -96,6 +106,7 @@ class TitleController : AppCompatActivity() {
             Log.d("opal",name.toString())
             Log.d("opal", year.toString())
             userDB_Title.addRecordLecture(id, name, teacher, classroom, year, quarter)
+            userDB_Timetable.addRecordTimetable(id, name, teacher, classroom, year, quarter)
             Log.d("opal","insert:"+ userDB_Title.getLecture(name))
             //week
             //val weekJson = jsonObj.getJSONArray("WeekTimes")
@@ -228,7 +239,8 @@ class TitleController : AppCompatActivity() {
     private fun getHtml() {
         //resp.body()!!.string()は一回読み込むと消える
         val client = OkHttpClient()
-        val req = Request.Builder().url("http://172.21.34.153/json").get().build()
+        //val req = Request.Builder().url("http://172.21.34.153/json").get().build()
+        val req = Request.Builder().url("https://www.google.com").get().build()
         val resp = client.newCall(req).execute()
         lectureJson = resp.body()!!.string()
         Log.d("opal", "LectureJson=$lectureJson")
