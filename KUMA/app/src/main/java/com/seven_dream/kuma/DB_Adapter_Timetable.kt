@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.util.Log
-//import com.example.androiddev.myapplication.userDB_Helper
 
 class userDB_Adapter_Timetable(mContext: Context) {
     private val db: SQLiteDatabase
@@ -28,7 +27,7 @@ class userDB_Adapter_Timetable(mContext: Context) {
         //データの追加
         Log.d("opal","前"+values.toString())
         try {
-            db.insertOrThrow("lecture", null, values)
+            db.insertOrThrow("timetable", null, values)
             //Log.d("opal","後"+values.toString())
         }catch(e: SQLiteException){
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
@@ -37,19 +36,48 @@ class userDB_Adapter_Timetable(mContext: Context) {
 
     //-------------------Select文-------------------
     //year,quater,period,weekをもとにlectureIDをとってくる
-    fun getLecture_id( year: Int, quarter: Int,period: Int, week: Int): String {
-        val selectSql: String = "select * from lecture, lecture_period_week where lecture.lecture_name = lecture_period_week and year = ? and quarter = ? and period = ? and week = ?"
+    fun getLecture_id( year: Int, quarter: Int,period: Int, week: Int): Int? {
+        val selectSql: String = "select timetable.lecture_id from timetable, lecture_period_week where timetable.lecture_id = lecture_period_week.lecture_id and year = ? and quarter = ? and period = ? and week = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), quarter.toString(), period.toString(), week.toString()))
+        var id: Int = 0//IDをこの中に入れる
+        try {
+            if (cursor.moveToNext()) {
+                id = cursor.getInt(cursor.getColumnIndex("lecture_id"))//列名が「lectureID」の列番号を取得して、getStringで列番号に対応する文字を取得
+                }
+        } finally {
+            cursor.close()
+        }
+        return id
+    }
+    //lecture_IDをもとに講義名を取得する
+    fun getLecture_name(id: Int): String {
+        val selectSql: String = "select lecture_name from timetable where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
         var disp: String = ""//最終的に表示
         try {
             if (cursor.moveToNext()) {
-                disp = cursor.getString(cursor.getColumnIndex("lecture_id"))//教師名のみ
+                disp = cursor.getString(cursor.getColumnIndex("lecture_name"))
             }
         } finally {
             cursor.close()
         }
         return disp
     }
+    fun getClassroom(id: Int): String {
+        val selectSql: String = "select classroom from timetable where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+        var disp: String = ""//最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(cursor.getColumnIndex("classroom"))
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
+
+
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
         val selectSql : String = "select * from lecture where lecture_name = ?"
