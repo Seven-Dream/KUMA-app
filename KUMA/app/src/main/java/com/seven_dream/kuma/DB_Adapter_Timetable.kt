@@ -76,7 +76,19 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
-
+    fun getTeacher(id: Int): String {
+        val selectSql: String = "select teacher from timetable where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+        var disp: String = ""//最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(cursor.getColumnIndex("teacher"))
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
 
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
