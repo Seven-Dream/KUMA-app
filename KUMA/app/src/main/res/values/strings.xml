@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">KUMA</string>
+    <string name="app_full_name">高知工科大学専用時間割アプリ</string>
+    <string name="held_quarter">開講クォータ</string>
+    <string name="lecture_target">学群名or共通科目</string>
+    <string name="target_grade">対象年次</string>
+    <string name="search">検索</string>
+    <string name="back">戻る</string>
+    <string name="entry">登録</string>
+    <string name="lecture_name">講義名</string>
+    <string name="search_lecture">講義検索</string>
+    <string name="result_lecture">検索結果</string>
+    <string name="teacher_name">教員名</string>
+    <string name="classroom">教室名</string>
+    <string name="day_week">曜日</string>
+    <string name="period_time">時限</string>
+    <string name="course">学群</string>
+    <string name="system_ug">システム工学群</string>
+    <string name="environment_ug">環境理工学群</string>
+    <string name="info_ug">情報学群</string>
+    <string name="manage_ug">経済・マネジメント学群</string>
+    <string name="common">共通科目</string>
 </resources>

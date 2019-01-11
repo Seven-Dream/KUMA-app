@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 講義検索画面のレイアウト -->
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        tools:context=".TimetableSearch">
+
+    <!-- ページタイトルの表示 -->
+    <TextView
+            android:id="@+id/title"
+            android:background="@+id/background_page_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/search_lecture"
+            android:textSize="30sp"
+            android:gravity="center"
+    />
+
+    <!-- 各検索項目と入力フォームの表示 -->
+    <!--講義名-->
+    <TextView
+            android:id="@+id/lectureName"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/lecture_name"
+    />
+    <!--入力フォーム-->
+    <EditText
+            android:id="@+id/format1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/format_style"
+            android:gravity="center"
+            android:inputType=""
+            android:importantForAutofill="no"
+    />
+
+    <!--対象年次-->
+    <!--入力フォーム-->
+    <TextView
+            android:id="@+id/year"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/target_grade"
+    />
+    <EditText
+            android:id="@+id/format2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/format_style"
+            android:gravity="center"
+            android:inputType="" android:importantForAutofill="no"/>
+
+    <!--開講クォータ-->
+    <TextView
+            android:id="@+id/quarter"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/held_quarter"
+    />
+    <!--入力フォーム-->
+    <EditText
+            android:id="@+id/format3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/format_style"
+            android:gravity="center"
+            android:inputType="" android:importantForAutofill="no"/>
+
+    <!--学群名or共通科目-->
+    <TextView
+            android:id="@+id/target"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/lecture_target"
+    />
+    <!--入力フォーム(プルダウン)-->
+    <Spinner
+            android:id="@+id/spinner_target"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+    />
+
+    <!-- ボタンの表示 -->
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+        <!--検索ボタン-->
+        <Button
+                android:id="@+id/search_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:scaleType="centerInside"
+                android:text="@string/search"
+        />
+
+        <!--戻るボタン-->
+        <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:scaleType="centerInside"
+                android:text="@string/back"
+        />
+    </LinearLayout>
+
+</LinearLayout>
