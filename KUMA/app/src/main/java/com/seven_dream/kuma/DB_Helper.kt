@@ -42,7 +42,6 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
     }
     companion object {
         private const val Lecture = "CREATE TABLE lecture ( " +
-                //"lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "lecture_id INTEGER PRIMARY KEY, " +
                 "lecture_name VARCHAR(64), " +
                 "teacher VARCHAR(64), " +
@@ -54,7 +53,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "lecture_id INTEGER, " +
                 "period INTEGER , " +
                 "week INTEGER, " +
-                "PRIMARY KEY(lecture_id, week)" +
+                //"PRIMARY KEY(lecture_id, week)" +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
         private const val Test = "CREATE TABLE lecture_test ( " +
@@ -63,7 +62,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
                 "comment TEXT, " +
-                "PRIMARY KEY (lecture_id, month, day), " +
+                //"PRIMARY KEY (lecture_id, month, day), " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Cancel = "CREATE TABLE lecture_cancel ( " +
@@ -71,7 +70,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "comment TEXT, " +
-                "PRIMARY KEY (lecture_id, month, day)," +
+                //"PRIMARY KEY (lecture_id, month, day)," +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Change = "CREATE TABLE lecture_change_class ( " +
@@ -79,7 +78,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
-                "PRIMARY KEY (lecture_id, month, day), " +
+                //"PRIMARY KEY (lecture_id, month, day), " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Uni = "CREATE TABLE event_uni ( " +

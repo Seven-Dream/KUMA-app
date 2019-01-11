@@ -22,20 +22,14 @@ var uniJson: String? = null
 class TitleController : AppCompatActivity() {
 
     private lateinit var userDB_Title: userDB_Adapter_Title//遅延初期化→プロパティ内でインスタンスにアクセス可能？
-    private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し
-        userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.titlecontroller)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
 
-        button.setOnClickListener {
-            Hello.text = userDB_Timetable.getClassroom(userDB_Timetable.getLecture_id(2018,3,3,3)!!)
-            //Hello.text = "Happy"
-        }
     }
 
     //API
@@ -46,14 +40,8 @@ class TitleController : AppCompatActivity() {
             //getHtml("https://www.nicovideo.jp")
             //各グローバル変数にJSONデータを格納する
             //lectureJson = getHtml("http://172.21.34.153/json")
-            Log.d("opall", "start get HTML")
-            getHtml()
+            getHtml()//ここですべてのグローバル変数にJSONを入れる
             Log.d("opall", "lectureJson=$lectureJson")
-            //testJson = getHtml("URL")
-            //cancelJson = getHtml("URL")
-            //classJson = getHtml("URL")
-            //uniJsonJson = getHtml("URL")
-            //studentJson = getHtml("URL")
             return "true"
         }
 
@@ -103,11 +91,7 @@ class TitleController : AppCompatActivity() {
             val classroom = jsonObj.getString("classroom")
             val year = jsonObj.getInt("year")
             val quarter = jsonObj.getInt("quarter")
-            Log.d("opal",name.toString())
-            Log.d("opal", year.toString())
             userDB_Title.addRecordLecture(id, name, teacher, classroom, year, quarter)
-            userDB_Timetable.addRecordTimetable(id, name, teacher, classroom, year, quarter)
-            Log.d("opal","insert:"+ userDB_Title.getLecture(name))
             //week
             //val weekJson = jsonObj.getJSONArray("WeekTimes")
             val weekJson = jsonObj.getJSONArray("week")
@@ -204,7 +188,6 @@ class TitleController : AppCompatActivity() {
             val month = jsonObj.getInt("month")
             val day = jsonObj.getInt("day")
             val comment = jsonObj.getString("comment")
-            //userDB.addRecordLecture(id, name, teacher, classroom, year, quarter)
             userDB_Title.addRecordUni(id, name, year, month, day, comment)
             //Log.d("opal","insert:"+ name)
         }
@@ -229,7 +212,6 @@ class TitleController : AppCompatActivity() {
             val month = jsonObj.getInt("month")
             val day = jsonObj.getInt("day")
             val url = jsonObj.getString("url")
-            //userDB.addRecordLecture(id, name, teacher, classroom, year, quarter)
             userDB_Title.addRecordStudent(id, name, year, month, day, url)
             //Log.d("opal","insert:"+ userDB.getStudent())
         }
