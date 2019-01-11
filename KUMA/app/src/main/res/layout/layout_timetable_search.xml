@@ -36,26 +36,23 @@
             android:layout_margin="10dp"
             android:background="@drawable/format_style"
             android:gravity="center"
-            android:inputType=""
-            android:importantForAutofill="no"
     />
 
     <!--対象年次-->
-    <!--入力フォーム-->
     <TextView
-            android:id="@+id/year"
+            android:id="@+id/grade"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text="@string/target_grade"
     />
-    <EditText
-            android:id="@+id/format2"
+    <!--入力フォーム(プルダウン)-->
+    <Spinner
+            android:id="@+id/spinner_grade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/format_style"
             android:gravity="center"
-            android:inputType="" android:importantForAutofill="no"/>
+    />
 
     <!--開講クォータ-->
     <TextView
@@ -64,15 +61,14 @@
             android:layout_height="20dp"
             android:text="@string/held_quarter"
     />
-    <!--入力フォーム-->
-    <EditText
-            android:id="@+id/format3"
+    <!--入力フォーム(プルダウン)-->
+    <Spinner
+            android:id="@+id/spinner_quarter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/format_style"
             android:gravity="center"
-            android:inputType="" android:importantForAutofill="no"/>
+    />
 
     <!--学群名or共通科目-->
     <TextView
@@ -107,7 +103,7 @@
 
         <!--戻るボタン-->
         <Button
-                android:id="@+id/back_button"
+                android:id="@+id/return_search"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:scaleType="centerInside"
