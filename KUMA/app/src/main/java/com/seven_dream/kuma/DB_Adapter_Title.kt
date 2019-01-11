@@ -107,7 +107,7 @@ class userDB_Adapter_Title(mContext: Context) {
         values.put("day",day)
         values.put("comment",comment)
         //データの追加
-        Log.d("opal", "前" + values.toString())
+        //Log.d("opal", "前" + values.toString())
         try {
             db.insert("event_uni", null, values)
         } catch (e: SQLiteException) {
@@ -125,7 +125,7 @@ class userDB_Adapter_Title(mContext: Context) {
         values.put("day",day)
         values.put("url",url)
         //データの追加
-        Log.d("opal", "前" + values.toString())
+        //Log.d("opal", "前" + values.toString())
         try {
             db.insert("event_student", null, values)
         } catch (e: SQLiteException) {
