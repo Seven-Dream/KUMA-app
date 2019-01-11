@@ -9,6 +9,8 @@ import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
+import kotlinx.android.synthetic.main.titlecontroller.*
+
 
 var lectureJson: String? = null//Jsonデータを入れるグローバル変数
 var testJson: String? = null
@@ -20,15 +22,14 @@ var uniJson: String? = null
 class TitleController : AppCompatActivity() {
 
     private lateinit var userDB_Title: userDB_Adapter_Title//遅延初期化→プロパティ内でインスタンスにアクセス可能？
-    private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し
-        userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.titlecontroller)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
+
     }
 
     //API
@@ -39,13 +40,8 @@ class TitleController : AppCompatActivity() {
             //getHtml("https://www.nicovideo.jp")
             //各グローバル変数にJSONデータを格納する
             //lectureJson = getHtml("http://172.21.34.153/json")
-            getHtml()
+            getHtml()//ここですべてのグローバル変数にJSONを入れる
             Log.d("opall", "lectureJson=$lectureJson")
-            //testJson = getHtml("URL")
-            //cancelJson = getHtml("URL")
-            //classJson = getHtml("URL")
-            //uniJsonJson = getHtml("URL")
-            //studentJson = getHtml("URL")
             return "true"
         }
 
@@ -63,6 +59,8 @@ class TitleController : AppCompatActivity() {
             insertEvent_Uni()
             Log.d("opal", "insert:Event_Student")
             insertEvent_student()//Event_Student
+
+            //-------画面遷移する-------
         }
     }
 
@@ -93,10 +91,7 @@ class TitleController : AppCompatActivity() {
             val classroom = jsonObj.getString("classroom")
             val year = jsonObj.getInt("year")
             val quarter = jsonObj.getInt("quarter")
-            Log.d("opal",name.toString())
-            Log.d("opal", year.toString())
             userDB_Title.addRecordLecture(id, name, teacher, classroom, year, quarter)
-            Log.d("opal","insert:"+ userDB_Title.getLecture(name))
             //week
             //val weekJson = jsonObj.getJSONArray("WeekTimes")
             val weekJson = jsonObj.getJSONArray("week")
@@ -193,7 +188,6 @@ class TitleController : AppCompatActivity() {
             val month = jsonObj.getInt("month")
             val day = jsonObj.getInt("day")
             val comment = jsonObj.getString("comment")
-            //userDB.addRecordLecture(id, name, teacher, classroom, year, quarter)
             userDB_Title.addRecordUni(id, name, year, month, day, comment)
             //Log.d("opal","insert:"+ name)
         }
@@ -218,7 +212,6 @@ class TitleController : AppCompatActivity() {
             val month = jsonObj.getInt("month")
             val day = jsonObj.getInt("day")
             val url = jsonObj.getString("url")
-            //userDB.addRecordLecture(id, name, teacher, classroom, year, quarter)
             userDB_Title.addRecordStudent(id, name, year, month, day, url)
             //Log.d("opal","insert:"+ userDB.getStudent())
         }
@@ -228,7 +221,8 @@ class TitleController : AppCompatActivity() {
     private fun getHtml() {
         //resp.body()!!.string()は一回読み込むと消える
         val client = OkHttpClient()
-        val req = Request.Builder().url("http://172.21.34.153/json").get().build()
+        //val req = Request.Builder().url("http://172.21.34.153/json").get().build()
+        val req = Request.Builder().url("https://www.google.com").get().build()
         val resp = client.newCall(req).execute()
         lectureJson = resp.body()!!.string()
         Log.d("opal", "LectureJson=$lectureJson")
