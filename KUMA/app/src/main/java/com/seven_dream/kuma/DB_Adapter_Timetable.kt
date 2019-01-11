@@ -122,6 +122,11 @@ class userDB_Adapter_Timetable(mContext: Context) {
         db.update(DB_TABLE_NAME, values, "type=? AND date=? ", arrayOf(type.toString(),day.toString()))
     }*/
 
+    //Lecture_idをもとに、対応するIDのレコードを削除
+    fun deleteTimetable(id:Int){
+        db.delete("timetable", "lecture_id = ?", arrayOf(id.toString()))
+    }
+
     // キーを指定し、１レコード削除
     /*
     fun deleteRecord(type : Int, day : Int) {
