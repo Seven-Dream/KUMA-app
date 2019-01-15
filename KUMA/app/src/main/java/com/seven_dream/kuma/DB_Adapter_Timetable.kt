@@ -1,4 +1,5 @@
-package com.seven_dream.kuma
+package com.kuma.timetable
+
 
 import android.content.ContentValues
 import android.content.Context
@@ -16,7 +17,8 @@ class userDB_Adapter_Timetable(mContext: Context) {
     }
     //---------------------insert文---------------------------
     //Timetableにレコードを追加
-    fun addRecordTimetable(lecture_id:Int,lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
+    fun addRecordTimetable(lecture_id:Int,lecture_name:String,
+                           teacher:String, classroom:String, year:Int, quarter: Int) {
         val values = ContentValues()
         values.put("lecture_id",lecture_id)
         values.put("lecture_name", lecture_name)
@@ -34,16 +36,33 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
     }
 
+
+    fun addRecordWeek(lecture_id:Int,week:Int, period:Int) {
+        val values = ContentValues()
+        values.put("lecture_id",lecture_id)
+        values.put("week", week)
+        values.put("period", period)
+
+        //データの追加
+        Log.d("opal","前"+values.toString())
+        try {
+            db.insertOrThrow("lecture_period_week", null, values)
+            //Log.d("opal","後"+values.toString())
+        }catch(e: SQLiteException){
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+
     //-------------------Select文-------------------
-    //year,quater,period,weekをもとにlectureIDをとってくる
-    fun getLecture_id( year: Int, quarter: Int,period: Int, week: Int): Int? {
+    //year,quarter,period,weekをもとにlectureIDをとってくる
+    fun getLecture_id(year: Int, quarter: Int,period: Int,week: Int): Int {
         val selectSql: String = "select timetable.lecture_id from timetable, lecture_period_week where timetable.lecture_id = lecture_period_week.lecture_id and year = ? and quarter = ? and period = ? and week = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), quarter.toString(), period.toString(), week.toString()))
         var id: Int = 0//IDをこの中に入れる
         try {
             if (cursor.moveToNext()) {
                 id = cursor.getInt(cursor.getColumnIndex("lecture_id"))//列名が「lectureID」の列番号を取得して、getStringで列番号に対応する文字を取得
-                }
+            }
         } finally {
             cursor.close()
         }
@@ -111,6 +130,22 @@ class userDB_Adapter_Timetable(mContext: Context) {
         return disp
     }
 
+    //lecture_nameを指定して一列を取得
+    fun getQuarter(id:Int) :Int{
+        val selectSql : String = "select quarter from lecture where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+        var id: Int = 0//IDをこの中に入れる
+        try {
+            if (cursor.moveToNext()) {
+                id = cursor.getInt(cursor.getColumnIndex("lecture_id"))//列名が「lectureID」の列番号を取得して、getStringで列番号に対応する文字を取得
+            }
+        } finally {
+            cursor.close()
+        }
+        return id
+    }
+
+
 
     // キー(Type,date)を指定してmemoを修正
     /*
@@ -126,6 +161,10 @@ class userDB_Adapter_Timetable(mContext: Context) {
     fun deleteTimetable(id:Int){
         db.delete("timetable", "lecture_id = ?", arrayOf(id.toString()))
     }
+    fun deleteWeek_Period(id:Int){
+        db.delete("lecture_period_week", "lecture_id = ?", arrayOf(id.toString()))
+    }
+
 
     // キーを指定し、１レコード削除
     /*
