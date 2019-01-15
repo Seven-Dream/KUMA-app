@@ -1,5 +1,6 @@
 package com.seven_dream.kuma
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -17,15 +18,14 @@ class ScheduleOneday : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activity_schedule_oneday)
 
-        //val date = intent.getStringExtra("date")
-
-
-
         db = DBHelper(this)
         refreshData()
 
         val textView = findViewById(R.id.edt_date) as TextView
         textView.text = intent.extras.get("date").toString()
+
+        val textView1 = findViewById(R.id.edt_id) as TextView
+        textView1.text = (db.getId()+1).toString()
 
         btn_add.setOnClickListener {
             val plans = NewPlan (
@@ -38,7 +38,8 @@ class ScheduleOneday : AppCompatActivity() {
                 edt_memo.text.toString()
             )
             db.addPlans(plans)
-            refreshData()
+            finish()
+            //refreshData()
         }
 
         btn_update.setOnClickListener {
@@ -52,7 +53,8 @@ class ScheduleOneday : AppCompatActivity() {
                 edt_memo.text.toString()
             )
             db.updatePlans(plans)
-            refreshData()
+            finish()
+            //refreshData()
         }
 
         btn_delete.setOnClickListener {
@@ -66,7 +68,8 @@ class ScheduleOneday : AppCompatActivity() {
                 edt_memo.text.toString()
             )
             db.deletePlans(plans)
-            refreshData()
+            finish()
+            //refreshData()
         }
 
 

@@ -31,7 +31,7 @@ class Adapter(internal var activity: Activity,
         rowView = inflater.inflate(R.layout.row_layout, null)
 
         rowView.txt_id.text = lstNewPlan[position].id.toString()
-        rowView.txt_date.text = lstNewPlan[position].date.toString()
+        //rowView.txt_date.text = lstNewPlan[position].date.toString()
         rowView.txt_title.text = lstNewPlan[position].title.toString()
         rowView.txt_timebegin.text = lstNewPlan[position].timebegin.toString()
         rowView.txt_timeend.text = lstNewPlan[position].timeend.toString()
@@ -40,7 +40,7 @@ class Adapter(internal var activity: Activity,
 
         rowView.setOnClickListener {
             edt_id.setText(rowView.txt_id.text.toString())
-            edt_date.setText(rowView.txt_date.text.toString())
+            //edt_date.setText(rowView.txt_date.text.toString())
             edt_title.setText(rowView.txt_title.text.toString())
             edt_timeBegin.setText(rowView.txt_timebegin.text.toString())
             edt_timeEnd.setText(rowView.txt_timeend.text.toString())

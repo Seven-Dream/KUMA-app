@@ -2,6 +2,8 @@ package com.seven_dream.kuma
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
@@ -9,6 +11,7 @@ import android.util.Log
 import java.util.*
 
 var oneDate: String? = null//Scheduleから取得した日付
+//var plansId: Int =1
 
 class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, DATABESE_VER) {
 
@@ -91,6 +94,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
 
     fun updatePlans(plans:NewPlan) :Int{
         val db = this.writableDatabase
+        //getId(plans.date.toString(), plans.title.toString())
         val values = ContentValues()
         values.put("id", plans.id)
         values.put("date", plans.date)
@@ -118,6 +122,13 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
 
 
         db.close()
+    }
+
+    fun getId(): Long {
+        val db = this.writableDatabase
+        val recordcount = DatabaseUtils.queryNumEntries(db, TABLE_NAME)
+        return recordcount
+
     }
 
     fun getDate(date:String){
