@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.seven_dream.kuma">
-    <uses-permission android:name="android.permission.INTERNET" />
+          package="com.kuma.timetable">
 
     <application
             android:allowBackup="true"
@@ -10,13 +9,159 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".TitleController">
+        <activity android:name=".Timetable_1q">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+                android:name=".AttendCheck_1q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_2q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_3q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_4q">
+        </activity>
+        <activity
+                android:name=".TimetableSearch">
+        </activity>
+        <activity
+                android:name=".Count1_1q">
+        </activity>
+        <activity
+                android:name=".Count2_1q">
+        </activity>
+        <activity
+                android:name=".Count3_1q">
+        </activity>
+        <activity
+                android:name=".Count4_1q">
+        </activity>
+        <activity
+                android:name=".Count5_1q">
+        </activity>
+        <activity
+                android:name=".Count6_1q">
+        </activity>
+        <activity
+                android:name=".Count7_1q">
+        </activity>
+        <activity
+                android:name=".Count8_1q">
+        </activity>
+        <activity
+                android:name=".Count9_1q">
+        </activity>
+        <activity
+                android:name=".Count10_1q">
+        </activity>
+        <activity
+                android:name=".Count1_2q">
+        </activity>
+        <activity
+                android:name=".Count2_2q">
+        </activity>
+        <activity
+                android:name=".Count3_2q">
+        </activity>
+        <activity
+                android:name=".Count4_2q">
+        </activity>
+        <activity
+                android:name=".Count5_2q">
+        </activity>
+        <activity
+                android:name=".Count6_2q">
+        </activity>
+        <activity
+                android:name=".Count7_2q">
+        </activity>
+        <activity
+                android:name=".Count8_2q">
+        </activity>
+        <activity
+                android:name=".Count9_2q">
+        </activity>
+        <activity
+                android:name=".Count10_2q">
+        </activity>
+        <activity
+                android:name=".Count1_3q">
+        </activity>
+        <activity
+                android:name=".Count2_3q">
+        </activity>
+        <activity
+                android:name=".Count3_3q">
+        </activity>
+        <activity
+                android:name=".Count4_3q">
+        </activity>
+        <activity
+                android:name=".Count5_3q">
+        </activity>
+        <activity
+                android:name=".Count6_3q">
+        </activity>
+        <activity
+                android:name=".Count7_3q">
+        </activity>
+        <activity
+                android:name=".Count8_3q">
+        </activity>
+        <activity
+                android:name=".Count9_3q">
+        </activity>
+        <activity
+                android:name=".Count10_3q">
+        </activity>
+        <activity
+                android:name=".Count1_4q">
+        </activity>
+        <activity
+                android:name=".Count2_4q">
+        </activity>
+        <activity
+                android:name=".Count3_4q">
+        </activity>
+        <activity
+                android:name=".Count4_4q">
+        </activity>
+        <activity
+                android:name=".Count5_4q">
+        </activity>
+        <activity
+                android:name=".Count6_4q">
+        </activity>
+        <activity
+                android:name=".Count7_4q">
+        </activity>
+        <activity
+                android:name=".Count8_4q">
+        </activity>
+        <activity
+                android:name=".Count9_4q">
+        </activity>
+        <activity
+                android:name=".Count10_4q">
+        </activity>
+        <activity
+                android:name=".Timetable_2q">
+        </activity>
+        <activity
+                android:name=".Timetable_3q">
+        </activity>
+        <activity
+                android:name=".Timetable_4q">
+        </activity>
+
     </application>
 
 </manifest>
