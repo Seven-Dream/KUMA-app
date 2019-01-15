@@ -2,6 +2,7 @@ package com.seven_dream.kuma
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_schedule_oneday.*
 import com.seven_dream.kuma.R.layout.activity_schedule_oneday
 
@@ -16,12 +17,20 @@ class ScheduleOneday : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activity_schedule_oneday)
 
+        //val date = intent.getStringExtra("date")
+
+
+
         db = DBHelper(this)
         refreshData()
+
+        val textView = findViewById(R.id.edt_date) as TextView
+        textView.text = intent.extras.get("date").toString()
 
         btn_add.setOnClickListener {
             val plans = NewPlan (
                 Integer.parseInt(edt_id.text.toString()),
+                edt_date.text.toString(),
                 edt_title.text.toString(),
                 edt_timeBegin.text.toString(),
                 edt_timeEnd.text.toString(),
@@ -35,6 +44,7 @@ class ScheduleOneday : AppCompatActivity() {
         btn_update.setOnClickListener {
             val plans = NewPlan (
                 Integer.parseInt(edt_id.text.toString()),
+                edt_date.text.toString(),
                 edt_title.text.toString(),
                 edt_timeBegin.text.toString(),
                 edt_timeEnd.text.toString(),
@@ -48,6 +58,7 @@ class ScheduleOneday : AppCompatActivity() {
         btn_delete.setOnClickListener {
             val plans = NewPlan (
                 Integer.parseInt(edt_id.text.toString()),
+                edt_date.text.toString(),
                 edt_title.text.toString(),
                 edt_timeBegin.text.toString(),
                 edt_timeEnd.text.toString(),
@@ -63,7 +74,7 @@ class ScheduleOneday : AppCompatActivity() {
 
     private fun refreshData() {
         lstNewPlan = db.allNewPlan
-        val adapter = Adapter(this@ScheduleOneday, lstNewPlan, edt_id, edt_title, edt_timeBegin, edt_timeEnd, edt_place,edt_memo)
+        val adapter = Adapter(this@ScheduleOneday, lstNewPlan, edt_id, edt_date, edt_title, edt_timeBegin, edt_timeEnd, edt_place,edt_memo)
         list_plan.adapter = adapter
     }
 }

@@ -15,6 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:autofillHints=""/>
     <EditText
+            android:id="@+id/edt_date"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:autofillHints="" android:hint="@string/date"/>
+    <EditText
             android:id="@+id/edt_title"
             android:hint="@string/title"
             android:inputType="text"

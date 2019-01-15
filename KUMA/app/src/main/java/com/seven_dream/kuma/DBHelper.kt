@@ -1,4 +1,4 @@
-package com.example.shiota.kotlinandroidsqlite.DBHelper
+package com.seven_dream.kuma
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,8 +6,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.example.shiota.kotlinandroidsqlite.Model.NewPlan
 import java.util.*
+
+var oneDate: String? = null//Scheduleから取得した日付
 
 class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, DATABESE_VER) {
 
@@ -17,6 +18,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         private val DATABESE_NAME = "SAMPLEDB.db"
         private val TABLE_NAME ="NewPlan"
         private val id ="id"
+        private val date="date"
         private val title ="title"
         private val timebegin ="timebegin"
         private val timeend ="timeend"
@@ -27,6 +29,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
     override fun onCreate(db: SQLiteDatabase?) {
         val plans:String = ("CREATE TABLE NewPlan (" +
                 "id INTEGER PRIMARY KEY, " +
+                "date VARCHAR(11), " +
                 "title VARCHAR(20), " +
                 "timebegin VARCHAR(5), " +
                 "timeend VARCHAR(5), " +
@@ -41,17 +44,18 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         onCreate(db!!)
     }
 
-    val allNewPlan:List<NewPlan>
+    val allNewPlan:List<NewPlan>//ここに飛んでくる
 
     get() {
         val lstPlans = ArrayList<NewPlan>()
-        val selectQuery = "SELECT * FROM $TABLE_NAME"
+        val selectQuery = "SELECT * FROM $TABLE_NAME WHERE $date = ?"
         val db =this.writableDatabase
-        val cursor = db.rawQuery(selectQuery, null)
+        val cursor = db.rawQuery(selectQuery, arrayOf(oneDate))
         if(cursor.moveToFirst()) {
             do {
                 val plans = NewPlan()
                 plans.id = cursor.getInt(cursor.getColumnIndex(id))
+                plans.date = cursor.getString(cursor.getColumnIndex(date))
                 plans.title = cursor.getString(cursor.getColumnIndex(title))
                 plans.timebegin = cursor.getString(cursor.getColumnIndex(timebegin))
                 plans.timeend = cursor.getString(cursor.getColumnIndex(timeend))
@@ -70,6 +74,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         val db = this.writableDatabase
         val values = ContentValues()
         values.put("id", plans.id)
+        values.put("date", plans.date)
         values.put("title", plans.title)
         values.put("timebegin", plans.timebegin)
         values.put("timeend", plans.timeend)
@@ -88,6 +93,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         val db = this.writableDatabase
         val values = ContentValues()
         values.put("id", plans.id)
+        values.put("date", plans.date)
         values.put("title", plans.title)
         values.put("timebegin", plans.timebegin)
         values.put("timeend", plans.timeend)
@@ -104,7 +110,6 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
 
     fun deletePlans(plans:NewPlan) {
         val db = this.writableDatabase
-
         try {
             db.delete(TABLE_NAME,"$id=?", arrayOf(plans.id.toString()))
         } catch (e: SQLiteException) {
@@ -113,6 +118,10 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
 
 
         db.close()
+    }
+
+    fun getDate(date:String){
+        oneDate = date
     }
 
 }

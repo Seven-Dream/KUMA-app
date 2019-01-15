@@ -6,14 +6,16 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_schedule.*
 
 class Schedule : AppCompatActivity() {
-
+    internal lateinit var db:DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
+        db = DBHelper(this)
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
 
             val msg = "" + year + "/" + (month + 1) + "/" + dayOfMonth
+            db.getDate(msg)
             val intent: Intent = Intent(this, ScheduleOneday::class.java)
             intent.putExtra("date", msg)
             //intent.putExtra("year", year)
