@@ -26,6 +26,7 @@ class Adapter(internal var activity: Activity,
     init {
         inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val rowView:View
         rowView = inflater.inflate(R.layout.row_layout, null)

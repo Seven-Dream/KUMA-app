@@ -47,6 +47,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         onCreate(db!!)
     }
 
+    // 配列を作成し、get()でテーブル内のデータを格納していく
     val allNewPlan:List<NewPlan>//ここに飛んでくる
 
     get() {
@@ -124,13 +125,27 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         db.close()
     }
 
+    // テーブル内のデータをカウントし、idとしてreturnする
     fun getId(): Long {
         val db = this.writableDatabase
         val recordcount = DatabaseUtils.queryNumEntries(db, TABLE_NAME)
+
+        /*横田さんの解決策用
+        val selectQuery = "SELECT max(id) FROM $TABLE_NAME"
+        val cursor = db.rawQuery(selectQuery, null)
+        var max = 0
+        try{
+            if (cursor.moveToNext())
+                max = cursor.getInt(0)
+        } finally {
+            cursor.close()
+        }
+        */
         return recordcount
 
     }
 
+    // DBHelperで日付を使えるようにする
     fun getDate(date:String){
         oneDate = date
     }

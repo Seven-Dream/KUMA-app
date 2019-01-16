@@ -14,10 +14,12 @@ class Schedule : AppCompatActivity() {
         db = DBHelper(this)
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
 
-            val msg = "" + year + "/" + (month + 1) + "/" + dayOfMonth
-            db.getDate(msg)
+            // 日付を取得し、DBHelper.ktで使えるようにDBHelperに格納する
+            val date = "" + year + "/" + (month + 1) + "/" + dayOfMonth
+            db.getDate(date)
+
             val intent: Intent = Intent(this, ScheduleOneday::class.java)
-            intent.putExtra("date", msg)
+            intent.putExtra("date", date)
             //intent.putExtra("year", year)
             //intent.putExtra("month", month)
             //intent.putExtra("dayOfMonth", dayOfMonth)

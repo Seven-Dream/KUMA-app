@@ -21,12 +21,14 @@ class ScheduleOneday : AppCompatActivity() {
         db = DBHelper(this)
         refreshData()
 
+        // 登録画面のIDと日付に初期状態から入力させておく
         val textView = findViewById(R.id.edt_date) as TextView
         textView.text = intent.extras.get("date").toString()
-
         val textView1 = findViewById(R.id.edt_id) as TextView
         textView1.text = (db.getId()+1).toString()
 
+        /* addボタンをクリックすると構造体NewPlanにEditTextで入力した値を格納し、
+         データベース内のテーブルに構造体を格納する*/
         btn_add.setOnClickListener {
             val plans = NewPlan (
                 Integer.parseInt(edt_id.text.toString()),
@@ -42,6 +44,7 @@ class ScheduleOneday : AppCompatActivity() {
             //refreshData()
         }
 
+        //指定したIDを元にデータベース内のテーブルの内容を変更する
         btn_update.setOnClickListener {
             val plans = NewPlan (
                 Integer.parseInt(edt_id.text.toString()),
@@ -57,6 +60,7 @@ class ScheduleOneday : AppCompatActivity() {
             //refreshData()
         }
 
+        //指定したIDを元にデータベース内のテーブルの内容を削除する
         btn_delete.setOnClickListener {
             val plans = NewPlan (
                 Integer.parseInt(edt_id.text.toString()),
@@ -75,6 +79,8 @@ class ScheduleOneday : AppCompatActivity() {
 
     }
 
+    /*DBHelper.ktのget()からデータベース内のテーブルを参照し、日詳細時のデータを配列に格納する。
+    また、配列の情報をlistViewで表示する*/
     private fun refreshData() {
         lstNewPlan = db.allNewPlan
         val adapter = Adapter(this@ScheduleOneday, lstNewPlan, edt_id, edt_date, edt_title, edt_timeBegin, edt_timeEnd, edt_place,edt_memo)
