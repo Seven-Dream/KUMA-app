@@ -8,7 +8,7 @@ import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_3q.*
+import kotlinx.android.synthetic.main.activity_timetable.*
 
 private lateinit var userDB: userDB_Adapter_Timetable
 
@@ -18,9 +18,9 @@ class Timetable_3q : AppCompatActivity() {
         userDB = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_3q)
+        setContentView(R.layout.activity_timetable)
 
-     //残っているデータベースの削除
+        //残っているデータベースの削除
         userDB.deleteTimetable(0)
         userDB.deleteTimetable(1)
         userDB.deleteTimetable(2)
@@ -58,30 +58,30 @@ class Timetable_3q : AppCompatActivity() {
         userDB.addRecordTimetable(10, "キャリアプラン2", "村上"," K-HALL",  2018,4)
 
 
-     //userDB.addRecordWeek(0,2,2)
-     userDB.addRecordWeek(1,1,1)
-     userDB.addRecordWeek(1,4,1)
-     userDB.addRecordWeek(2,1,3)
-     userDB.addRecordWeek(2,1,4)
-     userDB.addRecordWeek(2,4,3)
-     userDB.addRecordWeek(2,4,4)
-     userDB.addRecordWeek(3,1,3)
-     userDB.addRecordWeek(3,1,4)
-     userDB.addRecordWeek(3,4,3)
-     userDB.addRecordWeek(3,4,4)
-     userDB.addRecordWeek(4,1,1)
-     userDB.addRecordWeek(4,4,1)
-     userDB.addRecordWeek(5,1,2)
-     userDB.addRecordWeek(5,4,2)
-     userDB.addRecordWeek(6,2,3)
-     userDB.addRecordWeek(6,5,3)
-     userDB.addRecordWeek(7,2,3)
-     userDB.addRecordWeek(7,5,3)
-     userDB.addRecordWeek(8,1,3)
-     userDB.addRecordWeek(8,4,3)
-     userDB.addRecordWeek(9,1,3)
-     userDB.addRecordWeek(9,4,3)
-     userDB.addRecordWeek(10,3,3)
+        //userDB.addRecordWeek(0,2,2)
+        userDB.addRecordWeek(1,1,1)
+        userDB.addRecordWeek(1,4,1)
+        userDB.addRecordWeek(2,1,3)
+        userDB.addRecordWeek(2,1,4)
+        userDB.addRecordWeek(2,4,3)
+        userDB.addRecordWeek(2,4,4)
+        userDB.addRecordWeek(3,1,3)
+        userDB.addRecordWeek(3,1,4)
+        userDB.addRecordWeek(3,4,3)
+        userDB.addRecordWeek(3,4,4)
+        userDB.addRecordWeek(4,1,1)
+        userDB.addRecordWeek(4,4,1)
+        userDB.addRecordWeek(5,1,2)
+        userDB.addRecordWeek(5,4,2)
+        userDB.addRecordWeek(6,2,3)
+        userDB.addRecordWeek(6,5,3)
+        userDB.addRecordWeek(7,2,3)
+        userDB.addRecordWeek(7,5,3)
+        userDB.addRecordWeek(8,1,3)
+        userDB.addRecordWeek(8,4,3)
+        userDB.addRecordWeek(9,1,3)
+        userDB.addRecordWeek(9,4,3)
+        userDB.addRecordWeek(10,3,3)
 
 
         button.setOnClickListener {
@@ -206,7 +206,7 @@ class Timetable_3q : AppCompatActivity() {
     }
 
 
-// Viewを継承したクラス
+    // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
 
@@ -233,5 +233,3 @@ class Timetable_3q : AppCompatActivity() {
         }
     }
 }
-
-

@@ -8,19 +8,17 @@ import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_2q.*
+import kotlinx.android.synthetic.main.activity_timetable.*
 
-private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 private lateinit var userDB: userDB_Adapter_Timetable
 
 class Timetable_2q : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         userDB = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_2q)
+        setContentView(R.layout.activity_timetable)
         userDB.deleteTimetable(0)
         userDB.deleteTimetable(1)
         userDB.deleteTimetable(2)
@@ -32,6 +30,7 @@ class Timetable_2q : AppCompatActivity() {
         userDB.deleteTimetable(8)
         userDB.deleteTimetable(9)
         userDB.deleteTimetable(10)
+
         userDB.deleteWeek_Period(0)
         userDB.deleteWeek_Period(1)
         userDB.deleteWeek_Period(2)
@@ -54,6 +53,7 @@ class Timetable_2q : AppCompatActivity() {
         userDB.addRecordTimetable(8, "ソフトウェア工学", "高田,松崎"," A106",  2018,3)
         userDB.addRecordTimetable(9, "ソフトウェア工学", "高田,松崎"," A106",  2018,4)
         userDB.addRecordTimetable(10, "キャリアプラン2", "村上"," K-HALL",  2018,4)
+
 
         userDB.addRecordWeek(1,1,1)
         userDB.addRecordWeek(1,4,1)
@@ -91,8 +91,8 @@ class Timetable_2q : AppCompatActivity() {
             val intent = Intent(application, AttendCheck::class.java)
             startActivity(intent)
         }
-        button1Q.setOnClickListener {
-            val intent = Intent(application, Timetable_1q::class.java)
+        button2Q.setOnClickListener {
+            val intent = Intent(application, Timetable_2q::class.java)
             startActivity(intent)
         }
         button3Q.setOnClickListener {
@@ -104,40 +104,37 @@ class Timetable_2q : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         //1Q
-
         //月曜日の講義ID
-        val mon1 = userDB.getLecture_id(2018,2,1,1)
-        val mon2 = userDB.getLecture_id(2018,2,2,1)
-        val mon3 = userDB.getLecture_id(2018,2,3,1)
-        val mon4 = userDB.getLecture_id(2018,2,4,1)
-        val mon5 = userDB.getLecture_id(2018,2,5,1)
+        val mon1 = userDB.getLecture_id(2018,1,1,1)
+        val mon2 = userDB.getLecture_id(2018,1,2,1)
+        val mon3 = userDB.getLecture_id(2018,1,3,1)
+        val mon4 = userDB.getLecture_id(2018,1,4,1)
+        val mon5 = userDB.getLecture_id(2018,1,5,1)
         //火曜日の講義ID
-        val tue1 = userDB.getLecture_id(2018,2,1,2)
-        val tue2 = userDB.getLecture_id(2018,2,2,2)
-        val tue3 = userDB.getLecture_id(2018,2,3,2)
-        val tue4 = userDB.getLecture_id(2018,2,4,2)
-        val tue5 = userDB.getLecture_id(2018,2,5,2)
+        val tue1 = userDB.getLecture_id(2018,1,1,2)
+        val tue2 = userDB.getLecture_id(2018,1,2,2)
+        val tue3 = userDB.getLecture_id(2018,1,3,2)
+        val tue4 = userDB.getLecture_id(2018,1,4,2)
+        val tue5 = userDB.getLecture_id(2018,1,5,2)
         //水曜日の講義ID
-        val wed1 = userDB.getLecture_id(2018,2,1,3)
-        val wed2 = userDB.getLecture_id(2018,2,2,3)
-        val wed3 = userDB.getLecture_id(2018,2,3,3)
-        val wed4 = userDB.getLecture_id(2018,2,4,3)
-        val wed5 = userDB.getLecture_id(2018,2,5,3)
+        val wed1 = userDB.getLecture_id(2018,1,1,3)
+        val wed2 = userDB.getLecture_id(2018,1,2,3)
+        val wed3 = userDB.getLecture_id(2018,1,3,3)
+        val wed4 = userDB.getLecture_id(2018,1,4,3)
+        val wed5 = userDB.getLecture_id(2018,1,5,3)
         //木曜日の講義ID
-        val thu1 = userDB.getLecture_id(2018,2,1,4)
-        val thu2 = userDB.getLecture_id(2018,2,2,4)
-        val thu3 = userDB.getLecture_id(2018,2,3,4)
-        val thu4 = userDB.getLecture_id(2018,2,4,4)
-        val thu5 = userDB.getLecture_id(2018,2,5,4)
+        val thu1 = userDB.getLecture_id(2018,1,1,4)
+        val thu2 = userDB.getLecture_id(2018,1,2,4)
+        val thu3 = userDB.getLecture_id(2018,1,3,4)
+        val thu4 = userDB.getLecture_id(2018,1,4,4)
+        val thu5 = userDB.getLecture_id(2018,1,5,4)
         //金曜日の講義ID
-        val fri1 = userDB.getLecture_id(2018,2,1,5)
-        val fri2 = userDB.getLecture_id(2018,2,2,5)
-        val fri3 = userDB.getLecture_id(2018,2,3,5)
-        val fri4 = userDB.getLecture_id(2018,2,4,5)
-        val fri5 = userDB.getLecture_id(2018,2,5,5)
-
+        val fri1 = userDB.getLecture_id(2018,1,1,5)
+        val fri2 = userDB.getLecture_id(2018,1,2,5)
+        val fri3 = userDB.getLecture_id(2018,1,3,5)
+        val fri4 = userDB.getLecture_id(2018,1,4,5)
+        val fri5 = userDB.getLecture_id(2018,1,5,5)
 
 //--------------------------------------------------------------------------------------
         //月曜日の講義名、教授名、教室名を表示
@@ -199,15 +196,9 @@ class Timetable_2q : AppCompatActivity() {
         }else {Fri4.text = ""}
         if(fri5 >= 0) {Fri5.text = userDB.getLecture_name(fri5) + "\n" +userDB.getTeacher(fri5) + "\n" +userDB.getClassroom(fri5)
         }else {Fri5.text = ""}
-
     }
 
-
-
-
-
-
-// Viewを継承したクラス
+    // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
 
@@ -234,5 +225,3 @@ class Timetable_2q : AppCompatActivity() {
         }
     }
 }
-
-

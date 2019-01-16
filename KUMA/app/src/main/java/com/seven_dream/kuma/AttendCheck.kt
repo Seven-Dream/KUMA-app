@@ -8,7 +8,7 @@ import android.util.Log
 import android.widget.SimpleAdapter
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_count.*
+import kotlinx.android.synthetic.main.activity_count_list.*
 import java.io.File
 
 private lateinit var userDB: userDB_Adapter_Timetable
@@ -18,7 +18,7 @@ class AttendCheck : AppCompatActivity() {
         userDB = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_count)
+        setContentView(R.layout.activity_count_list)
 
         userDB.deleteTimetable(0)
         userDB.deleteTimetable(1)
@@ -144,139 +144,141 @@ class AttendCheck : AppCompatActivity() {
         )
         myListView.adapter = adapter
 
+
+
         myListView.setOnItemClickListener {_, view, position, _ ->
             val title = view.findViewById<TextView>(android.R.id.text1).text
 
 
 
-                    if(position != 0) {
-                        Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
-                    }
-                    //if (userDB.getLecture_name(i) != null)
-                    if (position == 0) {
-                        val intent0 = Intent(application, Timetable_2q::class.java)
-                        startActivity(intent0)
-                    } else if (position == 1) {
-                        val intent1 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at1)
-                        saveFile(fileNameK, ab1)
-                        startActivity(intent1)
-                    } else if (position == 2) {
-                        val intent2 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at2)
-                        saveFile(fileNameK, ab2)
-                        startActivity(intent2)
-                    } else if (position == 3) {
-                        val intent3 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at3)
-                        saveFile(fileNameK, ab3)
-                        startActivity(intent3)
-                    } else if (position == 4) {
-                        val intent4 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at4)
-                        saveFile(fileNameK, ab4)
-                        startActivity(intent4)
-                    } else if (position == 5) {
-                        val intent5 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at5)
-                        saveFile(fileNameK, ab5)
-                        startActivity(intent5)
-                    } else if (position == 6) {
-                        val intent6 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at6)
-                        saveFile(fileNameK, ab6)
-                        startActivity(intent6)
-                    } else if (position == 7) {
-                        val intent7 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at7)
-                        saveFile(fileNameK, ab7)
-                        startActivity(intent7)
-                    } else if (position == 8) {
-                        val intent8 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at8)
-                        saveFile(fileNameK, at8)
-                        startActivity(intent8)
-                    } else if (position == 9) {
-                        val intent9 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at9)
-                        saveFile(fileNameK, ab9)
-                        startActivity(intent9)
-                    } else if (position == 10) {
-                        val intent10 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at10)
-                        saveFile(fileNameK, ab10)
-                        startActivity(intent10)
-                    } else if (position == 11) {
-                        val intent11 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at11)
-                        saveFile(fileNameK, ab11)
-                        startActivity(intent11)
-                    } else if (position == 12) {
-                        val intent12 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at12)
-                        saveFile(fileNameK, ab12)
-                        startActivity(intent12)
-                    } else if (position == 13) {
-                        val intent13 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at13)
-                        saveFile(fileNameK, ab13)
-                        startActivity(intent13)
-                    } else if (position == 14) {
-                        val intent14 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at14)
-                        saveFile(fileNameK, ab14)
-                        startActivity(intent14)
-                    } else if (position == 15) {
-                        val intent15 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at15)
-                        saveFile(fileNameK, ab15)
-                        startActivity(intent15)
-                    } else if (position == 16) {
-                        val intent16 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at16)
-                        saveFile(fileNameK, ab16)
-                        startActivity(intent16)
-                    } else if (position == 17) {
-                        val intent17 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at17)
-                        saveFile(fileNameK, ab17)
-                        startActivity(intent17)
-                    } else if (position == 18) {
-                        val intent18 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at18)
-                        saveFile(fileNameK, at18)
-                        startActivity(intent18)
-                    } else if (position == 19) {
-                        val intent19 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at19)
-                        saveFile(fileNameK, ab19)
-                        startActivity(intent19)
-                    } else if (position == 20) {
-                        val intent20 = Intent(application, Count::class.java)
-                        saveFile(fileNameP, position)
-                        saveFile(fileNameS, at20)
-                        saveFile(fileNameK, ab20)
-                        startActivity(intent20)
-                    }
+            if(position != 0) {
+                Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
+            }
+            //if (userDB.getLecture_name(i) != null)
+            if (position == 0) {
+                val intent0 = Intent(application, Timetable_2q::class.java)
+                startActivity(intent0)
+            } else if (position == 1) {
+                val intent1 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at1)
+                saveFile(fileNameK, ab1)
+                startActivity(intent1)
+            } else if (position == 2) {
+                val intent2 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at2)
+                saveFile(fileNameK, ab2)
+                startActivity(intent2)
+            } else if (position == 3) {
+                val intent3 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at3)
+                saveFile(fileNameK, ab3)
+                startActivity(intent3)
+            } else if (position == 4) {
+                val intent4 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at4)
+                saveFile(fileNameK, ab4)
+                startActivity(intent4)
+            } else if (position == 5) {
+                val intent5 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at5)
+                saveFile(fileNameK, ab5)
+                startActivity(intent5)
+            } else if (position == 6) {
+                val intent6 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at6)
+                saveFile(fileNameK, ab6)
+                startActivity(intent6)
+            } else if (position == 7) {
+                val intent7 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at7)
+                saveFile(fileNameK, ab7)
+                startActivity(intent7)
+            } else if (position == 8) {
+                val intent8 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at8)
+                saveFile(fileNameK, at8)
+                startActivity(intent8)
+            } else if (position == 9) {
+                val intent9 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at9)
+                saveFile(fileNameK, ab9)
+                startActivity(intent9)
+            } else if (position == 10) {
+                val intent10 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at10)
+                saveFile(fileNameK, ab10)
+                startActivity(intent10)
+            } else if (position == 11) {
+                val intent11 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at11)
+                saveFile(fileNameK, ab11)
+                startActivity(intent11)
+            } else if (position == 12) {
+                val intent12 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at12)
+                saveFile(fileNameK, ab12)
+                startActivity(intent12)
+            } else if (position == 13) {
+                val intent13 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at13)
+                saveFile(fileNameK, ab13)
+                startActivity(intent13)
+            } else if (position == 14) {
+                val intent14 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at14)
+                saveFile(fileNameK, ab14)
+                startActivity(intent14)
+            } else if (position == 15) {
+                val intent15 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at15)
+                saveFile(fileNameK, ab15)
+                startActivity(intent15)
+            } else if (position == 16) {
+                val intent16 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at16)
+                saveFile(fileNameK, ab16)
+                startActivity(intent16)
+            } else if (position == 17) {
+                val intent17 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at17)
+                saveFile(fileNameK, ab17)
+                startActivity(intent17)
+            } else if (position == 18) {
+                val intent18 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at18)
+                saveFile(fileNameK, at18)
+                startActivity(intent18)
+            } else if (position == 19) {
+                val intent19 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at19)
+                saveFile(fileNameK, ab19)
+                startActivity(intent19)
+            } else if (position == 20) {
+                val intent20 = Intent(application, Count::class.java)
+                saveFile(fileNameP, position)
+                saveFile(fileNameS, at20)
+                saveFile(fileNameK, ab20)
+                startActivity(intent20)
+            }
         }
     }
 

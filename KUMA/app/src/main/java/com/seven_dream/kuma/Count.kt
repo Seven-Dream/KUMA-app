@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_third.*
+import kotlinx.android.synthetic.main.activity_counter.*
 import java.io.File
 
 
@@ -54,7 +54,7 @@ class Count : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_third)
+        setContentView(R.layout.activity_counter)
 
         var s1 = readFiles("countS.txt")
         var k1 = readFiles("countK.txt")
@@ -64,33 +64,33 @@ class Count : AppCompatActivity() {
         count_attend.text = "$s1"
         // リスナーをボタンに登録
         absent.setOnClickListener {
-                k1++
-                count.text = "$k1"
+            k1++
+            count.text = "$k1"
         }
         attend.setOnClickListener {
-                s1++
-                k1++
-                count.text = "$k1"
-                count_attend.text = "$s1"
+            s1++
+            k1++
+            count.text = "$k1"
+            count_attend.text = "$s1"
         }
         minus_attend.setOnClickListener {
-                k1--
-                if (k1 < 0) {
-                    k1 = 0
-                }
-                count.text = "$k1"
+            k1--
+            if (k1 < 0) {
+                k1 = 0
+            }
+            count.text = "$k1"
         }
         minus_absent.setOnClickListener {
-                s1--
-                k1--
-                if (k1 < 0) {
-                    k1 = 0
-                }
-                if (s1 < 0) {
-                    s1 = 0
-                }
-                count.text = "$k1"
-                count_attend.text = "$s1"
+            s1--
+            k1--
+            if (k1 < 0) {
+                k1 = 0
+            }
+            if (s1 < 0) {
+                s1 = 0
+            }
+            count.text = "$k1"
+            count_attend.text = "$s1"
         }
 
 
@@ -191,3 +191,4 @@ class Count : AppCompatActivity() {
     }
 
 }
+

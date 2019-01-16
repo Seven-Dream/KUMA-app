@@ -8,7 +8,7 @@ import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_4q.*
+import kotlinx.android.synthetic.main.activity_timetable.*
 
 private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 private lateinit var userDB: userDB_Adapter_Timetable
@@ -16,11 +16,11 @@ private lateinit var userDB: userDB_Adapter_Timetable
 class Timetable_4q : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
+        userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         userDB = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_4q)
+        setContentView(R.layout.activity_timetable)
         userDB.deleteTimetable(0)
         userDB.deleteTimetable(1)
         userDB.deleteTimetable(2)
@@ -97,18 +97,18 @@ class Timetable_4q : AppCompatActivity() {
             val intent = Intent(application, AttendCheck::class.java)
             startActivity(intent)
         }
-       button1Q.setOnClickListener {
-           val intent = Intent(application, Timetable_1q::class.java)
-           startActivity(intent)
-       }
-       button2Q.setOnClickListener {
-           val intent = Intent(application, Timetable_2q::class.java)
-           startActivity(intent)
-       }
-       button3Q.setOnClickListener {
-           val intent = Intent(application, Timetable_3q::class.java)
-           startActivity(intent)
-       }
+        button1Q.setOnClickListener {
+            val intent = Intent(application, Timetable_1q::class.java)
+            startActivity(intent)
+        }
+        button2Q.setOnClickListener {
+            val intent = Intent(application, Timetable_2q::class.java)
+            startActivity(intent)
+        }
+        button3Q.setOnClickListener {
+            val intent = Intent(application, Timetable_3q::class.java)
+            startActivity(intent)
+        }
 
         //1Q----------------------------------------------------------------------------
 
@@ -205,7 +205,7 @@ class Timetable_4q : AppCompatActivity() {
         }else {Fri5.text = ""}
     }
 
-// Viewを継承したクラス
+    // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
 
@@ -232,5 +232,3 @@ class Timetable_4q : AppCompatActivity() {
         }
     }
 }
-
-
