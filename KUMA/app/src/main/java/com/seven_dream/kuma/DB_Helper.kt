@@ -55,16 +55,15 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
         private const val Attend = "CREATE TABLE attend ( " +
                 //"lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "attend_id INTEGER PRIMARY KEY, " +
-                "lecture_name VARCHAR(64), " +
                 "quarter INTEGER " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
         private const val Period_Week = "CREATE TABLE lecture_period_week ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
-                "quarter INTEGER, " +
+                "lecture_id INTEGER , " +
                 "period INTEGER, " +
-                "week INTEGER, " +
-                "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
+                "week INTEGER);"
+                //"week INTEGER, " +
+                //"FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
         private const val Test = "CREATE TABLE lecture_test ( " +
                 "lecture_id INTEGER PRIMARY KEY, " +

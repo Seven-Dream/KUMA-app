@@ -36,7 +36,6 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
     }
 
-
     fun addRecordWeek(lecture_id:Int,week:Int, period:Int) {
         val values = ContentValues()
         values.put("lecture_id",lecture_id)
@@ -52,11 +51,10 @@ class userDB_Adapter_Timetable(mContext: Context) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
-
     //-------------------Select文-------------------
     //year,quarter,period,weekをもとにlectureIDをとってくる
     fun getLecture_id(year: Int, quarter: Int,period: Int,week: Int): Int {
-        val selectSql: String = "select timetable.lecture_id from timetable, lecture_period_week where timetable.lecture_id = lecture_period_week.lecture_id and year = ? and quarter = ? and period = ? and week = ?"
+        val selectSql: String = "select timetable.lecture_id from timetable, lecture_period_week where timetable.lecture_id = lecture_period_week.lecture_id and timetable.year = ? and timetable.quarter = ? and lecture_period_week.period = ? and lecture_period_week.week = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), quarter.toString(), period.toString(), week.toString()))
         var id: Int = 0//IDをこの中に入れる
         try {
@@ -108,7 +106,6 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
-
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
         val selectSql : String = "select * from lecture where lecture_name = ?"
@@ -129,7 +126,6 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
-
     //lecture_nameを指定して一列を取得
     fun getQuarter(id:Int) :Int{
         val selectSql : String = "select quarter from lecture where lecture_id = ?"
@@ -144,9 +140,6 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return id
     }
-
-
-
     // キー(Type,date)を指定してmemoを修正
     /*
     fun updateMemo(type : Int, day : Int, memo : String ) {
@@ -156,7 +149,6 @@ class userDB_Adapter_Timetable(mContext: Context) {
         // 第三引数の? に第四引数が置き換わる
         db.update(DB_TABLE_NAME, values, "type=? AND date=? ", arrayOf(type.toString(),day.toString()))
     }*/
-
     //Lecture_idをもとに、対応するIDのレコードを削除
     fun deleteTimetable(id:Int){
         db.delete("timetable", "lecture_id = ?", arrayOf(id.toString()))
@@ -171,7 +163,4 @@ class userDB_Adapter_Timetable(mContext: Context) {
     fun deleteRecord(type : Int, day : Int) {
         db.delete(DB_TABLE_NAME, "tepe=? AND date=? ", arrayOf(type.toString(),day.toString()))
     }*/
-
-
-
 }
