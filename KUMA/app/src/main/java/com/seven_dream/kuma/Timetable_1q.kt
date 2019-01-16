@@ -5,10 +5,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_timetable.*
+import kotlinx.android.synthetic.main.activity_1q.*
 
 private lateinit var userDB: userDB_Adapter_Timetable
 
@@ -18,7 +18,7 @@ class Timetable_1q : AppCompatActivity() {
         userDB = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_timetable)
+        setContentView(R.layout.activity_1q)
         userDB.deleteTimetable(0)
         userDB.deleteTimetable(1)
         userDB.deleteTimetable(2)
@@ -91,14 +91,14 @@ class Timetable_1q : AppCompatActivity() {
             val intent = Intent(application, AttendCheck::class.java)
             startActivity(intent)
         }
-        button2Q.setOnClickListener {
-            val intent = Intent(application, Timetable_2q::class.java)
-            startActivity(intent)
-        }
-        button3Q.setOnClickListener {
-            val intent = Intent(application, Timetable_3q::class.java)
-            startActivity(intent)
-        }
+       button2Q.setOnClickListener {
+           val intent = Intent(application, Timetable_2q::class.java)
+           startActivity(intent)
+       }
+       button3Q.setOnClickListener {
+           val intent = Intent(application, Timetable_3q::class.java)
+           startActivity(intent)
+       }
         button4Q.setOnClickListener {
             val intent = Intent(application, Timetable_4q::class.java)
             startActivity(intent)
@@ -198,7 +198,7 @@ class Timetable_1q : AppCompatActivity() {
         }else {Fri5.text = ""}
     }
 
-    // Viewを継承したクラス
+// Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
 
@@ -225,3 +225,5 @@ class Timetable_1q : AppCompatActivity() {
         }
     }
 }
+
+
