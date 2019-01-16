@@ -12,7 +12,6 @@
         <activity android:name=".Timetable_1q">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -27,31 +26,16 @@
                 android:name=".Timetable_4q">
         </activity>
         <activity
-                android:name=".AttendCheck_1q">
-        </activity>
-        <activity
-                android:name=".AttendCheck_2q">
-        </activity>
-        <activity
-                android:name=".AttendCheck_3q">
-        </activity>
-        <activity
-                android:name=".AttendCheck_4q">
+                android:name=".AttendCheck">
         </activity>
         <activity
                 android:name=".TimetableSearch">
         </activity>
         <activity
-                android:name=".Count1_1q">
+                android:name=".Count">
         </activity>
         <activity
-                android:name=".Count1_2q">
-        </activity>
-        <activity
-                android:name=".Count1_3q">
-        </activity>
-        <activity
-                android:name=".Count1_4q">
+                android:name=".Schedule">
         </activity>
 
     </application>
