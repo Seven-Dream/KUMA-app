@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+        android:id="@+id/background_page_name"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="rectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+    <!-- 背景色 -->
+    <solid android:color="@color/colorPrimaryDark" />
+    <!-- 線 -->
+    <stroke android:width="1pt"
+            android:color="@color/colorAccent" />
+    <!-- 丸み -->
+    <corners android:radius="6dp" />
+</shape>
