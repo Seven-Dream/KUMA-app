@@ -1,7 +1,0 @@
-<resources>
-    <!--　app > res > values -->
-    <string name="app_name">KUMA</string>
-    <string name="event_advertise">今後のイベント</string>
-    <string name="event_Day">10/27</string>
-    <string name="event_Name">大学祭1日目の見どころ</string>
-</resources>
