@@ -16,7 +16,7 @@ private lateinit var userDB: userDB_Adapter_Timetable
 class Timetable_4q : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
+        userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         userDB = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
@@ -97,18 +97,18 @@ class Timetable_4q : AppCompatActivity() {
             val intent = Intent(application, AttendCheck::class.java)
             startActivity(intent)
         }
-       button1Q.setOnClickListener {
-           val intent = Intent(application, Timetable_1q::class.java)
-           startActivity(intent)
-       }
-       button2Q.setOnClickListener {
-           val intent = Intent(application, Timetable_2q::class.java)
-           startActivity(intent)
-       }
-       button3Q.setOnClickListener {
-           val intent = Intent(application, Timetable_3q::class.java)
-           startActivity(intent)
-       }
+        button1Q.setOnClickListener {
+            val intent = Intent(application, Timetable_1q::class.java)
+            startActivity(intent)
+        }
+        button2Q.setOnClickListener {
+            val intent = Intent(application, Timetable_2q::class.java)
+            startActivity(intent)
+        }
+        button3Q.setOnClickListener {
+            val intent = Intent(application, Timetable_3q::class.java)
+            startActivity(intent)
+        }
 
         //1Q----------------------------------------------------------------------------
 
@@ -145,67 +145,67 @@ class Timetable_4q : AppCompatActivity() {
 
 //--------------------------------------------------------------------------------------
         //月曜日の講義名、教授名、教室名を表示
-        if(mon1 >= 0) {Mon1.text = userDB.getLecture_name(mon1) + "\n" +userDB.getTeacher(mon1) + "\n" +userDB.getClassroom(mon1)
+        if(mon1 >= 0) {Mon1.text = " " + userDB.getLecture_name(mon1) + "\n" + " " +userDB.getTeacher(mon1) + "\n" + " " +userDB.getClassroom(mon1)
         }else {Mon1.text = ""}
-        if(mon2 >= 0) {Mon2.text = userDB.getLecture_name(mon2) + "\n" +userDB.getTeacher(mon2) + "\n" +userDB.getClassroom(mon2)
+        if(mon2 >= 0) {Mon2.text = " " + userDB.getLecture_name(mon2) + "\n" + " " +userDB.getTeacher(mon2) + "\n" + " " +userDB.getClassroom(mon2)
         }else {Mon2.text = ""}
-        if(mon3 >= 0) {Mon3.text = userDB.getLecture_name(mon3) + "\n" +userDB.getTeacher(mon3) + "\n" +userDB.getClassroom(mon3)
+        if(mon3 >= 0) {Mon3.text = " " + userDB.getLecture_name(mon3) + "\n" + " " +userDB.getTeacher(mon3) + "\n" + " " +userDB.getClassroom(mon3)
         }else {Mon1.text = ""}
-        if(mon4 >= 0) {Mon4.text = userDB.getLecture_name(mon4) + "\n" +userDB.getTeacher(mon4) + "\n" +userDB.getClassroom(mon4)
+        if(mon4 >= 0) {Mon4.text = " " + userDB.getLecture_name(mon4) + "\n" + " " +userDB.getTeacher(mon4) + "\n" + " " +userDB.getClassroom(mon4)
         }else {Mon4.text = ""}
-        if(mon5 >= 0) {Mon5.text = userDB.getLecture_name(mon5) + "\n" +userDB.getTeacher(mon5) + "\n" +userDB.getClassroom(mon5)
+        if(mon5 >= 0) {Mon5.text = " " + userDB.getLecture_name(mon5) + "\n" + " " +userDB.getTeacher(mon5) + "\n" + " " +userDB.getClassroom(mon5)
         }else {Mon5.text = ""}
 
         //火曜日の講義名、教授名、教室名を表示
-        if(tue1 >= 0) {Tue1.text = userDB.getLecture_name(tue1) + "\n" +userDB.getTeacher(tue1) + "\n" +userDB.getClassroom(tue1)
+        if(tue1 >= 0) {Tue1.text = " " + userDB.getLecture_name(tue1) + "\n" + " " +userDB.getTeacher(tue1) + "\n" + " " +userDB.getClassroom(tue1)
         }else {Tue1.text = ""}
-        if(tue2 >= 0) {Tue2.text = userDB.getLecture_name(tue2) + "\n" +userDB.getTeacher(tue2) + "\n" +userDB.getClassroom(tue2)
+        if(tue2 >= 0) {Tue2.text = " " + userDB.getLecture_name(tue2) + "\n" + " " +userDB.getTeacher(tue2) + "\n" + " " +userDB.getClassroom(tue2)
         }else {Tue2.text = ""}
-        if(tue3 >= 0) {Tue3.text = userDB.getLecture_name(tue3) + "\n" +userDB.getTeacher(tue3) + "\n" +userDB.getClassroom(tue3)
+        if(tue3 >= 0) {Tue3.text = " " + userDB.getLecture_name(tue3) + "\n" + " " +userDB.getTeacher(tue3) + "\n" + " " +userDB.getClassroom(tue3)
         }else {Tue1.text = ""}
-        if(tue4 >= 0) {Tue4.text = userDB.getLecture_name(tue4) + "\n" +userDB.getTeacher(tue4) + "\n" +userDB.getClassroom(tue4)
+        if(tue4 >= 0) {Tue4.text = " " + userDB.getLecture_name(tue4) + "\n" + " " +userDB.getTeacher(tue4) + "\n" + " " +userDB.getClassroom(tue4)
         }else {Tue4.text = ""}
-        if(tue5 >= 0) {Tue5.text = userDB.getLecture_name(tue5) + "\n" +userDB.getTeacher(tue5) + "\n" +userDB.getClassroom(tue5)
+        if(tue5 >= 0) {Tue5.text = " " + userDB.getLecture_name(tue5) + "\n" + " " +userDB.getTeacher(tue5) + "\n" + " " +userDB.getClassroom(tue5)
         }else {Tue5.text = ""}
 
         //水曜日の講義名、教授名、教室名を表示
-        if(wed1 >= 0) {Wed1.text = userDB.getLecture_name(wed1) + "\n" +userDB.getTeacher(wed1) + "\n" +userDB.getClassroom(wed1)
+        if(wed1 >= 0) {Wed1.text = " " + userDB.getLecture_name(wed1) + "\n" + " " +userDB.getTeacher(wed1) + "\n" + " " +userDB.getClassroom(wed1)
         }else {Wed1.text = ""}
-        if(wed2 >= 0) {Wed2.text = userDB.getLecture_name(wed2) + "\n" +userDB.getTeacher(wed2) + "\n" +userDB.getClassroom(wed2)
+        if(wed2 >= 0) {Wed2.text = " " + userDB.getLecture_name(wed2) + "\n" + " " +userDB.getTeacher(wed2) + "\n" + " " +userDB.getClassroom(wed2)
         }else {Wed2.text = ""}
-        if(wed3 >= 0) {Wed3.text = userDB.getLecture_name(wed3) + "\n" +userDB.getTeacher(wed3) + "\n" +userDB.getClassroom(wed3)
+        if(wed3 >= 0) {Wed3.text = " " + userDB.getLecture_name(wed3) + "\n" + " " +userDB.getTeacher(wed3) + "\n" + " " +userDB.getClassroom(wed3)
         }else {Wed3.text = ""}
-        if(wed4 >= 0) {Wed4.text = userDB.getLecture_name(wed4) + "\n" +userDB.getTeacher(wed4) + "\n" +userDB.getClassroom(wed4)
+        if(wed4 >= 0) {Wed4.text = " " + userDB.getLecture_name(wed4) + "\n" + " " +userDB.getTeacher(wed4) + "\n" + " " +userDB.getClassroom(wed4)
         }else {Wed4.text = ""}
-        if(wed5 >= 0) {Wed5.text = userDB.getLecture_name(wed5) + "\n" +userDB.getTeacher(wed5) + "\n" +userDB.getClassroom(wed5)
+        if(wed5 >= 0) {Wed5.text = " " + userDB.getLecture_name(wed5) + "\n" + " " +userDB.getTeacher(wed5) + "\n" + " " +userDB.getClassroom(wed5)
         }else {Wed5.text = ""}
 
         //木曜日の講義名、教授名、教室名を表示
-        if(thu1 >= 0) {Thu1.text = userDB.getLecture_name(thu1) + "\n" +userDB.getTeacher(thu1) + "\n" +userDB.getClassroom(thu1)
+        if(thu1 >= 0) {Thu1.text = " " + userDB.getLecture_name(thu1) + "\n" + " " +userDB.getTeacher(thu1) + "\n" + " " +userDB.getClassroom(thu1)
         }else {Thu1.text = ""}
-        if(thu2 >= 0) {Thu2.text = userDB.getLecture_name(thu2) + "\n" +userDB.getTeacher(thu2) + "\n" +userDB.getClassroom(thu2)
+        if(thu2 >= 0) {Thu2.text = " " + userDB.getLecture_name(thu2) + "\n" + " " +userDB.getTeacher(thu2) + "\n" + " " +userDB.getClassroom(thu2)
         }else {Thu2.text = ""}
-        if(thu3 >= 0) {Thu3.text = userDB.getLecture_name(thu3) + "\n" +userDB.getTeacher(thu3) + "\n" +userDB.getClassroom(thu3)
+        if(thu3 >= 0) {Thu3.text = " " + userDB.getLecture_name(thu3) + "\n" + " " +userDB.getTeacher(thu3) + "\n" + " " +userDB.getClassroom(thu3)
         }else {Thu1.text = ""}
-        if(thu4 >= 0) {Thu4.text = userDB.getLecture_name(thu4) + "\n" +userDB.getTeacher(thu4) + "\n" +userDB.getClassroom(thu4)
+        if(thu4 >= 0) {Thu4.text = " " + userDB.getLecture_name(thu4) + "\n" + " " +userDB.getTeacher(thu4) + "\n" + " " +userDB.getClassroom(thu4)
         }else {Thu4.text = ""}
-        if(thu5 >= 0) {Thu5.text = userDB.getLecture_name(thu5) + "\n" +userDB.getTeacher(thu5) + "\n" +userDB.getClassroom(thu5)
+        if(thu5 >= 0) {Thu5.text = " " + userDB.getLecture_name(thu5) + "\n" + " " +userDB.getTeacher(thu5) + "\n" + " " +userDB.getClassroom(thu5)
         }else {Thu5.text = ""}
 
         //金曜日の講義名、教授名、教室名を表示
-        if(fri1 >= 0) {Fri1.text = userDB.getLecture_name(fri1) + "\n" +userDB.getTeacher(fri1) + "\n" +userDB.getClassroom(fri1)
+        if(fri1 >= 0) {Fri1.text = " " + userDB.getLecture_name(fri1) + "\n" + " " +userDB.getTeacher(fri1) + "\n" + " " +userDB.getClassroom(fri1)
         }else {Fri1.text = ""}
-        if(fri2 >= 0) {Fri2.text = userDB.getLecture_name(fri2) + "\n" +userDB.getTeacher(fri2) + "\n" +userDB.getClassroom(fri2)
+        if(fri2 >= 0) {Fri2.text = " " + userDB.getLecture_name(fri2) + "\n" + " " +userDB.getTeacher(fri2) + "\n" + " " +userDB.getClassroom(fri2)
         }else {Fri2.text = ""}
-        if(fri3 >= 0) {Fri3.text = userDB.getLecture_name(fri3) + "\n" +userDB.getTeacher(fri3) + "\n" +userDB.getClassroom(fri3)
+        if(fri3 >= 0) {Fri3.text = " " + userDB.getLecture_name(fri3) + "\n" + " " +userDB.getTeacher(fri3) + "\n" + " " +userDB.getClassroom(fri3)
         }else {Fri1.text = ""}
-        if(fri4 >= 0) {Fri4.text = userDB.getLecture_name(fri4) + "\n" +userDB.getTeacher(fri4) + "\n" +userDB.getClassroom(fri4)
+        if(fri4 >= 0) {Fri4.text = " " + userDB.getLecture_name(fri4) + "\n" + " " +userDB.getTeacher(fri4) + "\n" + " " +userDB.getClassroom(fri4)
         }else {Fri4.text = ""}
-        if(fri5 >= 0) {Fri5.text = userDB.getLecture_name(fri5) + "\n" +userDB.getTeacher(fri5) + "\n" +userDB.getClassroom(fri5)
+        if(fri5 >= 0) {Fri5.text = " " + userDB.getLecture_name(fri5) + "\n" + " " +userDB.getTeacher(fri5) + "\n" + " " +userDB.getClassroom(fri5)
         }else {Fri5.text = ""}
     }
 
-// Viewを継承したクラス
+    // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
 
@@ -232,5 +232,3 @@ class Timetable_4q : AppCompatActivity() {
         }
     }
 }
-
-
