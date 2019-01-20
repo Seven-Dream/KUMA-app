@@ -10,4 +10,5 @@
     <string name="title">TITLE</string>
     <string name="add">ADD</string>
     <string name="date">DATE</string>
+    <string name="timeschedule">timeSchedule</string>
 </resources>
