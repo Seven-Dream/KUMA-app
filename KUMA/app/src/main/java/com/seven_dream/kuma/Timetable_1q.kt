@@ -84,12 +84,13 @@ class Timetable_1q : AppCompatActivity() {
         userDB_timetable.addRecordWeek(9, 4, 3)
         userDB_timetable.addRecordWeek(10, 3, 3)
 
+
         button.setOnClickListener {
             val intent = Intent(application, TimetableSearch::class.java)
             startActivity(intent)
         }
         delete.setOnClickListener {
-            val intent = Intent(application, Delete::class.java)
+            val intent = Intent(application, Delete_1q::class.java)
             startActivity(intent)
         }
         schedule.setOnClickListener {

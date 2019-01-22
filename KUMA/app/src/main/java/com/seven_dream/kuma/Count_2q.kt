@@ -51,6 +51,16 @@ class Count_2q : AppCompatActivity() {
     private val fileNameK19 = "count2K19.txt"
     private val fileNameS20 = "count2S20.txt"
     private val fileNameK20 = "count2K20.txt"
+    private val fileNameS21 = "count2S21.txt"
+    private val fileNameK21 = "count2K21.txt"
+    private val fileNameS22 = "count2S22.txt"
+    private val fileNameK22 = "count2K22.txt"
+    private val fileNameS23 = "count2S23.txt"
+    private val fileNameK23 = "count2K23.txt"
+    private val fileNameS24 = "count2S24.txt"
+    private val fileNameK24 = "count2K24.txt"
+    private val fileNameS25 = "count2S25.txt"
+    private val fileNameK25 = "count2K25.txt"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,6 +167,21 @@ class Count_2q : AppCompatActivity() {
             }else if(p == 20){
                 saveFile(fileNameS20, s1)
                 saveFile(fileNameK20, k1)
+            }else if(p == 11) {
+                saveFile(fileNameS21, s1)
+                saveFile(fileNameK21, k1)
+            }else if(p == 12){
+                saveFile(fileNameS22, s1)
+                saveFile(fileNameK22, k1)
+            }else if(p == 13){
+                saveFile(fileNameS23, s1)
+                saveFile(fileNameK23, k1)
+            }else if(p == 14){
+                saveFile(fileNameS24, s1)
+                saveFile(fileNameK24, k1)
+            }else if(p == 15){
+                saveFile(fileNameS25, s1)
+                saveFile(fileNameK25, k1)
             }
             //画面遷移を開始
             startActivity(intent)

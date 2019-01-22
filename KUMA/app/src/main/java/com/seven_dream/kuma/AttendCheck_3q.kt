@@ -24,66 +24,6 @@ class AttendCheck_3q : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count_list)
 
-        userDB_timetable.deleteTimetable(0)
-        userDB_timetable.deleteTimetable(1)
-        userDB_timetable.deleteTimetable(2)
-        userDB_timetable.deleteTimetable(3)
-        userDB_timetable.deleteTimetable(4)
-        userDB_timetable.deleteTimetable(5)
-        userDB_timetable.deleteTimetable(6)
-        userDB_timetable.deleteTimetable(7)
-        userDB_timetable.deleteTimetable(8)
-        userDB_timetable.deleteTimetable(9)
-        userDB_timetable.deleteTimetable(10)
-
-        userDB_timetable.deleteWeek_Period(0)
-        userDB_timetable.deleteWeek_Period(1)
-        userDB_timetable.deleteWeek_Period(2)
-        userDB_timetable.deleteWeek_Period(3)
-        userDB_timetable.deleteWeek_Period(4)
-        userDB_timetable.deleteWeek_Period(5)
-        userDB_timetable.deleteWeek_Period(6)
-        userDB_timetable.deleteWeek_Period(7)
-        userDB_timetable.deleteWeek_Period(8)
-        userDB_timetable.deleteWeek_Period(9)
-        userDB_timetable.deleteWeek_Period(10)
-
-        //userDB_timetable.addRecordTimetable(0, "学習と推論", "門田"," A106",  2018,1)
-        userDB_timetable.addRecordTimetable(1, "情報セキュリティ", "清水"," A106",  2018,1)
-        userDB_timetable.addRecordTimetable(2, "情報学群実験第3i", "吉田,植田"," 情報実験室",  2018,1)
-        userDB_timetable.addRecordTimetable(3, "情報学群実験第3c", "栗原,高田"," A-WS",  2018,2)
-        userDB_timetable.addRecordTimetable(4, "データベースシステム", "横山"," A106",  2018,3)
-        userDB_timetable.addRecordTimetable(5, "オペレーティングシステム", "横山"," A106",  2018,4)
-        userDB_timetable.addRecordTimetable(6, "HCI概論", "任"," A106",  2018,4)
-        userDB_timetable.addRecordTimetable(7, "認知心理学", "繁枡"," A106",  2018,3)
-        userDB_timetable.addRecordTimetable(8, "ソフトウェア工学", "高田,松崎"," A106",  2018,3)
-        userDB_timetable.addRecordTimetable(9, "ソフトウェア工学", "高田,松崎"," A106",  2018,4)
-        userDB_timetable.addRecordTimetable(10, "キャリアプラン2", "村上"," K-HALL",  2018,4)
-
-        userDB_timetable.addRecordWeek(1,1,1)
-        userDB_timetable.addRecordWeek(1,4,1)
-        userDB_timetable.addRecordWeek(2,1,3)
-        userDB_timetable.addRecordWeek(2,1,4)
-        userDB_timetable.addRecordWeek(2,4,3)
-        userDB_timetable.addRecordWeek(2,4,4)
-        userDB_timetable.addRecordWeek(3,1,3)
-        userDB_timetable.addRecordWeek(3,1,4)
-        userDB_timetable.addRecordWeek(3,4,3)
-        userDB_timetable.addRecordWeek(3,4,4)
-        userDB_timetable.addRecordWeek(4,1,1)
-        userDB_timetable.addRecordWeek(4,4,1)
-        userDB_timetable.addRecordWeek(5,1,2)
-        userDB_timetable.addRecordWeek(5,4,2)
-        userDB_timetable.addRecordWeek(6,2,3)
-        userDB_timetable.addRecordWeek(6,5,3)
-        userDB_timetable.addRecordWeek(7,2,3)
-        userDB_timetable.addRecordWeek(7,5,3)
-        userDB_timetable.addRecordWeek(8,1,3)
-        userDB_timetable.addRecordWeek(8,4,3)
-        userDB_timetable.addRecordWeek(9,1,3)
-        userDB_timetable.addRecordWeek(9,4,3)
-        userDB_timetable.addRecordWeek(10,3,3)
-
 
         val fileNameS = "countS.txt"
         val fileNameK=  "countK.txt"
@@ -129,14 +69,24 @@ class AttendCheck_3q : AppCompatActivity() {
         val ab19 = readFiles("count3K19.txt")
         val at20 = readFiles("count3S20.txt")
         val ab20 = readFiles("count3K20.txt")
+        val at21 = readFiles("count3S21.txt")
+        val ab21 = readFiles("count3K21.txt")
+        val at22 = readFiles("count3S22.txt")
+        val ab22 = readFiles("count3K22.txt")
+        val at23 = readFiles("count3S23.txt")
+        val ab23 = readFiles("count3K23.txt")
+        val at24 = readFiles("count3S24.txt")
+        val ab24 = readFiles("count3K24.txt")
+        val at25 = readFiles("count3S25.txt")
+        val ab25 = readFiles("count3K25.txt")
 
-        val check = arrayOf(
-            "時間割画面へ戻る", "$at1 / $ab1", "$at2 / $ab2", "$at3 / $ab3",
-            "$at4 / $ab4", "$at5 / $ab5", "$at6 / $ab6", "$at7 / $ab7", "$at8 / $ab8",
-            "$at9 / $ab9", "$at10 / $ab10", "$at11 / $ab11", "$at12 / $ab12", "$at13 / $ab13",
-            "$at14 / $ab14", "$at15 / $ab15", "$at16 / $ab16", "$at17 / $ab17", "$at18 / $ab18",
-            "$at19 / $ab19", "$at20 / $ab20"
-        )
+
+        val check = arrayOf("時間割画面へ戻る","$at1 / $ab1", "$at2 / $ab2","$at3 / $ab3",
+            "$at4 / $ab4","$at5 / $ab5","$at6 / $ab6","$at7 / $ab7","$at8 / $ab8",
+            "$at9 / $ab9","$at10 / $ab10","$at11 / $ab11", "$at12 / $ab12","$at13 / $ab13",
+            "$at14 / $ab14","$at15 / $ab15","$at16 / $ab16","$at17 / $ab17","$at18 / $ab18",
+            "$at19 / $ab19","$at20 / $ab20","$at21 / $ab21", "$at22 / $ab22","$at23 / $ab23",
+            "$at24 / $ab24","$at25 / $ab25")
 
         //3Q
         //月曜日の講義ID
@@ -258,7 +208,7 @@ class AttendCheck_3q : AppCompatActivity() {
                     val intent8 = Intent(application, Count_3q::class.java)
                     saveFile(fileNameP, position)
                     saveFile(fileNameS, at8)
-                    saveFile(fileNameK, at8)
+                    saveFile(fileNameK, ab8)
                     startActivity(intent8)
                 } else if (position == 9) {
                     val intent9 = Intent(application, Count_3q::class.java)
@@ -318,7 +268,7 @@ class AttendCheck_3q : AppCompatActivity() {
                     val intent18 = Intent(application, Count_3q::class.java)
                     saveFile(fileNameP, position)
                     saveFile(fileNameS, at18)
-                    saveFile(fileNameK, at18)
+                    saveFile(fileNameK, ab18)
                     startActivity(intent18)
                 } else if (position == 19) {
                     val intent19 = Intent(application, Count_3q::class.java)

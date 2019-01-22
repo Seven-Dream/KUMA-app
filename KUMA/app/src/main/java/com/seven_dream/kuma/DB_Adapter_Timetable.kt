@@ -35,6 +35,24 @@ class userDB_Adapter_Timetable(mContext: Context) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
+    fun addRecordLecture(lecture_id:Int,lecture_name:String,
+                           teacher:String, classroom:String, year:Int, quarter: Int) {
+        val values = ContentValues()
+        values.put("lecture_id",lecture_id)
+        values.put("lecture_name", lecture_name)
+        values.put("teacher", teacher)
+        values.put("classroom", classroom)
+        values.put("year", year)
+        values.put("quarter", quarter)
+        //データの追加
+        Log.d("opal","前"+values.toString())
+        try {
+            db.insertOrThrow("lecture", null, values)
+            //Log.d("opal","後"+values.toString())
+        }catch(e: SQLiteException){
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
 
     fun addRecordWeek(lecture_id:Int,week:Int, period:Int) {
         val values = ContentValues()
@@ -106,6 +124,19 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
+    fun getLTeacher(id: Int): String {
+        val selectSql: String = "select teacher from lecture where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+        var disp: String = ""//最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(cursor.getColumnIndex("teacher"))
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
         val selectSql : String = "select * from lecture where lecture_name = ?"
@@ -126,10 +157,10 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
-    //lecture_nameを指定して一列を取得
-    fun getQuarter(id:Int) :Int{
-        val selectSql : String = "select quarter from lecture where lecture_id = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+    //lecture_nameを指定してIDを取得
+    fun getLectureID(lecture_name:String) :Int{
+        val selectSql : String = "select lecture_id from timetable where lecture_name = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_name.toString()))
         var id: Int = 0//IDをこの中に入れる
         try {
             if (cursor.moveToNext()) {

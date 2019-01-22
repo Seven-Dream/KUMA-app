@@ -31,8 +31,8 @@ class Count_1q : AppCompatActivity() {
     private val fileNameK9 = "countK9.txt"
     private val fileNameS10 = "countS10.txt"
     private val fileNameK10 = "countK10.txt"
-    private val fileNameS11 = "countS1.txt"
-    private val fileNameK11 = "countK1.txt"
+    private val fileNameS11 = "countS11.txt"
+    private val fileNameK11 = "countK11.txt"
     private val fileNameS12 = "countS12.txt"
     private val fileNameK12 = "countK12.txt"
     private val fileNameS13 = "countS13.txt"
@@ -51,6 +51,16 @@ class Count_1q : AppCompatActivity() {
     private val fileNameK19 = "countK19.txt"
     private val fileNameS20 = "countS20.txt"
     private val fileNameK20 = "countK20.txt"
+    private val fileNameS21 = "countS21.txt"
+    private val fileNameK21 = "countK21.txt"
+    private val fileNameS22 = "countS22.txt"
+    private val fileNameK22 = "countK22.txt"
+    private val fileNameS23 = "countS23.txt"
+    private val fileNameK23 = "countK23.txt"
+    private val fileNameS24 = "countS24.txt"
+    private val fileNameK24 = "countK24.txt"
+    private val fileNameS25 = "countS25.txt"
+    private val fileNameK25 = "countK25.txt"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,6 +168,21 @@ class Count_1q : AppCompatActivity() {
             }else if(p == 20){
                 saveFile(fileNameS20, s1)
                 saveFile(fileNameK20, k1)
+            }else if(p == 11) {
+                saveFile(fileNameS21, s1)
+                saveFile(fileNameK21, k1)
+            }else if(p == 12){
+                saveFile(fileNameS22, s1)
+                saveFile(fileNameK22, k1)
+            }else if(p == 13){
+                saveFile(fileNameS23, s1)
+                saveFile(fileNameK23, k1)
+            }else if(p == 14){
+                saveFile(fileNameS24, s1)
+                saveFile(fileNameK24, k1)
+            }else if(p == 15){
+                saveFile(fileNameS25, s1)
+                saveFile(fileNameK25, k1)
             }
             //画面遷移を開始
             startActivity(intent1)
