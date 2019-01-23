@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
+        android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <!--登録ボタン-->
     <Button
             android:id="@+id/entry_lecture"
@@ -15,50 +15,51 @@
     <!--各項目-->
     <TextView
             android:id="@+id/list_lecture"
+            android:text="@string/lecture_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
+            android:layout_weight="1"
             android:textSize="20sp"
     />
     <TextView
             android:id="@+id/list_teacher"
+            android:text="@string/teacher_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
+            android:layout_weight="1"
             android:textSize="20sp"
     />
+    <!--
     <TextView
             android:id="@+id/list_classroom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textSize="20sp"
+            android:layout_toRightOf="@+id/list_teacher"
+            android:layout_toLeftOf="@+id/list_quarter"
+            android:padding="8dp"
     />
     <TextView
             android:id="@+id/list_quarter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textSize="20sp"
+            android:layout_toRightOf="@+id/list_classroom"
+            android:layout_toLeftOf="@+id/list_week"
+            android:padding="8dp"
     />
     <TextView
             android:id="@+id/list_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textSize="20sp"
+            android:layout_toRightOf="@+id/list_quarter"
+            android:layout_toLeftOf="@+id/list_period"
+            android:padding="8dp"
     />
     <TextView
             android:id="@+id/list_period"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"
     />
-</android.support.constraint.ConstraintLayout>
+    -->
+</LinearLayout>
