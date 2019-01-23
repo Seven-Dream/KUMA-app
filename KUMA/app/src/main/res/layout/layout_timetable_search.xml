@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 講義検索画面のレイアウト -->
-<LinearLayout
+<android.support.v7.widget.LinearLayoutCompat
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:orientation="vertical"
         tools:context=".TimetableSearch">
 
+
     <!-- ページタイトルの表示 -->
+    <!--
     <TextView
             android:id="@+id/title"
             android:background="@+id/background_page_name"
@@ -19,6 +20,7 @@
             android:textSize="30sp"
             android:gravity="center"
     />
+    -->
 
     <!-- 各検索項目と入力フォームの表示 -->
     <!--講義名-->
@@ -34,8 +36,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/format_style"
             android:gravity="center"
+            android:importantForAutofill="no"
+            tools:targetApi="O"
+            android:inputType="text"
     />
 
     <!--教員名-->
@@ -51,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/format_style"
             android:gravity="center"
+            android:inputType="text"
     />
 
     <!--開講クォータ-->
@@ -68,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@color/colorBlack"
             android:gravity="center"
     />
 
@@ -96,4 +101,4 @@
         />
     </LinearLayout>
 
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>
