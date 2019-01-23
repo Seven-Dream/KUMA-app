@@ -25,7 +25,7 @@ class TitleController : AppCompatActivity() {
         userDB = userDB_Adapter(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.titlecontroller)
+        setContentView(R.layout.title_controller)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
     }
 //API
