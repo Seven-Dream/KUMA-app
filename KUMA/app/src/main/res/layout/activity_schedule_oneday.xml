@@ -7,8 +7,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ScheduleOneday">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+        <TextView
+                android:id="@+id/edt_id"
+                android:hint="@string/id"
+                android:textSize="20dp"
+                android:layout_height="match_parent"
+                android:layout_width="192dp"/>
+        <TextView
+                android:id="@+id/edt_date"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:hint="@string/date"
+                android:layout_weight="1"/>
 
-    <EditText
+    </LinearLayout>
+
+    <!--<EditText
             android:id="@+id/edt_id"
             android:hint="@string/id"
             android:inputType="number"
@@ -18,7 +37,7 @@
             android:id="@+id/edt_date"
             android:inputType="text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:autofillHints="" android:hint="@string/date"/>
+            android:layout_height="wrap_content" android:autofillHints="" android:hint="@string/date"/>-->
     <EditText
             android:id="@+id/edt_title"
             android:hint="@string/title"

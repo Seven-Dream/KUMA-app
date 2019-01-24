@@ -145,6 +145,18 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
 
     }
 
+    fun isRecord(id:Int) :Boolean {
+        val db = this.writableDatabase
+        val selectQql : String = "SELECT id FROM " + TABLE_NAME + " where id = ?"
+        val cursor: Cursor = db.rawQuery(selectQql, arrayOf(id.toString()))
+        var count = 0
+        if(cursor.moveToFirst()) {
+             count = cursor.getInt(cursor.getColumnIndex("id"))
+        }
+        cursor.close()
+        return if ( 0 < count ) { true } else { false }
+    }
+
     // DBHelperで日付を使えるようにする
     fun getDate(date:String){
         oneDate = date

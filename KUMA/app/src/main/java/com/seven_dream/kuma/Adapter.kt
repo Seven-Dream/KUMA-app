@@ -13,8 +13,10 @@ import org.w3c.dom.Text
 
 class Adapter(internal var activity: Activity,
               internal var lstNewPlan: List<NewPlan>,
-              internal var edt_id:EditText,
-              internal var edt_date:EditText,
+              //internal var edt_id:EditText,
+              //internal var edt_date:EditText,
+              internal var edt_id:TextView,
+              internal var edt_date:TextView,
               internal var edt_title:EditText,
               internal var edt_timeBegin:EditText,
               internal var edt_timeEnd:EditText,
