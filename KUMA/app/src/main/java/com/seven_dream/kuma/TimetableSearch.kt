@@ -11,7 +11,7 @@ import android.view.View
 import com.example.androiddev.myapplication.userDB_Helper
 import java.util.Optional.empty
 import kotlin.math.max
-//import com.example.androiddev.myapplication.userDB_Helper
+// import com.example.androiddev.myapplication.userDB_Helper
 
 
 class TimetableSearch :  AppCompatActivity() {
@@ -29,7 +29,11 @@ class TimetableSearch :  AppCompatActivity() {
         setContentView(R.layout.layout_timetable_search)
         //DBの呼び出し
         userDB = DB_Adapter_Search_Timetable(this)
-
+        userDB.addRecordLecture(1,"オペレーティングシステム","横山","A107",2018,4)
+        userDB.addRecordLecture(2,"データベース","横山","A107",2018,3)
+        userDB.addRecordLecture(3,"感覚神経学","繁桝","A107",2018,2)
+        userDB.addRecordLecture(3,"数学1","井上","A107",2018,2)
+        userDB.addRecordLecture(3,"数学2","鈴木","A107",2018,2)
         /* プルダウン機能 */
         /* 開講クウォータ */
         //ArrayAdapter
@@ -77,17 +81,18 @@ class TimetableSearch :  AppCompatActivity() {
         /* 検索機能 */
         //文字入力が終了した状態にて、検索ボタンを使って文字列を取り出す
         search_button.setOnClickListener {
-
             //検索結果(lecture_id)を格納する
-            val resultLecture: Array<Int> = arrayOf() // 講義名検索の結果
-            val resultTeacher: Array<Int> = arrayOf() // 教員名検索の結果
-            var resultQuarter: Array<Int> = arrayOf() // 開講クウォータ検索の結果
-            val resultPrint: Array<Int> = arrayOf()//最終的な検索結果
+            val resultLecture: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 講義名検索の結果
+            val resultTeacher: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 教員名検索の結果
+            var resultQuarter: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 開講クウォータ検索の結果
+            // val resultPrint: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
+            val resultPrint: ArrayList<Int> = arrayListOf(0)//最終的な検索結果
+            //val resultPrint: ArrayList<Int> = arrayListOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
 
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
-                    var num: Int = userDB.countLecture() //登録している講義の数を取得
+                var num: Int = userDB.countLectureByName(format1.text) //登録している講義の数を取得->検索に引っかかった行数
                 var insertTemp = 0 //結果を入れる配列の場所
                 num -= 1
                 //講義検索の結果を配列に入れる
@@ -96,7 +101,8 @@ class TimetableSearch :  AppCompatActivity() {
                     val nameLecture: Int = userDB.getLectureIdByName(format1.text, cou)
                     //format1の結果でえられたIDを格納する配列の宣言
                     //val resultLecture = arrayOf(nameLecture) //arrayOfの中にIDをいれる
-                    resultLecture[insertTemp] = nameLecture //arrayOfの中にIDをいれる
+                    resultLecture.set(insertTemp,nameLecture)
+                    //resultLecture[insertTemp] = nameLecture //arrayOfの中にIDをいれる
                     insertTemp += 1
                 }
             } else {
@@ -109,15 +115,16 @@ class TimetableSearch :  AppCompatActivity() {
 
             /* format2(教員名)の処理 */
             if (format2.text.toString() != "") {
-                var num: Int = userDB.countLecture() //登録している講義の数を取得
+                var num: Int = userDB.countLectureByTeacher(format2.text) //登録している講義の数を取得
                 num -= 1
                 var insertTemp = 0 //結果を入れる配列の場所
                 for (cou in 0..num) {
-                    //format1に入力がある場合、講義名にformat1の文字列を含む講義の講義IDをDBから取得
-                    val teacherLecture: Int = userDB.getLecture_idByTeach(format2.text, cou)
+                    //format2に入力がある場合、講義名にformat2の文字列を含む講義の講義IDをDBから取得
+                    val teacherLecture: Int = userDB.getLectureIdByTeach(format2.text, cou)
                     //format1の結果でえられたIDを格納する配列の宣言
                     //val resultTeacher: Array<Int> = arrayOf(teacherLecture) //arrayOfの中にIDをいれる
-                    resultTeacher[insertTemp] = teacherLecture //arrayOfの中にIDをいれる
+                    resultTeacher.set(insertTemp, teacherLecture)
+                   // resultTeacher[insertTemp] = teacherLecture //arrayOfの中にIDをいれる
                     insertTemp += 1
                 }
             } else {
@@ -132,7 +139,7 @@ class TimetableSearch :  AppCompatActivity() {
             /* クウォータ */
             // quarterLectureと講義(lecture)テーブルの開講時期(quarter)が一致するとき
             if (quarterData != null) {
-                var num: Int = userDB.countLecture() //登録している講義の数を取得
+                var num: Int = userDB.countLectureByQuartr(quarterData) //登録している講義の数を取得
                 num -= 1
                 for (cou in 0..num) {
                     //quarterDataが"--"以外の場合、講義名にquarterDataの値を含む講義の講義IDをDBから取得
@@ -171,9 +178,11 @@ class TimetableSearch :  AppCompatActivity() {
                     }
                 }
             }
-            /* 検索ボタンによる画面遷移 */
-            val intent = Intent(application, TimetableResult::class.java)
-            intent.putExtra("resultArray",resultPrint) //TimetableResultに引き渡す値の設定
+
+            /* 検索ボタンによる画面遷移 (値:配列resultPrintも引き渡す)*/
+            val intent = Intent(this, TimetableResult::class.java)
+            //val intent = Intent(application, TimetableResult::class.java)
+            intent.putExtra("resultArray", resultPrint) //TimetableResultに引き渡す値の設定
             startActivity(intent)
         }
 

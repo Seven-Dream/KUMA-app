@@ -46,6 +46,32 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         }
     }
 
+    //timetableにレコードを追加 (登録動作がされた講義の講義情報をTimetableテーブルに格納)
+    fun addRecordTimetable(
+        lecture_id: Int,
+        lecture_name: String,
+        teacher: String/*,
+        classroom: String,
+        year: Int,
+        quarter: Int*/
+    ) {
+        val values = ContentValues()
+        values.put("lecture_id", lecture_id)
+        values.put("lecture_name", lecture_name)
+        values.put("teacher", teacher)/*
+        values.put("classroom", classroom)
+        values.put("year", year)
+        values.put("quarter", quarter)*/
+        //データの追加
+        //Log.d("opal","前"+values.toString())
+        try {
+            db.insertOrThrow("timetable", null, values)
+            //Log.d("opal","後"+values.toString())
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+
     //-------------------Select文-------------------
     //Lecture-------------------------
     //lecture_nameを指定して一列を取得
@@ -70,23 +96,23 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
     }
 
     //lectureIDをとってくる
-    fun getLecture_id(lecture_name: String, teacher: String, classroom: String, year: Int, quarter: Int): String {
+    fun getLecture_id(lecture_name: String, teacher: String/*, classroom: String, year: Int, quarter: Int*/): Int {
         val selectSql: String =
-            "select * from lecture where lecture_name = ? and teacher = ? and classroom = ? and year = ? and quarter = ?"
+            "select * from lecture where lecture_name = ? and teacher = ? /*and classroom = ? and year = ? and quarter = ?*/"
         val cursor: Cursor = db.rawQuery(
             selectSql,
             arrayOf(
-                lecture_name.toString(),
-                teacher.toString(),
+                lecture_name,
+                teacher/*,
                 classroom.toString(),
                 year.toString(),
-                quarter.toString()
+                quarter.toString()*/
             )
         )
-        var disp: String = ""//最終的に表示
+        var disp = 0//最終的に表示
         try {
             if (cursor.moveToNext()) {
-                disp = cursor.getString(cursor.getColumnIndex("lecture_id"))//Selectした結果の一文から、lecture_idという列名を取得
+                disp = cursor.getInt(cursor.getColumnIndex("lecture_id"))//Selectした結果の一文から、lecture_idという列名を取得
             }
         } finally {
             cursor.close()
@@ -100,17 +126,34 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_name.toString()))
         //Log.d("opal",cursor.toString())
         var id: Int = 0//最終的に表示
-        var count = 0
         try {
-            if (cursor.moveToNext()) {
-                if (count <= max) {
-                    id = cursor.getInt(0)
-                }
-                count += 1
+            for (i in 0..max){
+                cursor.moveToNext()
             }
+            id = cursor.getInt(0)
         } finally {
             cursor.close()
         }
+        return id
+    }
+
+    //teacharを指定してlectureIDを取得
+    fun getLectureIdByTeach(teacher: Editable, num: Int): Int {
+        val selectSql: String = "select lecture_id from lecture where teacher = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(teacher.toString()))
+        //Log.d("opal",cursor.toString())
+        var id: Int = 0//最終的に表示
+        //for(i in 0..num) {
+            try {
+                for (i in 0..num) {
+                    if (cursor.moveToNext()) {
+                        id = cursor.getInt(0)
+                    }
+                }
+            } finally {
+                cursor.close()
+            }
+        //}
         return id
     }
 
@@ -124,26 +167,6 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         try {
             if (cursor.moveToNext()) {
                 id = cursor.getInt(0)
-            }
-        } finally {
-            cursor.close()
-        }
-        return id
-    }
-
-    //teacharを指定してlectureIDを取得
-    fun getLecture_idByTeach(teachar: Editable, num: Int): Int {
-        val selectSql: String = "select lecture_id from lecture where teachar = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(teachar.toString()))
-        //Log.d("opal",cursor.toString())
-        var id: Int = 0//最終的に表示
-        var count = 0
-        try {
-            if (cursor.moveToNext()) {
-                if (count <= num) {
-                    id = cursor.getInt(0)
-                }
-                count += 1
             }
         } finally {
             cursor.close()
@@ -205,15 +228,52 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         return id
     }
 
-    //登録されている 講義の個数を取得
-    fun countLecture(): Int {
-        val selectSql: String = "select * from lecture where lecture_name = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, null)
+
+    //登録されている講義のうち、format1に入力された文字列を含む講義の個数を取得
+    fun countLectureByName(lecture: Editable): Int {
+        val selectSql: String = "select * from lecture where lecture_name = ?" //like '%?%'"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture.toString()))
+        var cou :Int = 0
+        try {
+        /*    if (cursor.moveToNext()) {
+                cou += 1
+            }*/
+            cou = cursor.count
+        } finally {
+            cursor.close()
+        }
+        return cou
+    }
+
+    //登録されている講義のうち、format2に入力された文字列を含む講義の個数を取得
+    fun countLectureByTeacher(teacher: Editable): Int {
+        val selectSql: String = "select * from lecture where teacher = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(teacher.toString()))
         var cou: Int = 0
         try {
+            /*
+            if (cursor.moveToNext()) {
+                cou += 1
+            }*/
+            cou = cursor.count
+        } finally {
+            cursor.close()
+        }
+        return cou
+    }
+
+    //登録されている講義のうち、pulldownで選択された文字列を含む講義の個数を取得
+    fun countLectureByQuartr(quarter: Int?): Int {
+        val selectSql: String = "select * from lecture where quarter =?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(quarter.toString()))
+        var cou: Int = 0
+        try {
+            /*
             if (cursor.moveToNext()) {
                 cou += 1
             }
+            */
+            cou = cursor.count
         } finally {
             cursor.close()
         }
@@ -301,13 +361,9 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
         //Log.d("opal",cursor.toString())
         var disp: String = ""//最終的に表示
-        var rowdata: String = ""
         try {
             if (cursor.moveToNext()) {
-                for (i in 0..5) {
-                    rowdata += cursor.getString(i).toString() + " , "
-                }
-                disp += rowdata + "\n"
+                disp = cursor.getString(0)
             }
         } finally {
             cursor.close()
@@ -317,22 +373,17 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
 
     //講義IDを指定して教員名を取得
     fun getTeacherNameById(lecture_id: Int): String {
-        val selectSql: String = "select teacher_name from lecture where lecture_id = ?"
+        val selectSql: String = "select teacher from lecture where lecture_id = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
         //Log.d("opal",cursor.toString())
         var disp: String = ""//最終的に表示
-        var rowdata: String = ""
         try {
             if (cursor.moveToNext()) {
-                for (i in 0..5) {
-                    rowdata += cursor.getString(i).toString() + " , "
-                }
-                disp += rowdata + "\n"
+                disp = cursor.getString(0)
             }
         } finally {
             cursor.close()
         }
         return disp
     }
-
 }
