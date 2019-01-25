@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.*
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_timetable_result.*
+import kotlinx.android.synthetic.main.layout_timetable_search.*
 import kotlinx.android.synthetic.main.list_lecture_layout.view.*
+import org.w3c.dom.Text
 import kotlin.concurrent.timer
 
 class TimetableResult : AppCompatActivity() {
@@ -30,34 +32,51 @@ class TimetableResult : AppCompatActivity() {
 
         //初期のリスト項目を設定
         val arrayAdapter = MyArrayAdapter(this, 0).apply {
-            add(ListItem("講義名", "教員名", "教室名", "開講クウォータ"))
+            add(ListItem("講義名", "教員名", "教室名", "開講クウォータ", "曜日", "時限", "開講年度"))
 
             for(pnt in 0..max) {    //pntはresultReceiveのポインタ
                 //resultReceiveに格納されたpnt番目の講義IDの情報を取得
                 val id: Int = resultReceive[pnt]
-                val a : String = userDB.getLectureNameById(id) //講義名を取得
-                val b : String = userDB.getTeacherNameById(id) //教員名を取得
-                val c : String = userDB.getClasroomById(id) //教室を取得
-                val d : Int = userDB.getQuarterById(id) //開講クウォータ(Int型)を取得
-                var e : String = "" // Int型:dを文字列に置き換えて格納
-                if(d == 1) {
-                    e = "1Q"
-                } else if(d == 2) {
-                    e = "2Q"
-                } else if(d == 3) {
-                    e = "3Q"
-                } else if(d == 4) {
-                    e = "4Q"
-                } else if(d == 5) {
-                    e = "1学期"
-                } else if(d == 6) {
-                    e = "2学期"
-                } else if(d == 7) {
-                    e = "通年"
+                val lectureName : String = userDB.getLectureNameById(id) //講義名を取得
+                val teacher : String = userDB.getTeacherNameById(id) //教員名を取得
+                val room : String = userDB.getClasroomById(id) //教室を取得
+                val quarterNum : Int = userDB.getQuarterById(id) //開講クウォータ(Int型)を取得
+                var quarter : String = "" // Int型:dを文字列に置き換えて格納
+                if(quarterNum == 1) {
+                    quarter = "1Q"
+                } else if(quarterNum == 2) {
+                    quarter = "2Q"
+                } else if(quarterNum == 3) {
+                    quarter = "3Q"
+                } else if(quarterNum == 4) {
+                    quarter = "4Q"
+                } else if(quarterNum == 5) {
+                    quarter = "1学期"
+                } else if(quarterNum == 6) {
+                    quarter = "2学期"
+                } else if(quarterNum == 7) {
+                    quarter = "通年"
                 }
-                //取得した情報をarrayAdapterにいれる
-                add(ListItem(a, b, c, e))
+                val weekNum : Int = userDB.getWeekById(id) //曜日(Int型)を取得
+                var weekDay : String = "" // Int型:gを文字列に置き換えて格納
+                if(weekNum == 1) {
+                    weekDay = "月"
+                }else if (weekNum == 2) {
+                    weekDay = "火"
+                }else if (weekNum == 3) {
+                    weekDay = "水"
+                }else if (weekNum == 4) {
+                    weekDay = "木"
+                }else if (weekNum == 5) {
+                    weekDay = "金"
+                }else if (weekNum == 6) {
+                    weekDay = "土"
+                }
+                val period : String = userDB.getPeriodById(id).toString() //時限(Int型)をString型として取得
+                val year : String = userDB.getYearById(id).toString() //開講年度(Int型)をString型として取得
 
+                //取得した情報をarrayAdapterにいれる
+                add(ListItem(lectureName, teacher, room, quarter, weekDay, period, year))
             }
         }
 
@@ -78,11 +97,17 @@ class ListItem(val lectureInfo: String) {
     var teacherInfo : String = "No description"
     var roomInfo : String = "No description"
     var quarterInfo : String = "No description"
+    var weekInfo : String = "No description"
+    var periodInfo : String = "No description"
+    var yearInfo : String = "No description"
 
-    constructor(lectureInfo: String, teacherInfo: String, roomInfo: String, quarterInfo: String) : this(lectureInfo) {
+    constructor(lectureInfo: String, teacherInfo: String, roomInfo: String, quarterInfo: String, weekInfo: String, periodInfo: String, yearInfo: String) : this(lectureInfo) {
         this.teacherInfo = teacherInfo
         this.roomInfo = roomInfo
         this.quarterInfo = quarterInfo
+        this.weekInfo = weekInfo
+        this.periodInfo = periodInfo
+        this.yearInfo = yearInfo
     }
 }
 
@@ -92,7 +117,10 @@ data class ViewHolder(
     val lectureView: TextView,
     val teacherView: TextView,
     val roomView: TextView,
-    val quarterView: TextView)
+    val quarterView: TextView,
+    val weekView: TextView,
+    val periodView: TextView,
+    val yearView: TextView)
 
 // 自作のリスト項目データを扱えるようにした ArrayAdapter
 class MyArrayAdapter : ArrayAdapter<ListItem> {
@@ -116,7 +144,10 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 view.findViewById(R.id.list_lecture),
                 view.findViewById(R.id.list_teacher),
                 view.findViewById(R.id.list_classroom),
-                view.findViewById(R.id.list_quarter)
+                view.findViewById(R.id.list_quarter),
+                view.findViewById(R.id.list_week),
+                view.findViewById(R.id.list_period),
+                view.findViewById(R.id.list_year)
             )
             view.tag = viewHolder
         } else {
@@ -129,6 +160,9 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
         viewHolder.teacherView.text = listItem.teacherInfo //教員名の情報
         viewHolder.roomView.text = listItem.roomInfo //教室の情報
         viewHolder.quarterView.text = listItem.quarterInfo //開講クウォータの情報
+        viewHolder.weekView.text = listItem.weekInfo //曜日の情報
+        viewHolder.quarterView.text = listItem.periodInfo //時限の情報
+        viewHolder.yearView.text = listItem.yearInfo //開講年度の情報
 
         /* 登録ボタンをタップしたときの処理*/
         viewHolder.entryIcon.setOnClickListener { _ ->
@@ -156,6 +190,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.lectureView.text.toString(),
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
+                viewHolder.yearView.text.toString().toInt(),
                 quarterNum)
 
             // テーブルTimetableに、講義名・教員名・教室・開講年・クウォータを格納
@@ -164,6 +199,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.lectureView.text.toString(),
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
+                viewHolder.yearView.text.toString().toInt(),
                 quarterNum)
             // 登録した講義の情報の表示を消去
             this.remove(listItem)

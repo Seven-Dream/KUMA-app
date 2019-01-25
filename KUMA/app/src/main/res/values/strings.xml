@@ -12,4 +12,5 @@
     <string name="classroom">教室名</string>
     <string name="day_week">曜日</string>
     <string name="period_time">時限</string>
+    <string name="held_year">開講年度</string>
 </resources>

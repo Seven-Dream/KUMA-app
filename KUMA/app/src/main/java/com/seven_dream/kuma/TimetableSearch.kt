@@ -34,6 +34,10 @@ class TimetableSearch :  AppCompatActivity() {
         userDB.addRecordLecture(3,"感覚神経学","繁桝","A107",2018,2)
         userDB.addRecordLecture(3,"数学1","井上","A107",2018,2)
         userDB.addRecordLecture(3,"数学2","鈴木","A107",2018,2)
+        userDB.addRecordLecturePeriodWeek(1, 2, 1)
+        userDB.addRecordLecturePeriodWeek(2, 2, 1)
+        userDB.addRecordLecturePeriodWeek(3, 3, 3)
+
 
         /* プルダウン機能 */
         /* 開講クウォータ */

@@ -51,8 +51,8 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         lecture_id: Int,
         lecture_name: String,
         teacher: String,
-        classroom: String,/*
-        year: Int,*/
+        classroom: String,
+        year: Int,
         quarter: Int
     ) {
         val values = ContentValues()
@@ -60,12 +60,33 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         values.put("lecture_name", lecture_name)
         values.put("teacher", teacher)
         values.put("classroom", classroom)
-        /*values.put("year", year)*/
+        values.put("year", year)
         values.put("quarter", quarter)
         //データの追加
         //Log.d("opal","前"+values.toString())
         try {
             db.insertOrThrow("timetable", null, values)
+            //Log.d("opal","後"+values.toString())
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
+
+    /* 実際の実装には不要 */
+    //lecture_period_weekにレコードを追加
+    fun addRecordLecturePeriodWeek(
+        lecture_id: Int,
+        period: Int,
+        week: Int
+    ) {
+        val values = ContentValues()
+        values.put("lecture_id", lecture_id)
+        values.put("period", period)
+        values.put("week", week)
+        //データの追加
+        //Log.d("opal","前"+values.toString())
+        try {
+            db.insertOrThrow("lecture_period_week", null, values)
             //Log.d("opal","後"+values.toString())
         } catch (e: SQLiteException) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
@@ -96,16 +117,16 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
     }
 
     //lectureIDをとってくる
-    fun getLecture_id(lecture_name: String, teacher: String, classroom: String, /*year: Int,*/ quarter: Int): Int {
+    fun getLecture_id(lecture_name: String, teacher: String, classroom: String, year: Int, quarter: Int): Int {
         val selectSql: String =
-            "select * from lecture where lecture_name = ? and teacher = ? and classroom = ? /*and year = ?*/ and quarter = ?"
+            "select * from lecture where lecture_name = ? and teacher = ? and classroom = ? and year = ? and quarter = ?"
         val cursor: Cursor = db.rawQuery(
             selectSql,
             arrayOf(
                 lecture_name,
                 teacher,
-                classroom,/*
-                year.toString(),*/
+                classroom,
+                year.toString(),
                 quarter.toString()
             )
         )
@@ -363,7 +384,7 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         return disp
     }
 
-    //講義IDを指定して開講クウォータを取得(文字列に変換して)
+    //講義IDを指定して開講クウォータを取得
     fun getQuarterById(lecture_id: Int): Int {
         val selectSql: String = "select quarter from lecture where lecture_id = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
@@ -379,19 +400,31 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         return disp
     }
 
+    //講義IDを指定して開講年度を取得
+    fun getYearById(lecture_id: Int): Int {
+        val selectSql: String = "select year from lecture where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
+        //Log.d("opal",cursor.toString())
+        var disp: Int =0 //最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getInt(0)
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
+
     //講義IDを指定して曜日を取得
-    fun getWeekById(lecture_id: Int): String {
+    fun getWeekById(lecture_id: Int): Int {
         val selectSql: String = "select week from lecture_period_week where lecture_id = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
         //Log.d("opal",cursor.toString())
-        var disp: String = "" //最終的に表示
-        var rowdata: String = ""
+        var disp: Int =0 //最終的に表示
         try {
             if (cursor.moveToNext()) {
-                for (i in 0..5) {
-                    rowdata += cursor.getInt(i).toString() + " , "
-                }
-                disp += rowdata + "\n"
+                disp = cursor.getInt(0)
             }
         } finally {
             cursor.close()
@@ -400,18 +433,14 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
     }
 
     //講義IDを指定して時限を取得
-    fun getPeriodById(lecture_id: Int): String {
+    fun getPeriodById(lecture_id: Int): Int {
         val selectSql: String = "select period from lecture_period_week where lecture_id = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
         //Log.d("opal",cursor.toString())
-        var disp: String = ""//最終的に表示
-        var rowdata: String = ""
+        var disp: Int =0 //最終的に表示
         try {
             if (cursor.moveToNext()) {
-                for (i in 0..5) {
-                    rowdata += cursor.getString(i).toString() + " , "
-                }
-                disp += rowdata + "\n"
+                disp = cursor.getInt(0)
             }
         } finally {
             cursor.close()
