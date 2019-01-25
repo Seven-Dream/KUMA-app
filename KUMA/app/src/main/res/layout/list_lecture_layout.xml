@@ -29,37 +29,36 @@
             android:layout_weight="1"
             android:textSize="20sp"
     />
-    <!--
     <TextView
             android:id="@+id/list_classroom"
+            android:text="@string/classroom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/list_teacher"
-            android:layout_toLeftOf="@+id/list_quarter"
-            android:padding="8dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
     />
     <TextView
             android:id="@+id/list_quarter"
+            android:text="@string/held_quarter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/list_classroom"
-            android:layout_toLeftOf="@+id/list_week"
-            android:padding="8dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
     />
     <TextView
             android:id="@+id/list_week"
+            android:text="@string/day_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/list_quarter"
-            android:layout_toLeftOf="@+id/list_period"
-            android:padding="8dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
     />
     <TextView
             android:id="@+id/list_period"
+            android:text="@string/period_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="8dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
     />
-    -->
 </LinearLayout>

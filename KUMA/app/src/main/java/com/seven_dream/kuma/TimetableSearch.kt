@@ -34,6 +34,7 @@ class TimetableSearch :  AppCompatActivity() {
         userDB.addRecordLecture(3,"感覚神経学","繁桝","A107",2018,2)
         userDB.addRecordLecture(3,"数学1","井上","A107",2018,2)
         userDB.addRecordLecture(3,"数学2","鈴木","A107",2018,2)
+
         /* プルダウン機能 */
         /* 開講クウォータ */
         //ArrayAdapter
@@ -85,10 +86,7 @@ class TimetableSearch :  AppCompatActivity() {
             val resultLecture: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 講義名検索の結果
             val resultTeacher: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 教員名検索の結果
             var resultQuarter: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 開講クウォータ検索の結果
-            // val resultPrint: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
             val resultPrint: ArrayList<Int> = arrayListOf(0)//最終的な検索結果
-            //val resultPrint: ArrayList<Int> = arrayListOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
-
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
@@ -100,9 +98,7 @@ class TimetableSearch :  AppCompatActivity() {
                     //format1に入力がある場合、講義名にformat1の文字列を含む講義の講義IDをDBから取得
                     val nameLecture: Int = userDB.getLectureIdByName(format1.text, cou)
                     //format1の結果でえられたIDを格納する配列の宣言
-                    //val resultLecture = arrayOf(nameLecture) //arrayOfの中にIDをいれる
                     resultLecture.set(insertTemp,nameLecture)
-                    //resultLecture[insertTemp] = nameLecture //arrayOfの中にIDをいれる
                     insertTemp += 1
                 }
             } else {
@@ -122,9 +118,7 @@ class TimetableSearch :  AppCompatActivity() {
                     //format2に入力がある場合、講義名にformat2の文字列を含む講義の講義IDをDBから取得
                     val teacherLecture: Int = userDB.getLectureIdByTeach(format2.text, cou)
                     //format1の結果でえられたIDを格納する配列の宣言
-                    //val resultTeacher: Array<Int> = arrayOf(teacherLecture) //arrayOfの中にIDをいれる
                     resultTeacher.set(insertTemp, teacherLecture)
-                   // resultTeacher[insertTemp] = teacherLecture //arrayOfの中にIDをいれる
                     insertTemp += 1
                 }
             } else {
@@ -146,7 +140,6 @@ class TimetableSearch :  AppCompatActivity() {
                     val quarterLecture: Int = userDB.getLectureIdByQuarter(quarterData, cou)
                         userDB.getLectureIdByQuarter(quarterLecture, cou)//i番目のlecture_idをとってくる
                     //format1の結果でえられたIDを格納する配列の宣言
-                    //val resultQuarter: Array<Int> = arrayOf(quarterLecture) //arrayOfの中にIDをいれる
                     resultQuarter = arrayOf(quarterLecture) //arrayOfの中にIDをいれる
                 }
             } else {
@@ -160,7 +153,6 @@ class TimetableSearch :  AppCompatActivity() {
 
             val max: Int = userDB.getMaxLecture()//講義テーブルにあるlecture_idの最大値を取得
             var insertTmp = 0
-//            val arrayAdapter
             for (id  in 0..max) {//講義テーブルに入ってるid全部で比較する
                 //講義名から取得したID・教員名から取得したID・開講クウォータから取得したIDすべてに"id"が含まれていれば、resultPrintに格納
                 if (resultLecture.contains(id)) {
@@ -168,12 +160,7 @@ class TimetableSearch :  AppCompatActivity() {
                         if (resultQuarter.contains(id)) {
                             //最終的な結果を入れる配列(resultPrint)にidを格納する
                             resultPrint[insertTmp] = id //結果で表示すべき講義の講義IDを格納
-/*                            var a : String = userDB.getLectureNameById(id)   //講義名を取得
-                            var b : String = userDB.getTeacherNameById(id)   //教員名を取得
-                            arrayAdapter = MyArrayAdapter(this, 0).apply {
-                                add(ListItem(a, b))
-                            }
-  */                          insertTmp += 1
+                            insertTmp += 1
                         }
                     }
                 }
@@ -181,14 +168,12 @@ class TimetableSearch :  AppCompatActivity() {
 
             /* 検索ボタンによる画面遷移 (値:配列resultPrintも引き渡す)*/
             val intent = Intent(this, TimetableResult::class.java)
-            //val intent = Intent(application, TimetableResult::class.java)
             intent.putExtra("resultArray", resultPrint) //TimetableResultに引き渡す値の設定
             startActivity(intent)
         }
 
         /* 戻るボタン */
         return_search.setOnClickListener {
-            //val intent = Intent(application, TitleController::class.java) // 本当は違うよ、これはテストだよ
             // val intent = Intent(application, Timetable::class.java)
             finish()
             //startActivity(intent)
