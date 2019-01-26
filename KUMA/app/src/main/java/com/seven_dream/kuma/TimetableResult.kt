@@ -161,7 +161,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
         viewHolder.roomView.text = listItem.roomInfo //教室の情報
         viewHolder.quarterView.text = listItem.quarterInfo //開講クウォータの情報
         viewHolder.weekView.text = listItem.weekInfo //曜日の情報
-        viewHolder.quarterView.text = listItem.periodInfo //時限の情報
+        viewHolder.periodView.text = listItem.periodInfo //時限の情報
         viewHolder.yearView.text = listItem.yearInfo //開講年度の情報
 
         /* 登録ボタンをタップしたときの処理*/
