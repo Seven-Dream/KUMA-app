@@ -5,14 +5,9 @@ import android.content.Context
 import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteException
 import android.util.Log
-import android.view.ContextThemeWrapper
-// import com.example.androiddev.myapplication.userDB_Helper.Companion.DB_TABLE_NAME
-//import com.example.hanm1_100.kuma.userDB_Helper.Companion.DB_TABLE_NAME
 
 class userDB_Adapter_Event(mContext: Context) {
-
 
     private val db: SQLiteDatabase
     private val userDB: userDB_Helper
@@ -45,24 +40,6 @@ class userDB_Adapter_Event(mContext: Context) {
         }
     }
 
-// select文
-    //eventIDをとってくる
-    /*
-    fun getEvent_id(year: Int, month: Int, day: Int): Int {
-        val selectSql: String = "select id from event_student where year = ? and month = ? and day = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), month.toString(), day.toString()))
-        var id: Int = 0//IDをこの中に入れる
-        //var disp: String = ""//最終的に表示
-        try {
-            if (cursor.moveToNext()) {
-                id = cursor.getInt(cursor.getColumnIndex("id"))//列名が「eventID」の列番号を取得して、getStringで列番号に対応する文字を取得
-            }
-        } finally {
-            cursor.close()
-        }
-        return id
-    }
-    */
     fun getEvent_id(year: Int, month: Int, day: Int, next: Int): Int {
         val selectSql: String = "select id from event_student where year = ? and month = ? and day = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), month.toString(), day.toString()))
@@ -78,16 +55,21 @@ class userDB_Adapter_Event(mContext: Context) {
                 tmp += 1
             }*/
             for(i in 1..next) {
-                if(!cursor.moveToNext()) flag = 1//最後まで見終わっていた
+                if(!cursor.moveToNext()) {
+                    flag = 1//最後まで見終わっていた
+                    //val check = cursor.getInt(cursor.getColumnIndex("id"))
+                }
             }
-            if (flag == 0) id = cursor.getInt(cursor.getColumnIndex("id"))//列名が「eventID」の列番号を取得して、getStringで列番号に対応する文字を取得
+            if (flag == 0) {
+                id = cursor.getInt(cursor.getColumnIndex("id"))
+            } //列名が「eventID」の列番号を取得して、getStringで列番号に対応する文字を取得
         } finally {
             cursor.close()
         }
         return id
     }
 
-    /*fun getEvent_year(id: Int): Int {
+    fun getEvent_year(id: Int): Int {
         val selectSql: String = "select year from event_student where id = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
         var disp: Int = 0//最終的に表示
@@ -113,7 +95,7 @@ class userDB_Adapter_Event(mContext: Context) {
             cursor.close()
         }
         return disp
-    }*/
+    }
 
     fun getEvent_day(id: Int): Int {
         val selectSql: String = "select day from event_student where id = ?"
@@ -171,5 +153,7 @@ fun getEventStudent(id:Int): String {
         return "Failed executeSQL SQLite -- " + e.message
     }
 }
+
+
 */
 
