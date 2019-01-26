@@ -32,7 +32,7 @@ class TimetableResult : AppCompatActivity() {
 
         //初期のリスト項目を設定
         val arrayAdapter = MyArrayAdapter(this, 0).apply {
-            add(ListItem("講義名", "教員名", "教室名", "開講クウォータ", "曜日", "時限", "開講年度"))
+            //add(ListItem("講義名", "教員名", "教室名", "開講クウォータ", "曜日", "時限", "開講年度"))
 
             for(pnt in 0..max) {    //pntはresultReceiveのポインタ
                 //resultReceiveに格納されたpnt番目の講義IDの情報を取得
@@ -170,7 +170,6 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
             /*開講クウォータの情報をString型からInt型に*/
             var quarterNum :Int = 0
             var quarter : String = viewHolder.quarterView.text.toString()
-            /*
             if(quarter == "1Q"){
                 quarterNum = 1
             }else if(quarter == "2Q"){
@@ -186,7 +185,6 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
             }else if(quarter == "通年"){
                 quarterNum = 7
             }
-            */
 
             //講義ID取得
             var entryID = userDB.getLecture_id(
@@ -194,7 +192,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
                 viewHolder.yearView.text.toString().toInt(),
-                quarter.toInt())
+                quarterNum)
 
             // テーブルTimetableに、講義名・教員名・教室・開講年・クウォータを格納
             userDB.addRecordTimetable(
@@ -203,7 +201,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
                 viewHolder.yearView.text.toString().toInt(),
-                quarter.toInt())
+                quarterNum)
             // 登録した講義の情報の表示を消去
             this.remove(listItem)
             this.notifyDataSetChanged()
