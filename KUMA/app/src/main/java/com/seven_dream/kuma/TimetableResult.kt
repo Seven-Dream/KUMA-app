@@ -169,21 +169,24 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
             Toast.makeText(context, "登録しました", Toast.LENGTH_LONG).show()
             /*開講クウォータの情報をString型からInt型に*/
             var quarterNum :Int = 0
-            if(viewHolder.quarterView.text.toString() == "1Q"){
+            var quarter : String = viewHolder.quarterView.text.toString()
+            /*
+            if(quarter == "1Q"){
                 quarterNum = 1
-            }else if(viewHolder.quarterView.text.toString() == "2Q"){
+            }else if(quarter == "2Q"){
                 quarterNum = 2
-            }else if(viewHolder.quarterView.text.toString() == "3Q"){
+            }else if(quarter == "3Q"){
                 quarterNum = 3
-            }else if(viewHolder.quarterView.text.toString() == "4Q"){
+            }else if(quarter == "4Q"){
                 quarterNum = 4
-            }else if(viewHolder.quarterView.text.toString() == "1学期"){
+            }else if(quarter == "1学期"){
                 quarterNum = 5
-            }else if(viewHolder.quarterView.text.toString() == "2学期"){
+            }else if(quarter == "2学期"){
                 quarterNum = 6
-            }else if(viewHolder.quarterView.text.toString() == "通年"){
+            }else if(quarter == "通年"){
                 quarterNum = 7
             }
+            */
 
             //講義ID取得
             var entryID = userDB.getLecture_id(
@@ -191,7 +194,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
                 viewHolder.yearView.text.toString().toInt(),
-                quarterNum)
+                quarter.toInt())
 
             // テーブルTimetableに、講義名・教員名・教室・開講年・クウォータを格納
             userDB.addRecordTimetable(
@@ -200,7 +203,7 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
                 viewHolder.yearView.text.toString().toInt(),
-                quarterNum)
+                quarter.toInt())
             // 登録した講義の情報の表示を消去
             this.remove(listItem)
             this.notifyDataSetChanged()

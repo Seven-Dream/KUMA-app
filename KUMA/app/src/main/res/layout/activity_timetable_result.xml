@@ -11,50 +11,49 @@
 
     <!-- ページタイトルの表示 -->
     <!--
+    <ImageView
+            android:src="@drawable/title_lecture_result"
+            android:scaleType="centerCrop"
+            android:layout_height="100dp"
+            android:contentDescription="@string/app_name"
+            android:layout_width="220dp"/>
     <TextView
             android:id="@+id/title_result"
             android:background="@+id/background_page_name"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="60dp"
             android:text="@string/result_lecture"
             android:textSize="30sp"
+            android:layout_gravity="center"
             android:gravity="center"
-            tools:ignore="RtlCompat"
     />
-    -->
+  -->
 
     <!-- 検索結果の各項目の表示 -->
-    <!--
     <HorizontalScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".TimetableResult">
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".TimetableResult">
 
-        <ScrollView
-
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                tools:context=".TimetableResult">
-                -->
-            <ListView
+         <ListView
                     android:id="@+id/listView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-    <!--
-        </ScrollView>
+                    android:layout_height="wrap_content"/>
+
     </HorizontalScrollView>
-    -->
 
     <!--戻るボタン-->
     <Button
             android:id="@+id/return_result"
-            android:layout_width="wrap_content"
+            android:textSize="22sp"
+            android:layout_width="80dp"
             android:layout_height="60dp"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/back"
+            android:background="@drawable/button_style1"
+            android:layout_marginTop="40dp"
     />
 </LinearLayout>
