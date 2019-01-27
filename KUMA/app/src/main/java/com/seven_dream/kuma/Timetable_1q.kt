@@ -19,72 +19,6 @@ class Timetable_1q : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_1q)
-        //残っているtableの削除
-        userDB_timetable.deleteTimetable(0)
-        userDB_timetable.deleteTimetable(1)
-        userDB_timetable.deleteTimetable(2)
-        userDB_timetable.deleteTimetable(3)
-        userDB_timetable.deleteTimetable(4)
-        userDB_timetable.deleteTimetable(5)
-        userDB_timetable.deleteTimetable(6)
-        userDB_timetable.deleteTimetable(7)
-        userDB_timetable.deleteTimetable(8)
-        userDB_timetable.deleteTimetable(9)
-        userDB_timetable.deleteTimetable(10)
-
-        userDB_timetable.deleteWeek_Period(0)
-        userDB_timetable.deleteWeek_Period(1)
-        userDB_timetable.deleteWeek_Period(2)
-        userDB_timetable.deleteWeek_Period(3)
-        userDB_timetable.deleteWeek_Period(4)
-        userDB_timetable.deleteWeek_Period(5)
-        userDB_timetable.deleteWeek_Period(6)
-        userDB_timetable.deleteWeek_Period(7)
-        userDB_timetable.deleteWeek_Period(8)
-        userDB_timetable.deleteWeek_Period(9)
-        userDB_timetable.deleteWeek_Period(10)
-
-        userDB_timetable.addRecordLecture(1, "情報セキュリティ", "清水", " A106", 2018, 1)
-
-
-        userDB_timetable.addRecordTimetable(1, "情報セキュリティ", "清水", " A106", 2018, 1)
-        userDB_timetable.addRecordTimetable(2, "情報学群実験第3i", "吉田,植田", " 情報実験室", 2018, 1)
-        userDB_timetable.addRecordTimetable(3, "情報学群実験第3c", "栗原,高田", " A-WS", 2018, 2)
-        userDB_timetable.addRecordTimetable(4, "データベースシステム", "横山", " A106", 2018, 3)
-        userDB_timetable.addRecordTimetable(5, "オペレーティングシステム", "横山", " A106", 2018, 4)
-        userDB_timetable.addRecordTimetable(6, "HCI概論", "任", " A106", 2018, 4)
-        userDB_timetable.addRecordTimetable(7, "認知心理学", "繁枡", " A106", 2018, 3)
-        userDB_timetable.addRecordTimetable(8, "ソフトウェア工学", "高田,松崎", " A106", 2018, 3)
-        userDB_timetable.addRecordTimetable(9, "ソフトウェア工学", "高田,松崎", " A106", 2018, 4)
-        userDB_timetable.addRecordTimetable(10, "キャリアプラン2", "村上", " K-HALL", 2018, 4)
-
-
-
-        userDB_timetable.addRecordWeek(1, 1, 1)
-        userDB_timetable.addRecordWeek(1, 4, 1)
-        userDB_timetable.addRecordWeek(2, 1, 3)
-        userDB_timetable.addRecordWeek(2, 1, 4)
-        userDB_timetable.addRecordWeek(2, 4, 3)
-        userDB_timetable.addRecordWeek(2, 4, 4)
-        userDB_timetable.addRecordWeek(3, 1, 3)
-        userDB_timetable.addRecordWeek(3, 1, 4)
-        userDB_timetable.addRecordWeek(3, 4, 3)
-        userDB_timetable.addRecordWeek(3, 4, 4)
-        userDB_timetable.addRecordWeek(4, 1, 1)
-        userDB_timetable.addRecordWeek(4, 4, 1)
-        userDB_timetable.addRecordWeek(5, 1, 2)
-        userDB_timetable.addRecordWeek(5, 4, 2)
-        userDB_timetable.addRecordWeek(6, 2, 3)
-        userDB_timetable.addRecordWeek(6, 5, 3)
-        userDB_timetable.addRecordWeek(7, 2, 3)
-        userDB_timetable.addRecordWeek(7, 5, 3)
-        userDB_timetable.addRecordWeek(8, 1, 3)
-        userDB_timetable.addRecordWeek(8, 4, 3)
-        userDB_timetable.addRecordWeek(9, 1, 3)
-        userDB_timetable.addRecordWeek(9, 4, 3)
-        userDB_timetable.addRecordWeek(10, 3, 3)
-
-
         button.setOnClickListener {
             val intent = Intent(application, TimetableSearch::class.java)
             startActivity(intent)
@@ -321,6 +255,7 @@ class Timetable_1q : AppCompatActivity() {
 
         override fun onDraw(canvas: Canvas){
 
+            userDB_timetable = userDB_Adapter_Timetable(context)//DBの呼び出し
             // ペイントする色の設定
             paint.color = Color.argb(255, 255, 0, 255)
 
