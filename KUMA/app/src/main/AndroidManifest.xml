@@ -9,13 +9,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Timetable_1q">
+        <activity android:name=".TitleController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <!--長江-->
+        <activity
+                android:name=".Timetable_1q">
+        </activity>
         <activity
                 android:name=".Timetable_2q">
         </activity>
@@ -26,19 +29,49 @@
                 android:name=".Timetable_4q">
         </activity>
         <activity
-                android:name=".AttendCheck">
+                android:name=".AttendCheck_1q">
         </activity>
         <activity
-                android:name=".TimetableSearch">
+                android:name=".AttendCheck_2q">
         </activity>
         <activity
-                android:name=".Count">
+                android:name=".AttendCheck_3q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_4q">
+        </activity>
+        <activity
+                android:name=".Count_1q">
+        </activity>
+        <activity
+                android:name=".Count_2q">
+        </activity>
+        <activity
+                android:name=".Count_3q">
+        </activity>
+        <activity
+                android:name=".Count_4q">
+        </activity>
+        <activity
+                android:name=".Delete">
+        </activity>
+        <activity
+                android:name=".Delete_1q">
+        </activity>
+        <activity
+                android:name=".Delete_2q">
+        </activity>
+        <activity
+                android:name=".Delete_3q">
+        </activity>
+        <activity
+                android:name=".Delete_4q">
         </activity>
         <activity
                 android:name=".Schedule">
         </activity>
         <!--横田-->
-        <activity 
+        <activity
                 android:name=".TimetableSearch"
                 android:parentActivityName=".TimetableResult">
         </activity>
