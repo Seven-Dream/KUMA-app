@@ -6,15 +6,15 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import com.example.androiddev.myapplication.userDB_Helper
+//import com.example.androiddev.myapplication.userDB_Helper
 
-class userDB_Adapter(mContext: Context) {
+class userDB_Adapter_Title(mContext: Context) {
     private val db: SQLiteDatabase
     private val uaerDB : userDB_Helper
-        init {
+    init {
             uaerDB = userDB_Helper(mContext)  // DB生成
             db = uaerDB.getWritableDatabase()
-        }
+    }
 //---------------------insert文---------------------------
     //Lecture----------------------
     //lectureにレコードを追加
@@ -27,7 +27,7 @@ class userDB_Adapter(mContext: Context) {
         values.put("year", year)
         values.put("quarter", quarter)
         //データの追加
-        //Log.d("opal","前"+values.toString())
+        Log.d("opal","前"+values.toString())
         try {
             db.insertOrThrow("lecture", null, values)
             //Log.d("opal","後"+values.toString())
@@ -43,7 +43,7 @@ class userDB_Adapter(mContext: Context) {
         values.put("week", week)
         values.put("period",period)
         //データの追加
-        Log.d("opal", "前" + values.toString())
+        Log.d("opal", "前week:" + values.toString())
         try {
             db.insert("lecture_period_week", null, values)
         } catch (e: SQLiteException) {
@@ -107,7 +107,7 @@ class userDB_Adapter(mContext: Context) {
         values.put("day",day)
         values.put("comment",comment)
         //データの追加
-        Log.d("opal", "前" + values.toString())
+        //Log.d("opal", "前" + values.toString())
         try {
             db.insert("event_uni", null, values)
         } catch (e: SQLiteException) {
@@ -125,7 +125,7 @@ class userDB_Adapter(mContext: Context) {
         values.put("day",day)
         values.put("url",url)
         //データの追加
-        Log.d("opal", "前" + values.toString())
+        //Log.d("opal", "前" + values.toString())
         try {
             db.insert("event_student", null, values)
         } catch (e: SQLiteException) {

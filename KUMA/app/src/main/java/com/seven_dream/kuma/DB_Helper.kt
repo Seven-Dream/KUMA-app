@@ -1,4 +1,4 @@
-package com.example.androiddev.myapplication
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -23,11 +23,11 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
         db?.execSQL(Change)
         db?.execSQL(Uni)
         db?.execSQL(Student)
+        db?.execSQL(Timetable)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // バージョンが変わった時に実行される
-        Log.d("opal","onUpgrade")
-        db?.execSQL("DROP TABLE IF EXISTS " + DB_TABLE_NAME + ";")
+        Log.d("opai","onUpgrade")
         db?.execSQL("DROP TABLE IF EXISTS lecture ;")
         db?.execSQL("DROP TABLE IF EXISTS lecture_period_week ;")
         db?.execSQL("DROP TABLE IF EXISTS lecture_test ;")
@@ -35,13 +35,13 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
         db?.execSQL("DROP TABLE IF EXISTS lecture_change_class ;")
         db?.execSQL("DROP TABLE IF EXISTS event_uni ;")
         db?.execSQL("DROP TABLE IF EXISTS event_student ;")
+        db?.execSQL("DROP TABLE IF EXISTS timetable ;")
         onCreate(db)
         // 今回は,一度消して、作り直ししてます
 
     }
     companion object {
         private const val Lecture = "CREATE TABLE lecture ( " +
-                //"lecture_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "lecture_id INTEGER PRIMARY KEY, " +
                 "lecture_name VARCHAR(64), " +
                 "teacher VARCHAR(64), " +
@@ -50,34 +50,38 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "quarter INTEGER );"
 
         private const val Period_Week = "CREATE TABLE lecture_period_week ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
-                "period INTEGER, " +
+                "lecture_id INTEGER, " +
+                "period INTEGER , " +
                 "week INTEGER, " +
+                //"PRIMARY KEY(lecture_id, week)" +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
-        private val Test = "CREATE TABLE lecture_test ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+        private const val Test = "CREATE TABLE lecture_test ( " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
                 "comment TEXT, " +
+                //"PRIMARY KEY (lecture_id, month, day), " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
-        private val Cancel = "CREATE TABLE lecture_cancel ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+        private const val Cancel = "CREATE TABLE lecture_cancel ( " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "comment TEXT, " +
+                //"PRIMARY KEY (lecture_id, month, day)," +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
-        private val Change = "CREATE TABLE lecture_change_class ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+        private const val Change = "CREATE TABLE lecture_change_class ( " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
+                //"PRIMARY KEY (lecture_id, month, day), " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
-        private val Uni = "CREATE TABLE event_uni ( " +
+        private const val Uni = "CREATE TABLE event_uni ( " +
                 "id INTEGER PRIMARY KEY, " +
                 "event_name VARCHAR(64), " +
                 "year INTEGER, " +
@@ -85,17 +89,24 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "day INTEGER, " +
                 "comment TEXT );"
 
-        private val Student = "CREATE TABLE event_student ( " +
+        private const val Student = "CREATE TABLE event_student ( " +
                 "id INTEGER PRIMARY KEY, " +
                 "event_name VARCHAR(64), " +
                 "year INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "url VARCHAR(64) );"
+        //登録した講義を入れるためのテーブル
+        private const val Timetable = "CREATE TABLE timetable ( " +
+                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_name VARCHAR(64), " +
+                "teacher VARCHAR(64), " +
+                "classroom VARCHAR(64), " +
+                "year INTEGER, " +
+                "quarter INTEGER );"
 
-        private val DB_VERSION = 1
-        private val DB_NAME = "sampleDB"
-        internal val DB_TABLE_NAME = "sampletable"
+        private const val DB_VERSION = 1
+        private const val DB_NAME = "KUMADB"
     }
 
 }
