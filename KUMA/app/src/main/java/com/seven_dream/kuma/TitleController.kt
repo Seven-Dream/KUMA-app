@@ -28,8 +28,6 @@ class TitleController : AppCompatActivity() {
         userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.titlecontroller)
-
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
     }
 
