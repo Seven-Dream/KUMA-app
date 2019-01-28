@@ -1,4 +1,4 @@
-package com.kuma.timetable
+﻿package com.kuma.timetable
 
 
 import android.content.Context
