@@ -142,12 +142,14 @@ class TimetableSearch :  AppCompatActivity() {
             if (quarterData != null) {
                 var num: Int = userDB.countLectureByQuartr(quarterData) //登録している講義の数を取得
                 num -= 1
+                var insertTemp = 0 //結果を入れる配列の場所
                 for (cou in 0..num) {
                     //quarterDataが"--"以外の場合、講義名にquarterDataの値を含む講義の講義IDをDBから取得
                     val quarterLecture: Int = userDB.getLectureIdByQuarter(quarterData, cou)
-                        userDB.getLectureIdByQuarter(quarterLecture, cou)//i番目のlecture_idをとってくる
+                    //userDB.getLectureIdByQuarter(quarterLecture, cou)//i番目のlecture_idをとってくる
                     //format1の結果でえられたIDを格納する配列の宣言
-                    resultQuarter = arrayOf(quarterLecture) //arrayOfの中にIDをいれる
+                    resultQuarter.set(insertTemp, quarterLecture)
+                    insertTemp += 1
                 }
             } else {
                 //NULLの場合、配列にはデータベース上の講義IDをすべて格納する

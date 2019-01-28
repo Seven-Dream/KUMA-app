@@ -183,13 +183,11 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(quarter.toString()))
         //Log.d("opal",cursor.toString())
         var id: Int = 0//最終的に表示
-        var count = 0
         try {
-            if (cursor.moveToNext()) {
-                if (count <= num) {
+            for (i in 0..num) {
+                if (cursor.moveToNext()) {
                     id = cursor.getInt(0)
                 }
-                count += 1
             }
         } finally {
             cursor.close()

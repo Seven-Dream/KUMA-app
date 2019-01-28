@@ -84,14 +84,6 @@ class TitleController : AppCompatActivity() {
         for (i in 0..(json.length() - 1)) {
             //lectureテーブルに挿入するためのレコードを取得
             val jsonObj = json.getJSONObject(i)
-            /*本番用
-            val id = jsonObj.getInt("Id")
-            val name = jsonObj.getString("LectureName")
-            val teacher = jsonObj.getString("Teachar")
-            val classroom = jsonObj.getString("ClassRoom")
-            val year = jsonObj.getInt("Year")
-            val quarter = jsonObj.getInt("Quarter")
-            */
             val id = jsonObj.getInt("lecture_id")
             val name = jsonObj.getString("lecture_name")
             val teacher = jsonObj.getString("teacher")

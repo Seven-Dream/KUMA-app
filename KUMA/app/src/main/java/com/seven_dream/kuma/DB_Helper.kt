@@ -106,7 +106,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "url VARCHAR(64) );"
         //登録した講義を入れるためのテーブル
         private const val Timetable = "CREATE TABLE timetable ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "lecture_name VARCHAR(64), " +
                 "teacher VARCHAR(64), " +
                 "classroom VARCHAR(64), " +
