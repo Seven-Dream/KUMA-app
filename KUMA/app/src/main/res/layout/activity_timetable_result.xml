@@ -8,27 +8,26 @@
         tools:context=".TimetableResult"
         android:orientation="vertical">
 
-
     <!-- ページタイトルの表示 -->
-    <ImageView
-            android:src="@drawable/title_lecture_result"
-            android:scaleType="fitCenter"
-            android:layout_height="70dp"
-            android:contentDescription="@string/app_name"
-            android:layout_width="220dp"
-            android:layout_gravity="center"/>
-<!--
     <TextView
             android:id="@+id/title_result"
-            android:background="@+id/background_page_name"
-            android:layout_width="200dp"
+            android:background="#66CC66"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="@string/result_lecture"
             android:textSize="30sp"
-            android:layout_gravity="center"
             android:gravity="center"
     />
-  -->
+
+    <!-- 講義検索へ戻る -->
+    <TextView
+            android:id="@+id/ViewReturnButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/ReturnSentence"
+    />
+
     <!-- 検索結果の各項目の表示 -->
     <HorizontalScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -54,18 +53,21 @@
                 <!-- ボタン部分の空白 -->
                 <TextView
                         android:id="@+id/list_button_blank"
-                        android:layout_width="80dp"
+                        android:layout_width="75dp"
                         android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                 />
                 <!--各項目の項目名-->
                 <TextView
                         android:id="@+id/item_lecture"
                         android:text="@string/lecture_name"
-                        android:layout_width="190dp"
+                        android:layout_width="200dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
                 <TextView
                         android:id="@+id/item_teacher"
@@ -75,6 +77,7 @@
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
                 <TextView
                         android:id="@+id/item_classroom"
@@ -84,15 +87,17 @@
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
                 <TextView
                         android:id="@+id/item_quarter"
                         android:text="@string/held_quarter"
-                        android:layout_width="120dp"
+                        android:layout_width="60dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
                 <TextView
                         android:id="@+id/item_week"
@@ -102,6 +107,7 @@
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
                 <TextView
                         android:id="@+id/item_period"
@@ -111,15 +117,17 @@
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
                 <TextView
                         android:id="@+id/item_year"
                         android:text="@string/held_year"
                         android:layout_width="75dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:gravity="center"
+                        android:background="#FFA500"
                 />
             </LinearLayout>
 
@@ -130,9 +138,12 @@
              />
         </LinearLayout>
 
+
     </HorizontalScrollView>
 
     <!--戻るボタン-->
+
+    <!--
     <Button
             android:id="@+id/return_result"
             android:textSize="22sp"
@@ -144,5 +155,6 @@
             android:background="@drawable/button_style1"
             android:layout_marginTop="40dp"
     />
+    -->
 
 </LinearLayout>
