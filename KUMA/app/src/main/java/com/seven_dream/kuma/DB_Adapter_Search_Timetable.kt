@@ -316,13 +316,9 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
         //Log.d("opal",cursor.toString())
         var disp: String = ""//最終的に表示
-        var rowdata: String = ""
         try {
             if (cursor.moveToNext()) {
-                for (i in 0..5) {
-                    rowdata += cursor.getString(i).toString() + " , "
-                }
-                disp += rowdata + "\n"
+                    disp = cursor.getString(0)
             }
         } finally {
             cursor.close()

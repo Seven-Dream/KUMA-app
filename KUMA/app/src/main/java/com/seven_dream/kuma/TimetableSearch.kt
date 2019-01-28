@@ -103,8 +103,10 @@ class TimetableSearch :  AppCompatActivity() {
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultLecture.set(insertTemp,cou)
-                    insertTemp += 1
+                    if(userDB.getLectureById(cou) != "") {
+                        resultLecture.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
