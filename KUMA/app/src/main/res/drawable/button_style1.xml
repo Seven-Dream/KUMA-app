@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 検索・戻るボタンに関するレイアウト（背景・橙/ 文字・黒） -->
+    <!-- tools:ignore/リリースのすべてのxml要素に定義できる.
+            定義したxml要素とその子孫要素は、lintによるチェックで指定したissueが無視される  -->
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid
+        android:color="#FFA500"
+    />
+    <!--
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF"
+    />
+    -->
+
+    <corners
+        android:radius="8dp"
+    />
+</shape>

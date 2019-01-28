@@ -29,10 +29,10 @@ class Schedule : AppCompatActivity() {
         }
 
         // 時間割画面に飛ぶ
-        /*val timeSchedule = findViewById<Button>(R.id.timeTable)
+        val timeSchedule = findViewById<Button>(R.id.timeTable)
         timeSchedule.setOnClickListener {
             val intent1 = Intent(this,Timetable_1q::class.java)
             startActivity(intent1)
-        }*/
+        }
     }
 }

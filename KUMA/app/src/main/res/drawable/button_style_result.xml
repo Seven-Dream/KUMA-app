@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 登録ボタンに関するレイアウト（背景・橙/ 文字・白） -->
+<shape
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="50dp"
+        android:layout_height="20dp">
+    <solid
+        android:color="#FFA500"
+    />
+    <!--
+    <stroke
+            android:width="2dp"
+            android:color="#FFFFFF"
+    />
+    -->
+    <corners
+            android:radius="8dp"
+    />
+</shape>
