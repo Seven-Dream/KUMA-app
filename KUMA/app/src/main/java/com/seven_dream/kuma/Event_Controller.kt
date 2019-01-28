@@ -13,14 +13,14 @@ import org.json.JSONArray
 
 var eventJson: String? = null
 
-class TitleController : AppCompatActivity() {
+class EventController : AppCompatActivity() {
     private lateinit var userDB_Event: userDB_Adapter_Event
 
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_Event = userDB_Adapter_Event(this)   // DB呼び出し
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_list)
+        //setContentView(R.layout.activity_event_list)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
     }
 
@@ -34,15 +34,9 @@ class TitleController : AppCompatActivity() {
             //lectureJson = getHtml("http://172.21.34.153/json")
             getHtml()//ここですべてのグローバル変数にJSONを入れる
             Log.d("opall", "eventJson=$eventJson")
-            //testJson = getHtml("URL")
-            //cancelJson = getHtml("URL")
-            //classJson = getHtml("URL")
-            //uniJsonJson = getHtml("URL")
-            //studentJson = getHtml("URL")
             return "true"
         }
 
-        //多分いらん
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             Log.d("opal", "insert:Event_Student")
@@ -50,7 +44,7 @@ class TitleController : AppCompatActivity() {
         }
     }
 
-    //学生イベントテーブルの挿入 引数いると思う(String)
+    //学生イベントテーブルの挿入
     private fun insertEvent_student() {
         eventJson = "[{\"id\":1, \"event_name\":\"軽音ライブ\", \"year\":2018, \"month\":4, \"day\":14, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }" +
                 ",{\"id\":2, \"event_name\":\"アカペラライブ\", \"year\":2018, \"month\":10, \"day\":26, \"url\":\"https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf\" }" +
