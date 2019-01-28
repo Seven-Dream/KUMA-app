@@ -14,11 +14,12 @@ class userDB_Adapter_Title(mContext: Context) {
             uaerDB = userDB_Helper(mContext)  // DB生成
             db = uaerDB.getWritableDatabase()
     }
+
 //---------------------insert文---------------------------
     //Lecture----------------------
     //lectureにレコードを追加
     fun addRecordLecture(lecture_id:Int,lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
-        val values = ContentValues()
+    val values = ContentValues()
         values.put("lecture_id",lecture_id)
         values.put("lecture_name", lecture_name)
         values.put("teacher", teacher)
@@ -222,23 +223,4 @@ class userDB_Adapter_Title(mContext: Context) {
             return "Failed executeSQL SQLite -- " + e.message
         }
     }
-
-    // キー(Type,date)を指定してmemoを修正
-    /*
-    fun updateMemo(type : Int, day : Int, memo : String ) {
-        val values : ContentValues = ContentValues()
-        values.put("memo",memo)
-        // 第二引数がupdateする条件
-        // 第三引数の? に第四引数が置き換わる
-        db.update(DB_TABLE_NAME, values, "type=? AND date=? ", arrayOf(type.toString(),day.toString()))
-    }*/
-
-    // キーを指定し、１レコード削除
-    /*
-    fun deleteRecord(type : Int, day : Int) {
-        db.delete(DB_TABLE_NAME, "tepe=? AND date=? ", arrayOf(type.toString(),day.toString()))
-    }*/
-
-
-
 }

@@ -103,8 +103,11 @@ class TimetableSearch :  AppCompatActivity() {
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultLecture.set(insertTemp,cou)
-                    insertTemp += 1
+                    //lecture_idに対する講義が入っていなければ入れない
+                    if(userDB.getLectureById(cou) != "") {
+                        resultLecture.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
@@ -126,8 +129,11 @@ class TimetableSearch :  AppCompatActivity() {
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultTeacher.set(insertTemp,cou)
-                    insertTemp += 1
+                    //lecture_idに対する講義が入っていなければ入れない
+                    if(userDB.getLectureById(cou) != "") {
+                        resultTeacher.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
@@ -149,8 +155,11 @@ class TimetableSearch :  AppCompatActivity() {
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultQuarter.set(insertTemp,cou)
-                    insertTemp += 1
+                    //lecture_idに対する講義が入っていなければ入れない
+                    if(userDB.getLectureById(cou) != "") {
+                        resultQuarter.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
