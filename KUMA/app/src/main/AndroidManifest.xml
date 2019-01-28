@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.seven_dream.kuma">
-    <uses-permission android:name="android.permission.INTERNET" />
+          package="com.kuma.timetable">
 
-    <!--
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -14,29 +12,68 @@
         <activity android:name=".TitleController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-    </application>
-    -->
-    <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".TimetableSearch"
-                  android:parentActivityName=".TimetableResult">
-            <intent-filter>
-                <action
-                        android:name="android.intent.action.MAIN"
-                        android:label="@string/app_name"
-                />
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <!--長江-->
+        <activity
+                android:name=".Timetable_1q">
+        </activity>
+        <activity
+                android:name=".Timetable_2q">
+        </activity>
+        <activity
+                android:name=".Timetable_3q">
+        </activity>
+        <activity
+                android:name=".Timetable_4q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_1q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_2q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_3q">
+        </activity>
+        <activity
+                android:name=".AttendCheck_4q">
+        </activity>
+        <activity
+                android:name=".Count_1q">
+        </activity>
+        <activity
+                android:name=".Count_2q">
+        </activity>
+        <activity
+                android:name=".Count_3q">
+        </activity>
+        <activity
+                android:name=".Count_4q">
+        </activity>
+        <activity
+                android:name=".Delete">
+        </activity>
+        <activity
+                android:name=".Delete_1q">
+        </activity>
+        <activity
+                android:name=".Delete_2q">
+        </activity>
+        <activity
+                android:name=".Delete_3q">
+        </activity>
+        <activity
+                android:name=".Delete_4q">
+        </activity>
+        <activity
+                android:name=".Schedule">
+        </activity>
+        <!--横田-->
+        <activity
+                android:name=".TimetableSearch"
+                android:parentActivityName=".TimetableResult">
         </activity>
         <activity
                 android:name=".TimetableResult">
