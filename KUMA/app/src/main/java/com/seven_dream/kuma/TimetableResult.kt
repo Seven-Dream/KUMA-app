@@ -32,7 +32,6 @@ class TimetableResult : AppCompatActivity() {
 
         //初期のリスト項目を設定
         val arrayAdapter = MyArrayAdapter(this, 0).apply {
-            //add(ListItem("講義名", "教員名", "教室名", "開講クウォータ", "曜日", "時限", "開講年度"))
 
             for(pnt in 0..max) {    //pntはresultReceiveのポインタ
                 //resultReceiveに格納されたpnt番目の講義IDの情報を取得
@@ -84,8 +83,8 @@ class TimetableResult : AppCompatActivity() {
         val listView: ListView = this.findViewById(R.id.listView)
         listView.adapter = arrayAdapter//リスト項目とlistViewにセット
 
-        /* 戻るボタンをタップしたときの処理*/
-        return_result.setOnClickListener {
+        /* 戻る文書をタップしたときの処理*/
+        ViewReturnButton.setOnClickListener {
             finish()
         }
     }
@@ -120,7 +119,8 @@ data class ViewHolder(
     val quarterView: TextView,
     val weekView: TextView,
     val periodView: TextView,
-    val yearView: TextView)
+    val yearView: TextView
+)
 
 // 自作のリスト項目データを扱えるようにした ArrayAdapter
 class MyArrayAdapter : ArrayAdapter<ListItem> {

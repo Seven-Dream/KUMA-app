@@ -1,4 +1,5 @@
 package com.seven_dream.kuma
+
 /* 講義検索画面での動作 */
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -10,7 +11,6 @@ import android.widget.ArrayAdapter
 import android.view.View
 import java.util.Optional.empty
 import kotlin.math.max
-// import com.example.androiddev.myapplication.userDB_Helper
 
 
 class TimetableSearch :  AppCompatActivity() {
