@@ -41,5 +41,8 @@
         <activity
                 android:name=".TimetableResult">
         </activity>
+        <activity
+                android:name=".ErrorNonLecture">
+        </activity>
     </application>
 </manifest>

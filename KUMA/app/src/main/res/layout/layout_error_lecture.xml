@@ -1,0 +1,40 @@
+<!-- 講義検索画面のレイアウト -->
+<android.support.v7.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        tools:context=".ErrorNonLecture">
+
+
+    <!-- エラー画像を表示 -->
+    <ImageView
+            android:layout_height="wrap_content"
+            android:src="@drawable/error_non_lecture"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"/>
+
+    <!--エラー文の表示-->
+    <TextView
+            android:id="@+id/ErrorView"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="23sp"
+            android:text='該当する講義がありませんでした\n もう一度検索してください'
+    />
+
+    <!--戻るボタン-->
+    <Button
+            android:id="@+id/return_error"
+            android:textSize="22sp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:text="@string/back"
+            android:background="@drawable/button_style1"
+            android:layout_gravity="center"
+    />
+
+</android.support.v7.widget.LinearLayoutCompat>

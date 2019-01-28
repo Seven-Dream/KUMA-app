@@ -11,8 +11,6 @@ import android.view.View
 import com.example.androiddev.myapplication.userDB_Helper
 import java.util.Optional.empty
 import kotlin.math.max
-// import com.example.androiddev.myapplication.userDB_Helper
-
 
 class TimetableSearch :  AppCompatActivity() {
     // userDB_Adapter_Timetableクラスを定義
@@ -33,30 +31,19 @@ class TimetableSearch :  AppCompatActivity() {
         userDB.addRecordLecture(2,"データベース","横山","A107",2018,3)
         userDB.addRecordLecture(3,"感覚神経学","繁桝","A107",2018,2)
         userDB.addRecordLecture(4,"数学1","井上","A107",2018,2)
-        userDB.addRecordLecture(5,"数学2","鈴木","A107",2018,2)
-        userDB.addRecordLecture(6, "ソフ工", "高田", "A107", 2018, 2)
-        userDB.addRecordLecture(7,"数学1","井上","A107",2018,3)
-
-        userDB.addRecordLecture(8,"数学2","鈴木","A107",2018,3)
-
-        userDB.addRecordLecture(9, "ソフ工", "高田", "A107", 2018, 2)
-
+        userDB.addRecordLecture(5,"数学1","井上","A107",2018,3)
+        userDB.addRecordLecture(6,"数学2","鈴木","A107",2018,2)
+        userDB.addRecordLecture(7,"数学2","鈴木","A107",2018,3)
+        userDB.addRecordLecture(8, "ソフトウェア工学", "高田", "A107", 2018, 5)
+        userDB.addRecordLecture(9, "ソフトウェア工学", "高田", "A107", 2018, 5)
         userDB.addRecordLecturePeriodWeek(1, 2, 1)
-
         userDB.addRecordLecturePeriodWeek(2, 2, 1)
-
         userDB.addRecordLecturePeriodWeek(3, 3, 3)
-
         userDB.addRecordLecturePeriodWeek(4, 2, 1)
-
         userDB.addRecordLecturePeriodWeek(5, 3, 3)
-
-        userDB.addRecordLecturePeriodWeek(6, 3, 1)
-
-        userDB.addRecordLecturePeriodWeek(7, 2, 1)
-
+        userDB.addRecordLecturePeriodWeek(6, 2, 1)
+        userDB.addRecordLecturePeriodWeek(7, 3, 1)
         userDB.addRecordLecturePeriodWeek(8, 3, 3)
-
         userDB.addRecordLecturePeriodWeek(9, 3, 4)
 
         /* プルダウン機能:開講クウォータ */
@@ -75,12 +62,11 @@ class TimetableSearch :  AppCompatActivity() {
             }
 
             //アイテムが選択されたとき
-            override fun onItemSelected(parent: AdapterView<*>?,
-                                        view: View?, position: Int, id:Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id:Long) {
                 val spinnerParent = parent as Spinner
                 val quarterItem = spinnerParent.selectedItem as String //選択された文字列を取得
                 if (quarterItem != "--") {
-                    val selectQuarter: String = quarterItem //新しい変数に選択された文字列を格納 (これっているん？)
+                    val selectQuarter: String = quarterItem //新しい変数に選択された文字列を格納
                     if(selectQuarter == "1Q") {
                         quarterData = 1
                     } else if(selectQuarter == "2Q") {
@@ -115,7 +101,7 @@ class TimetableSearch :  AppCompatActivity() {
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
-                var num: Int = userDB.countLectureByName(format1.text) //登録している講義の数を取得->検索に引っかかった行数
+                var num: Int = userDB.countLectureByName(format1.text) //検索に引っかかった行数を取得(format1と講義名が一致する講義の数)
                 var insertTemp = 0 //結果を入れる配列の場所
                 num -= 1
                 //講義検索の結果を配列に入れる
@@ -139,7 +125,7 @@ class TimetableSearch :  AppCompatActivity() {
 
             /* format2(教員名)の処理 */
             if (format2.text.toString() != "") {
-                var num: Int = userDB.countLectureByTeacher(format2.text) //登録している講義の数を取得
+                var num: Int = userDB.countLectureByTeacher(format2.text) //検索に引っかかった行数を取得(format2と教員名が一致する講義の数)
                 num -= 1
                 var insertTemp = 0 //結果を入れる配列の場所
                 for (cou in 0..num) {
@@ -163,15 +149,29 @@ class TimetableSearch :  AppCompatActivity() {
             /* クウォータ */
             // quarterLectureと講義(lecture)テーブルの開講時期(quarter)が一致するとき
             if (quarterData != null) {
-                var num: Int = userDB.countLectureByQuartr(quarterData) //登録している講義の数を取得
+                var num: Int = userDB.countLectureByQuarter(quarterData) //検索に引っかかった行数を取得(選択肢とQが一致する講義の数)
+                num -= 1
+                var insertTemp = 0 //結果を入れる配列の場所
+                for (cou in 0..num) {
+                    //選択された開講Qが一致する講義の講義IDをDBから取得
+                    val quarterLecture: Int = userDB.getLectureIdByQuarter(quarterData, cou)
+                    //format1の結果でえられたIDを格納する配列の宣言
+                    resultQuarter.set(insertTemp, quarterLecture)
+                    insertTemp += 1
+                }
+                /*
+                var num: Int = userDB.countLectureByQuarter(quarterData) //登録している講義の数を取得
                 num -= 1
                 for (cou in 0..num) {
                     //quarterDataが"--"以外の場合、講義名にquarterDataの値を含む講義の講義IDをDBから取得
                     val quarterLecture: Int = userDB.getLectureIdByQuarter(quarterData, cou)
                         userDB.getLectureIdByQuarter(quarterLecture, cou)//i番目のlecture_idをとってくる
                     //format1の結果でえられたIDを格納する配列の宣言
-                    resultQuarter = arrayOf(quarterLecture) //arrayOfの中にIDをいれる
+                    resultQuarter.set(num, quarterLecture) //arrayOfの中にIDをいれる
+                    //resultQuarter = arrayOf(quarterLecture) //arrayOfの中にIDをいれる
+
                 }
+                */
             } else {
                 //NULLの場合、配列にはデータベース上の講義IDをすべて格納する
                 var max: Int = userDB.getMaxLecture() //登録されている講義の最大値
@@ -198,10 +198,17 @@ class TimetableSearch :  AppCompatActivity() {
                 }
             }
 
-            /* 検索ボタンによる画面遷移 (値:配列resultPrintも引き渡す)*/
-            val intent = Intent(this, TimetableResult::class.java)
-            intent.putExtra("resultArray", resultPrint) //TimetableResultに引き渡す値の設定
-            startActivity(intent)
+            /* 検索ボタンによる画面遷移*/
+            // resultPrintに何も格納されなかったとき、エラー画面へ遷移
+            if(resultPrint.size == 0){
+                val intent = Intent(this, ErrorNonLecture::class.java)
+                startActivity(intent)
+            } else {
+                //resultPrintに1つ以上の値が格納されたとき、結果表示画面へ遷移
+                val intent = Intent(this, TimetableResult::class.java)
+                intent.putExtra("resultArray", resultPrint) //TimetableResultに引き渡す値の設定
+                startActivity(intent)
+            }
         }
 
         /* 戻るボタン */
