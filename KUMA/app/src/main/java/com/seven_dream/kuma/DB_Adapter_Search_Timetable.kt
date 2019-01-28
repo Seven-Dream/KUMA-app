@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.text.Editable
 import android.util.Log
-import com.example.androiddev.myapplication.userDB_Helper
 
 class DB_Adapter_Search_Timetable(mContext: Context) {
     private val db: SQLiteDatabase
@@ -289,11 +288,6 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(quarter.toString()))
         var cou: Int = 0
         try {
-            /*
-            if (cursor.moveToNext()) {
-                cou += 1
-            }
-            */
             cou = cursor.count
         } finally {
             cursor.close()

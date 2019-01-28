@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.kuma.timetable">
+          package="com.seven_dream.kuma">
 
     <application
             android:allowBackup="true"
@@ -67,9 +67,6 @@
         <activity
                 android:name=".Delete_4q">
         </activity>
-        <activity
-                android:name=".Schedule">
-        </activity>
         <!--横田-->
         <activity
                 android:name=".TimetableSearch"
@@ -78,13 +75,12 @@
         <activity
                 android:name=".TimetableResult">
         </activity>
-	<!--塩田-->
-	<activity 
-		android:name=".Schedule">
-	</activity>
-	<activity 
-		android:name=".ScheduleOneday">
-	</activity>
-		
+        <!--塩田-->
+        <activity
+            android:name=".Schedule">
+        </activity>
+        <activity
+            android:name=".ScheduleOneday">
+        </activity>
     </application>
 </manifest>

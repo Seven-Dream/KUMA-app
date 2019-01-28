@@ -1,4 +1,5 @@
 package com.seven_dream.kuma
+
 /* 講義検索画面での動作 */
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -8,10 +9,8 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.view.View
-import com.example.androiddev.myapplication.userDB_Helper
 import java.util.Optional.empty
 import kotlin.math.max
-// import com.example.androiddev.myapplication.userDB_Helper
 
 
 class TimetableSearch :  AppCompatActivity() {
@@ -28,8 +27,8 @@ class TimetableSearch :  AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_timetable_search)
         //DBの呼び出し
-        userDB =DB_Adapter_Search_Timetable(this)
-       
+        userDB = DB_Adapter_Search_Timetable(this)
+
         /* プルダウン機能:開講クウォータ */
         //ArrayAdapter
         val adapterQuarter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, spinnerQuarters)
@@ -82,7 +81,8 @@ class TimetableSearch :  AppCompatActivity() {
             val resultLecture: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 講義名検索の結果
             val resultTeacher: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 教員名検索の結果
             var resultQuarter: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 開講クウォータ検索の結果
-            val resultPrint: ArrayList<Int> = arrayListOf()//最終的な検索結果
+            //val resultPrint: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
+             val resultPrint: ArrayList<Int> = arrayListOf()//最終的な検索結果
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
@@ -163,6 +163,7 @@ class TimetableSearch :  AppCompatActivity() {
                         if (resultQuarter.contains(id)) {
                             //最終的な結果を入れる配列(resultPrint)にidを格納する
                             resultPrint.add(id)
+                            //resultPrint[insertTmp] = id //結果で表示すべき講義の講義IDを格納
                             insertTmp += 1
                         }
                     }
@@ -177,7 +178,9 @@ class TimetableSearch :  AppCompatActivity() {
 
         /* 戻るボタン */
         return_search.setOnClickListener {
+            // val intent = Intent(application, Timetable::class.java)
             finish()
+            //startActivity(intent)
         }
     }
 }

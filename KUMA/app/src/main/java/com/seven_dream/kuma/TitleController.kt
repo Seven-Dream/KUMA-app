@@ -1,6 +1,7 @@
 ﻿package com.seven_dream.kuma
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.os.AsyncTask
@@ -62,6 +63,8 @@ class TitleController : AppCompatActivity() {
             //Log.d("opal", "insert:Event_Student")
             insertEvent_student()//Event_Student
             /* ーーーーーーーーーーーー以降に画面遷移を書くーーーーーーーーーーーーーーー*/
+            val intent = Intent(application, Timetable_1q::class.java)
+            startActivity(intent)
         }
     }
 
