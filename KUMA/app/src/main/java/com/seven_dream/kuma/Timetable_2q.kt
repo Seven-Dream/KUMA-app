@@ -1,4 +1,4 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Intent
 import android.content.Context
@@ -8,6 +8,8 @@ import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.seven_dream.kuma.Schedule
+import com.seven_dream.kuma.TimetableSearch
 import kotlinx.android.synthetic.main.activity_2q.*
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
