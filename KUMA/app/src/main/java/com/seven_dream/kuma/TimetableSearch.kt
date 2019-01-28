@@ -29,36 +29,7 @@ class TimetableSearch :  AppCompatActivity() {
         setContentView(R.layout.layout_timetable_search)
         //DBの呼び出し
         userDB =DB_Adapter_Search_Timetable(this)
-        userDB.addRecordLecture(1,"オペレーティングシステム","横山","A107",2018,4)
-        userDB.addRecordLecture(2,"データベース","横山","A107",2018,3)
-        userDB.addRecordLecture(3,"感覚神経学","繁桝","A107",2018,2)
-        userDB.addRecordLecture(4,"数学1","井上","A107",2018,2)
-        userDB.addRecordLecture(5,"数学2","鈴木","A107",2018,2)
-        userDB.addRecordLecture(6, "ソフ工", "高田", "A107", 2018, 2)
-        userDB.addRecordLecture(7,"数学1","井上","A107",2018,3)
-
-        userDB.addRecordLecture(8,"数学2","鈴木","A107",2018,3)
-
-        userDB.addRecordLecture(9, "ソフ工", "高田", "A107", 2018, 2)
-
-        userDB.addRecordLecturePeriodWeek(1, 2, 1)
-
-        userDB.addRecordLecturePeriodWeek(2, 2, 1)
-
-        userDB.addRecordLecturePeriodWeek(3, 3, 3)
-
-        userDB.addRecordLecturePeriodWeek(4, 2, 1)
-
-        userDB.addRecordLecturePeriodWeek(5, 3, 3)
-
-        userDB.addRecordLecturePeriodWeek(6, 3, 1)
-
-        userDB.addRecordLecturePeriodWeek(7, 2, 1)
-
-        userDB.addRecordLecturePeriodWeek(8, 3, 3)
-
-        userDB.addRecordLecturePeriodWeek(9, 3, 4)
-
+       
         /* プルダウン機能:開講クウォータ */
         //ArrayAdapter
         val adapterQuarter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, spinnerQuarters)

@@ -1,4 +1,5 @@
-package com.seven_dream.kuma
+package com.kuma.timetable
+
 
 import android.content.ContentValues
 import android.content.Context
@@ -16,7 +17,8 @@ class userDB_Adapter_Timetable(mContext: Context) {
     }
     //---------------------insert文---------------------------
     //Timetableにレコードを追加
-    fun addRecordTimetable(lecture_id:Int,lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
+    fun addRecordTimetable(lecture_id:Int,lecture_name:String,
+                           teacher:String, classroom:String, year:Int, quarter: Int) {
         val values = ContentValues()
         values.put("lecture_id",lecture_id)
         values.put("lecture_name", lecture_name)
@@ -33,17 +35,50 @@ class userDB_Adapter_Timetable(mContext: Context) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
+    fun addRecordLecture(lecture_id:Int,lecture_name:String,
+                           teacher:String, classroom:String, year:Int, quarter: Int) {
+        val values = ContentValues()
+        values.put("lecture_id",lecture_id)
+        values.put("lecture_name", lecture_name)
+        values.put("teacher", teacher)
+        values.put("classroom", classroom)
+        values.put("year", year)
+        values.put("quarter", quarter)
+        //データの追加
+        Log.d("opal","前"+values.toString())
+        try {
+            db.insertOrThrow("lecture", null, values)
+            //Log.d("opal","後"+values.toString())
+        }catch(e: SQLiteException){
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
 
+    fun addRecordWeek(lecture_id:Int,week:Int, period:Int) {
+        val values = ContentValues()
+        values.put("lecture_id",lecture_id)
+        values.put("week", week)
+        values.put("period", period)
+
+        //データの追加
+        Log.d("opal","前"+values.toString())
+        try {
+            db.insertOrThrow("lecture_period_week", null, values)
+            //Log.d("opal","後"+values.toString())
+        }catch(e: SQLiteException){
+            Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
+        }
+    }
     //-------------------Select文-------------------
-    //year,quater,period,weekをもとにlectureIDをとってくる
-    fun getLecture_id( year: Int, quarter: Int,period: Int, week: Int): Int? {
-        val selectSql: String = "select timetable.lecture_id from timetable, lecture_period_week where timetable.lecture_id = lecture_period_week.lecture_id and year = ? and quarter = ? and period = ? and week = ?"
+    //year,quarter,period,weekをもとにlectureIDをとってくる
+    fun getLecture_id(year: Int, quarter: Int,period: Int,week: Int): Int {
+        val selectSql: String = "select timetable.lecture_id from timetable, lecture_period_week where timetable.lecture_id = lecture_period_week.lecture_id and timetable.year = ? and timetable.quarter = ? and lecture_period_week.period = ? and lecture_period_week.week = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), quarter.toString(), period.toString(), week.toString()))
         var id: Int = 0//IDをこの中に入れる
         try {
             if (cursor.moveToNext()) {
                 id = cursor.getInt(cursor.getColumnIndex("lecture_id"))//列名が「lectureID」の列番号を取得して、getStringで列番号に対応する文字を取得
-                }
+            }
         } finally {
             cursor.close()
         }
@@ -89,7 +124,19 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
-
+    fun getLTeacher(id: Int): String {
+        val selectSql: String = "select teacher from lecture where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+        var disp: String = ""//最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(cursor.getColumnIndex("teacher"))
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
         val selectSql : String = "select * from lecture where lecture_name = ?"
@@ -110,8 +157,20 @@ class userDB_Adapter_Timetable(mContext: Context) {
         }
         return disp
     }
-
-
+    //lecture_nameを指定してIDを取得
+    fun getLectureID(lecture_name:String) :Int{
+        val selectSql : String = "select lecture_id from timetable where lecture_name = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_name.toString()))
+        var id: Int = 0//IDをこの中に入れる
+        try {
+            if (cursor.moveToNext()) {
+                id = cursor.getInt(cursor.getColumnIndex("lecture_id"))//列名が「lectureID」の列番号を取得して、getStringで列番号に対応する文字を取得
+            }
+        } finally {
+            cursor.close()
+        }
+        return id
+    }
     // キー(Type,date)を指定してmemoを修正
     /*
     fun updateMemo(type : Int, day : Int, memo : String ) {
@@ -121,18 +180,18 @@ class userDB_Adapter_Timetable(mContext: Context) {
         // 第三引数の? に第四引数が置き換わる
         db.update(DB_TABLE_NAME, values, "type=? AND date=? ", arrayOf(type.toString(),day.toString()))
     }*/
-
     //Lecture_idをもとに、対応するIDのレコードを削除
     fun deleteTimetable(id:Int){
         db.delete("timetable", "lecture_id = ?", arrayOf(id.toString()))
     }
+    fun deleteWeek_Period(id:Int){
+        db.delete("lecture_period_week", "lecture_id = ?", arrayOf(id.toString()))
+    }
+
 
     // キーを指定し、１レコード削除
     /*
     fun deleteRecord(type : Int, day : Int) {
         db.delete(DB_TABLE_NAME, "tepe=? AND date=? ", arrayOf(type.toString(),day.toString()))
     }*/
-
-
-
 }
