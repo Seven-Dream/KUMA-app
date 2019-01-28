@@ -25,6 +25,7 @@ class TitleController : AppCompatActivity() {
     private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //データベースを初期化
         userDB_Helper(this).decDB_VERSION()
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し
         userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し

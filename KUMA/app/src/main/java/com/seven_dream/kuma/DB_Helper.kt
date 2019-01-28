@@ -36,7 +36,6 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
         db?.execSQL("DROP TABLE IF EXISTS lecture_change_class ;")
         db?.execSQL("DROP TABLE IF EXISTS event_uni ;")
         db?.execSQL("DROP TABLE IF EXISTS event_student ;")
-        db?.execSQL("DROP TABLE IF EXISTS timetable ;")
         onCreate(db)
         // 今回は,一度消して、作り直ししてます
     }
@@ -69,7 +68,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 //"FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
         private const val Test = "CREATE TABLE lecture_test ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
@@ -77,14 +76,14 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Cancel = "CREATE TABLE lecture_cancel ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "comment TEXT, " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Change = "CREATE TABLE lecture_change_class ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
@@ -116,6 +115,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
 
         private const val DB_NAME = "KUMADB"
     }
+
     fun decDB_VERSION(){
         DB_VERSION -= 1
     }
