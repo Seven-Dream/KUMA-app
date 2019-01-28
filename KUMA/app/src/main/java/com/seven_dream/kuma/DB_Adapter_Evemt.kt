@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
+import com.kuma.timetable.userDB_Helper
 
 class userDB_Adapter_Event(mContext: Context) {
 
@@ -40,6 +41,20 @@ class userDB_Adapter_Event(mContext: Context) {
         }
     }
 
+    fun getEvent_next(year: Int, month: Int, day: Int, name: String): Int {
+        val selectSql: String = "select * from event_student where year = ? and month = ? and day = ? and event_name = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), month.toString(), day.toString(), name.toString()))
+        var disp: Int = 0//最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getInt(cursor.getColumnIndex("id"))
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
+
     fun getEvent_id(year: Int, month: Int, day: Int, next: Int): Int {
         val selectSql: String = "select id from event_student where year = ? and month = ? and day = ?"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(year.toString(), month.toString(), day.toString()))
@@ -47,13 +62,7 @@ class userDB_Adapter_Event(mContext: Context) {
         //var disp: String = ""//最終的に表示
         var flag = 0
         try {
-/*
-            while (cursor.moveToNext()) {
-                if(tmp < next) {
-                    id = cursor.getInt(cursor.getColumnIndex("id"))//列名が「eventID」の列番号を取得して、getStringで列番号に対応する文字を取得
-                }
-                tmp += 1
-            }*/
+
             for(i in 1..next) {
                 if(!cursor.moveToNext()) {
                     flag = 1//最後まで見終わっていた
@@ -124,36 +133,18 @@ class userDB_Adapter_Event(mContext: Context) {
         }
         return disp
     }
-}
 
-/*
-fun getEventStudent(id:Int): String {
-    val selectSql: String = "select * from event_student where event_id = ?"
-    try {
-        val cursor: Cursor = db.rawQuery(selectSql, null)
-        var disp: String = ""
+    fun getEvent_url(id: Int): String {
+        val selectSql: String = "select url from event_student where id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(id.toString()))
+        var disp: String = ""//最終的に表示
         try {
-            if(cursor.moveToFirst()) {
-                do {
-                    val id = cursor.getInt(cursor.getColumnIndex("id"))
-                    val year = cursor.getInt(cursor.getColumnIndex("year"))
-                    val month = cursor.getInt(cursor.getColumnIndex("month"))
-                    val day = cursor.getInt(cursor.getColumnIndex("day"))
-                    val name = cursor.getString(cursor.getColumnIndex("event_name"))
-                    val url = cursor.getString(cursor.getColumnIndex("url"))
-                    disp += "id:" + id.toString() + "," + "name:" + name.toString() + ", year:" + year.toString() + ", month: "+ month.toString() + ", day:" + day.toString() + "url:" + url.toString() + "\n"
-                } while(cursor.moveToNext())
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(cursor.getColumnIndex("url"))
             }
         } finally {
             cursor.close()
         }
         return disp
-    } catch (e: SQLiteException) {
-        Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
-        return "Failed executeSQL SQLite -- " + e.message
     }
 }
-
-
-*/
-
