@@ -28,26 +28,8 @@ class TimetableSearch :  AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_timetable_search)
         //DBの呼び出し
-        userDB = DB_Adapter_Search_Timetable(this)
-        userDB.addRecordLecture(1,"オペレーティングシステム","横山","A107",2018,4)
-        userDB.addRecordLecture(2,"データベース","横山","A107",2018,3)
-        userDB.addRecordLecture(3,"感覚神経学","繁桝","A107",2018,2)
-        userDB.addRecordLecture(4,"数学1","井上","A107",2018,2)
-        userDB.addRecordLecture(5,"数学2","鈴木","A107",2018,2)
-        userDB.addRecordLecture(6, "ソフ工", "高田", "A107", 2018, 2)
-        userDB.addRecordLecture(7,"数学1","井上","A107",2018,3)
-        userDB.addRecordLecture(8,"数学2","鈴木","A107",2018,3)
-        userDB.addRecordLecture(9, "ソフ工", "高田", "A107", 2018, 2)
-        userDB.addRecordLecturePeriodWeek(1, 2, 1)
-        userDB.addRecordLecturePeriodWeek(2, 2, 1)
-        userDB.addRecordLecturePeriodWeek(3, 3, 3)
-        userDB.addRecordLecturePeriodWeek(4, 2, 1)
-        userDB.addRecordLecturePeriodWeek(5, 3, 3)
-        userDB.addRecordLecturePeriodWeek(6, 3, 1)
-        userDB.addRecordLecturePeriodWeek(7, 2, 1)
-        userDB.addRecordLecturePeriodWeek(8, 3, 3)
-        userDB.addRecordLecturePeriodWeek(9, 3, 4)
-
+        userDB =DB_Adapter_Search_Timetable(this)
+       
         /* プルダウン機能:開講クウォータ */
         //ArrayAdapter
         val adapterQuarter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, spinnerQuarters)
@@ -100,8 +82,7 @@ class TimetableSearch :  AppCompatActivity() {
             val resultLecture: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 講義名検索の結果
             val resultTeacher: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 教員名検索の結果
             var resultQuarter: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 開講クウォータ検索の結果
-            //val resultPrint: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
-             val resultPrint: ArrayList<Int> = arrayListOf()//最終的な検索結果
+            val resultPrint: ArrayList<Int> = arrayListOf()//最終的な検索結果
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
@@ -182,7 +163,6 @@ class TimetableSearch :  AppCompatActivity() {
                         if (resultQuarter.contains(id)) {
                             //最終的な結果を入れる配列(resultPrint)にidを格納する
                             resultPrint.add(id)
-                            //resultPrint[insertTmp] = id //結果で表示すべき講義の講義IDを格納
                             insertTmp += 1
                         }
                     }
@@ -197,9 +177,7 @@ class TimetableSearch :  AppCompatActivity() {
 
         /* 戻るボタン */
         return_search.setOnClickListener {
-            // val intent = Intent(application, Timetable::class.java)
             finish()
-            //startActivity(intent)
         }
     }
 }
