@@ -1,11 +1,10 @@
 ﻿package com.seven_dream.kuma
 
-
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-
+var DB_VERSION = 2
 // データベースの生成を管理する
 class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null, DB_VERSION) {
     //  SQLiteOpenHelper
@@ -40,7 +39,11 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
         db?.execSQL("DROP TABLE IF EXISTS timetable ;")
         onCreate(db)
         // 今回は,一度消して、作り直ししてます
+    }
 
+    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        onUpgrade(db, oldVersion, newVersion)
+        addDB_VERSION()
     }
     companion object {
         private const val Lecture = "CREATE TABLE lecture ( " +
@@ -111,8 +114,12 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "year INTEGER, " +
                 "quarter INTEGER );"
 
-        private const val DB_VERSION = 1
         private const val DB_NAME = "KUMADB"
     }
-
+    fun decDB_VERSION(){
+        DB_VERSION -= 1
+    }
+    fun addDB_VERSION(){
+        DB_VERSION += 1
+    }
 }
