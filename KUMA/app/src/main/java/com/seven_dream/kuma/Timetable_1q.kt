@@ -1,4 +1,4 @@
-package com.seven_dream.kuma
+package com.kuma.timetable
 
 import android.content.Intent
 import android.content.Context
@@ -38,7 +38,7 @@ class Timetable_1q : AppCompatActivity() {
                 "軽音ライブ",
                 2019,
                 1,
-                24,
+                29,
                 "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
             )
             userDB_event.addRecordEventStudent(
@@ -55,6 +55,30 @@ class Timetable_1q : AppCompatActivity() {
                 2019,
                 1,
                 29,
+                "https://www.yahoo.co.jp"
+            )
+            userDB_event.addRecordEventStudent(
+                4,
+                "3on3大会",
+                2019,
+                1,
+                30,
+                "https://www.yahoo.co.jp"
+            )
+            userDB_event.addRecordEventStudent(
+                5,
+                "ロボ研ガンダムファイト大会",
+                2019,
+                1,
+                31,
+                "https://www.yahoo.co.jp"
+            )
+            userDB_event.addRecordEventStudent(
+                6,
+                "ロボ研ガンダムファイト大会",
+                2019,
+                2,
+                1,
                 "https://www.yahoo.co.jp"
             )
 
@@ -310,7 +334,7 @@ class Timetable_1q : AppCompatActivity() {
     }
 
 
-// Viewを継承したクラス
+    // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
 
