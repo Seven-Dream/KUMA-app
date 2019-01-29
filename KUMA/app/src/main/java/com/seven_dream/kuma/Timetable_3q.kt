@@ -1,4 +1,5 @@
 package com.seven_dream.kuma
+
 import android.content.Intent
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +11,6 @@ import android.view.View
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_3q.*
 import java.util.*
-
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
 private lateinit var userDB_event: userDB_Adapter_Event
@@ -31,10 +31,12 @@ class Timetable_3q : AppCompatActivity() {
             val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
             val nen: Int = calendar.get(Calendar.YEAR)
             val tuki: Int = calendar.get(Calendar.MONTH)
-            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH)
-            for (date in hi..31) {
+            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH) - 1//最初+1するから
+            for (date in 0..30) {
                 for (cnt in 1..3) {//同じ日にイベントがあった場合
-                    val id = com.seven_dream.kuma.userDB_event.getEvent_id(nen, tuki + 1, date, cnt)
+                    val seach_day = (date + hi) % 31 + 1// 1～31の間
+                    val seach_month = tuki + 1 + ((date + hi) / 31) //31日超えると次の月に繰り上げ
+                    val id = userDB_event.getEvent_id(nen, seach_month, seach_day, cnt)
                     if (id != 0) {
                         val eventyear = com.seven_dream.kuma.userDB_event.getEvent_year(id)
                         val eventsla1:String = "/"

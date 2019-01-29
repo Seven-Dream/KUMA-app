@@ -37,10 +37,12 @@ class Timetable_1q : AppCompatActivity() {
             val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
             val nen: Int = calendar.get(Calendar.YEAR)
             val tuki: Int = calendar.get(Calendar.MONTH)
-            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH)
-            for (date in hi..31) {
+            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH) - 1
+            for (date in 0..30) {
                 for (cnt in 1..3) {//同じ日にイベントがあった場合
-                    val id = userDB_event.getEvent_id(nen, tuki + 1, date, cnt)
+                    val seach_day = (date + hi) % 31 + 1
+                    val seach_month = tuki + 1 + ((date + hi) / 31)
+                    val id = userDB_event.getEvent_id(nen, seach_month, seach_day, cnt)
                     if (id != 0) {
                         val eventyear = userDB_event.getEvent_year(id)
                         val eventsla1:String = "/"
@@ -394,7 +396,7 @@ class ArrayAdapter3 : ArrayAdapter<ListItem2> {
             //val intent = Intent(mContext,Web_Activity::class.java)
             //intent.putExtra("url",geturl)
             //mContext!!.startActivity(intent)
-
+            //明示的なActivity生成(他のファイルでも適応される)
             var uri = Uri.parse(geturl)
             val intent = Intent(Intent.ACTION_VIEW,uri)
             mContext!!.startActivity(intent)
