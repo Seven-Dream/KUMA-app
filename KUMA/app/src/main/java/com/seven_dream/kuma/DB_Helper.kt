@@ -2,6 +2,7 @@
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 var DB_VERSION = 2
@@ -16,14 +17,18 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
     override fun onCreate(db: SQLiteDatabase?) {
         // テーブルがなかったときに が呼ばれる
         // execSQL で　クエリSQL文を実行 これでDBの構造が決定
-        db?.execSQL(Lecture)
-        db?.execSQL(Period_Week)
-        db?.execSQL(Test)
-        db?.execSQL(Cancel)
-        db?.execSQL(Change)
-        db?.execSQL(Uni)
-        db?.execSQL(Student)
-        db?.execSQL(Timetable)
+        try {
+            db?.execSQL(Lecture)
+            db?.execSQL(Period_Week)
+            db?.execSQL(Test)
+            db?.execSQL(Cancel)
+            db?.execSQL(Change)
+            db?.execSQL(Uni)
+            db?.execSQL(Student)
+            db?.execSQL(Timetable)
+        }catch (e: SQLiteException){
+            Log.d("opal","error:$e")
+        }
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // バージョンが変わった時に実行される
