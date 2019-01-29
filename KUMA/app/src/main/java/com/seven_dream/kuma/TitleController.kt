@@ -12,6 +12,10 @@ import org.json.JSONArray
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.util.*
+import android.content.SharedPreferences
+import android.R.id.edit
+import android.content.Context
+
 
 var lectureJson: String? = null//Jsonデータを入れるグローバル変数
 var testJson: String? = null
@@ -24,6 +28,12 @@ class TitleController : AppCompatActivity() {
 
     private lateinit var userDB_Title: userDB_Adapter_Title//遅延初期化→プロパティ内でインスタンスにアクセス可能？
     private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
+    //初回起動かどうかを判断するためのもの
+    private final val preName = "MAIN_SETTING"
+    private final val dataIntPreTag = "dataIPT"
+    private var edit: SharedPreferences.Editor? = null
+    private var dataInt: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //データベースを初期化
@@ -31,6 +41,12 @@ class TitleController : AppCompatActivity() {
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し
         userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         super.onCreate(savedInstanceState)
+
+        var sharedPreferences = getSharedPreferences(preName, AppCompatActivity.MODE_PRIVATE)
+        dataInt = sharedPreferences.getInt(dataIntPreTag, 0)
+        dataInt++
+        edit = sharedPreferences.edit()
+
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
     }
 
@@ -66,6 +82,7 @@ class TitleController : AppCompatActivity() {
             //Log.d("opal", "insert:Event_Student")
             insertEvent_student()//Event_Student
             /* ーーーーーーーーーーーー以降に画面遷移を書くーーーーーーーーーーーーーーー*/
+            edit!!.putInt(dataIntPreTag, dataInt).apply()//起動回数を増やす
             val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
             val month: Int = calendar.get(Calendar.MONTH) + 1
             val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
@@ -109,7 +126,7 @@ class TitleController : AppCompatActivity() {
             Log.d("opal", year.toString())
             userDB_Title.addRecordLecture(id, name, teacher, classroom, year, quarter)
             //専門科目演習は先にtametableテーブルに入れる
-            if(name == "専門科目演習") {
+            if(name.contains("専門科目演習") && dataInt == 1) {
                 userDB_Timetable.addRecordTimetable(id, name, teacher, classroom, year, quarter)
             }
             Log.d("opal","insert:"+ userDB_Title.getLecture(name))
