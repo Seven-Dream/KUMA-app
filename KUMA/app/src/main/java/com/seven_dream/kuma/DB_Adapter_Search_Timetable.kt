@@ -346,4 +346,20 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         }
         return disp
     }
+    //なんか
+    //講義IDを指定して開講クウォータを取得
+    fun getLectureById(lecture_id: Int): String {
+        val selectSql: String = "select teacher from lecture where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
+        //Log.d("opal",cursor.toString())
+        var disp  = "" //最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(0)
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
 }

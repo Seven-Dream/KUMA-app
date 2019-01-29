@@ -34,6 +34,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFDBC9"
             tools:context=".TimetableResult">
 
         <LinearLayout
@@ -72,7 +73,7 @@
                 <TextView
                         android:id="@+id/item_teacher"
                         android:text="@string/teacher_name"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:textSize="20sp"
@@ -140,21 +141,5 @@
 
 
     </HorizontalScrollView>
-
-    <!--戻るボタン-->
-
-    <!--
-    <Button
-            android:id="@+id/return_result"
-            android:textSize="22sp"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/back"
-            android:background="@drawable/button_style1"
-            android:layout_marginTop="40dp"
-    />
-    -->
 
 </LinearLayout>
