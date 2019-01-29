@@ -11,12 +11,33 @@ import android.view.View
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_4q.*
 import java.util.*
+import android.widget.Toast
+import android.R.string.cancel
+import android.view.KeyEvent.KEYCODE_BACK
+import android.R.string.cancel
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
+import android.os.CountDownTimer
+import android.R.menu
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
 private lateinit var userDB_event: userDB_Adapter_Event
 
 class Timetable_4q : AppCompatActivity() {
-
+    //backを二回押すと終了するようにする
+    // 一度目のBackボタンが押されたかどうかを判定するフラグ
+    private var pressed = false
+    override fun onBackPressed() {
+        // 終了する場合, もう一度タップするようにメッセージを出力する
+        if (!pressed) {
+            // 終了する場合, もう一度タップするようにメッセージを出力する
+            Toast.makeText(this, "終了する場合は、もう一度バックボタンを押してください", Toast.LENGTH_SHORT).show()
+            pressed = true
+        }else{
+            moveTaskToBack(true)
+        }
+    }
+    //------------------
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         userDB_event = userDB_Adapter_Event(this) // DBの呼び出し
@@ -26,63 +47,21 @@ class Timetable_4q : AppCompatActivity() {
 
         //初期のリスト項目を設定
         val arrayAdapter = ArrayAdapter3(this, 0).apply {
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                1,
-                "軽音ライブ",
-                2019,
-                1,
-                29,
-                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                2,
-                "アカペラライブ",
-                2019,
-                1,
-                29,
-                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                3,
-                "ロボ研ガンダムファイト大会予選",
-                2019,
-                1,
-                30,
-                "https://www.yahoo.co.jp"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                4,
-                "3on3-KUT杯",
-                2019,
-                1,
-                30,
-                "https://www.yahoo.co.jp"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                5,
-                "ロボ研ガンダムファイト大会準決勝",
-                2019,
-                1,
-                31,
-                "https://www.yahoo.co.jp"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                6,
-                "ロボ研ガンダムファイト大会決勝",
-                2019,
-                1,
-                31,
-                "https://www.yahoo.co.jp"
-            )
-
+            /*テスト用追加
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(1, "軽音ライブ", 2019, 1, 29, "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf")
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(2,"アカペラライブ", 2019, 1, 29, "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf")
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(3, "ロボ研ガンダムファイト大会予選", 2019, 1, 30, "https://www.yahoo.co.jp")
+            */
             var tmp = 0//格納する配列の場所
             val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
             val nen: Int = calendar.get(Calendar.YEAR)
             val tuki: Int = calendar.get(Calendar.MONTH)
-            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH)
-            for (date in hi..31) {
+            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH) - 1//最初+1するから
+            for (date in 0..30) {
                 for (cnt in 1..3) {//同じ日にイベントがあった場合
-                    val id = com.seven_dream.kuma.userDB_event.getEvent_id(nen, tuki + 1, date, cnt)
+                    val seach_day = (date + hi) % 31 + 1// 1～31の間
+                    val seach_month = tuki + 1 + ((date + hi) / 31) //31日超えると次の月に繰り上げ
+                    val id = userDB_event.getEvent_id(nen, seach_month, seach_day, cnt)
                     if (id != 0) {
                         val eventyear = com.seven_dream.kuma.userDB_event.getEvent_year(id)
                         val eventsla1:String = "/"

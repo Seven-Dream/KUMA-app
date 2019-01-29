@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_count_list.*
-import java.io.File
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
 
