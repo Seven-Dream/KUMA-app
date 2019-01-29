@@ -1,4 +1,4 @@
-package com.seven_dream.kuma
+package com.kuma.timetable
 
 import android.content.Context
 import android.content.Intent
@@ -22,7 +22,6 @@ class Delete : AppCompatActivity() {
 
         yesbutton.setOnClickListener {
             userDB_timetable.deleteTimetable(id)
-            userDB_timetable.deleteWeek_Period(id)
             if(quarter == 1) {
                 val intent = Intent(application, Delete_1q::class.java)
                 startActivity(intent)
