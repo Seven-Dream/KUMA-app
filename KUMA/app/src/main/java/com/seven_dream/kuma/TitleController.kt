@@ -1,4 +1,4 @@
-﻿package com.seven_dream.kuma
+package com.seven_dream.kuma
 
 import android.annotation.SuppressLint
 import android.content.Intent
