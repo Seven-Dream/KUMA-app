@@ -363,4 +363,28 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         }
         return disp
     }
+    //timetableに入ってるIDを取得
+    fun getTimetableId(cont: Int): Int{
+        val selectSql: String = "select lecture_id from timetable"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf())
+        //Log.d("opal",cursor.toString())
+        var id = 0 //最終的に表示
+        try {
+            for (i in 0..cont) {
+                if (cursor.moveToNext()) {
+                    id = cursor.getInt(0)
+                }
+            }
+        } finally {
+            cursor.close()
+        }
+        return id
+    }
+    //timetableに入ってるレコード数を取得
+    fun getTimetableRecordCount(): Int{
+        val selectSql: String = "select lecture_id from timetable"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf())
+        return cursor.count
+    }
 }
+

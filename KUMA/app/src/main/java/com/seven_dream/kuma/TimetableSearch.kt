@@ -161,6 +161,13 @@ class TimetableSearch :  AppCompatActivity() {
                     }
                 }
             }
+            //tametableの中にあるidを撮ってくる
+            val timetable_recordNum = userDB.getTimetableRecordCount()
+            val timetable_id :  Array<Int> = arrayOf(0).copyOfRange(0, timetable_recordNum)
+            for(i in 0..timetable_recordNum-1){
+                val id = userDB.getTimetableId(i)
+                timetable_id.set(i, id)
+            }
 
             val max: Int = userDB.getMaxLecture()//講義テーブルにあるlecture_idの最大値を取得
             var insertTmp = 0
@@ -169,10 +176,12 @@ class TimetableSearch :  AppCompatActivity() {
                 if (resultLecture.contains(id)) {
                     if (resultTeacher.contains(id)) {
                         if (resultQuarter.contains(id)) {
-                            //最終的な結果を入れる配列(resultPrint)にidを格納する
-                            resultPrint.add(id)
-                            //resultPrint[insertTmp] = id //結果で表示すべき講義の講義IDを格納
-                            insertTmp += 1
+                            if(!timetable_id.contains(id)) {//timetableに含まれていれば続けない
+                                //最終的な結果を入れる配列(resultPrint)にidを格納する
+                                resultPrint.add(id)
+                                //resultPrint[insertTmp] = id //結果で表示すべき講義の講義IDを格納
+                                insertTmp += 1
+                            }
                         }
                     }
                 }
