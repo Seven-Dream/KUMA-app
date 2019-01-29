@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Vie
+import android.view.View
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_3q.*
 import java.util.*
