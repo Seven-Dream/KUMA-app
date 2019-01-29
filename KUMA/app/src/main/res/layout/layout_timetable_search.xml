@@ -10,24 +10,15 @@
 
 
     <!-- ページタイトルの表示 -->
-    <ImageView
-            android:src="@drawable/title_lecture_search"
-            android:scaleType="fitCenter"
-            android:layout_height="70dp"
-            android:contentDescription="@string/app_name"
-            android:layout_width="220dp"
-            android:layout_gravity="center"/>
-    <!--
     <TextView
-            android:id="@+id/title"
-            android:background="@+id/background_page_name"
+            android:id="@+id/title_search"
+            android:background="#66CC66"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="@string/search_lecture"
             android:textSize="30sp"
             android:gravity="center"
     />
-    -->
 
     <!-- 各検索項目と入力フォームの表示 -->
     <!--講義名-->
@@ -79,7 +70,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/colorBlack"
             android:gravity="center"
     />
 

@@ -1,5 +1,4 @@
 package com.seven_dream.kuma
-
 import android.content.Intent
 import android.content.Context
 import android.graphics.Canvas
@@ -7,7 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.view.Vie
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_3q.*
 import java.util.*
@@ -27,54 +26,6 @@ class Timetable_3q : AppCompatActivity() {
 
         //初期のリスト項目を設定
         val arrayAdapter = ArrayAdapter3(this, 0).apply {
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                1,
-                "軽音ライブ",
-                2019,
-                1,
-                29,
-                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                2,
-                "アカペラライブ",
-                2019,
-                1,
-                29,
-                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                3,
-                "ロボ研ガンダムファイト大会予選",
-                2019,
-                1,
-                30,
-                "https://www.yahoo.co.jp"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                4,
-                "3on3-KUT杯",
-                2019,
-                1,
-                30,
-                "https://www.yahoo.co.jp"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                5,
-                "ロボ研ガンダムファイト大会準決勝",
-                2019,
-                1,
-                31,
-                "https://www.yahoo.co.jp"
-            )
-            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
-                6,
-                "ロボ研ガンダムファイト大会決勝",
-                2019,
-                1,
-                31,
-                "https://www.yahoo.co.jp"
-            )
 
             var tmp = 0//格納する配列の場所
             val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)

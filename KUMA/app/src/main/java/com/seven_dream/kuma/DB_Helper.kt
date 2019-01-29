@@ -1,11 +1,10 @@
-package com.kuma.timetable
-
+﻿package com.seven_dream.kuma
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-
+var DB_VERSION = 2
 // データベースの生成を管理する
 class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null, DB_VERSION) {
     //  SQLiteOpenHelper
@@ -37,10 +36,13 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
         db?.execSQL("DROP TABLE IF EXISTS lecture_change_class ;")
         db?.execSQL("DROP TABLE IF EXISTS event_uni ;")
         db?.execSQL("DROP TABLE IF EXISTS event_student ;")
-        db?.execSQL("DROP TABLE IF EXISTS timetable ;")
         onCreate(db)
         // 今回は,一度消して、作り直ししてます
+    }
 
+    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        onUpgrade(db, oldVersion, newVersion)
+        addDB_VERSION()
     }
     companion object {
         private const val Lecture = "CREATE TABLE lecture ( " +
@@ -66,7 +68,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 //"FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id));"
 
         private const val Test = "CREATE TABLE lecture_test ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
@@ -74,14 +76,14 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Cancel = "CREATE TABLE lecture_cancel ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "comment TEXT, " +
                 "FOREIGN KEY (lecture_id) REFERENCES lecture (lecture_id) );"
 
         private const val Change = "CREATE TABLE lecture_change_class ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "month INTEGER, " +
                 "day INTEGER, " +
                 "classroom VARCHAR(64), " +
@@ -104,15 +106,20 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
                 "url VARCHAR(64) );"
         //登録した講義を入れるためのテーブル
         private const val Timetable = "CREATE TABLE timetable ( " +
-                "lecture_id INTEGER PRIMARY KEY, " +
+                "lecture_id INTEGER, " +
                 "lecture_name VARCHAR(64), " +
                 "teacher VARCHAR(64), " +
                 "classroom VARCHAR(64), " +
                 "year INTEGER, " +
                 "quarter INTEGER );"
 
-        private const val DB_VERSION = 1
         private const val DB_NAME = "KUMADB"
     }
 
+    fun decDB_VERSION(){
+        DB_VERSION -= 1
+    }
+    fun addDB_VERSION(){
+        DB_VERSION += 1
+    }
 }

@@ -32,7 +32,6 @@ class TimetableResult : AppCompatActivity() {
 
         //初期のリスト項目を設定
         val arrayAdapter = MyArrayAdapter(this, 0).apply {
-            //add(ListItem("講義名", "教員名", "教室名", "開講クウォータ", "曜日", "時限", "開講年度"))
 
             for(pnt in 0..max) {    //pntはresultReceiveのポインタ
                 //resultReceiveに格納されたpnt番目の講義IDの情報を取得
@@ -84,8 +83,8 @@ class TimetableResult : AppCompatActivity() {
         val listView: ListView = this.findViewById(R.id.listView)
         listView.adapter = arrayAdapter//リスト項目とlistViewにセット
 
-        /* 戻るボタンをタップしたときの処理*/
-        return_result.setOnClickListener {
+        /* 戻る文書をタップしたときの処理*/
+        ViewReturnButton.setOnClickListener {
             finish()
         }
     }
@@ -120,7 +119,8 @@ data class ViewHolder(
     val quarterView: TextView,
     val weekView: TextView,
     val periodView: TextView,
-    val yearView: TextView)
+    val yearView: TextView
+)
 
 // 自作のリスト項目データを扱えるようにした ArrayAdapter
 class MyArrayAdapter : ArrayAdapter<ListItem> {
@@ -168,21 +168,21 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
         viewHolder.entryIcon.setOnClickListener { _ ->
             Toast.makeText(context, "登録しました", Toast.LENGTH_LONG).show()
             /*開講クウォータの情報をString型からInt型に*/
-            var quarterNum :Int = 0
-            var quarter : String = viewHolder.quarterView.text.toString()
-            if(quarter == "1Q"){
+            var quarterNum: Int = 0
+            var quarter: String = viewHolder.quarterView.text.toString()
+            if (quarter == "1Q") {
                 quarterNum = 1
-            }else if(quarter == "2Q"){
+            } else if (quarter == "2Q") {
                 quarterNum = 2
-            }else if(quarter == "3Q"){
+            } else if (quarter == "3Q") {
                 quarterNum = 3
-            }else if(quarter == "4Q"){
+            } else if (quarter == "4Q") {
                 quarterNum = 4
-            }else if(quarter == "1学期"){
+            } else if (quarter == "1学期") {
                 quarterNum = 5
-            }else if(quarter == "2学期"){
+            } else if (quarter == "2学期") {
                 quarterNum = 6
-            }else if(quarter == "通年"){
+            } else if (quarter == "通年") {
                 quarterNum = 7
             }
 
@@ -192,16 +192,34 @@ class MyArrayAdapter : ArrayAdapter<ListItem> {
                 viewHolder.teacherView.text.toString(),
                 viewHolder.roomView.text.toString(),
                 viewHolder.yearView.text.toString().toInt(),
-                quarterNum)
+                quarterNum
+            )
 
             // テーブルTimetableに、講義名・教員名・教室・開講年・クウォータを格納
-            userDB.addRecordTimetable(
-                entryID,
-                viewHolder.lectureView.text.toString(),
-                viewHolder.teacherView.text.toString(),
-                viewHolder.roomView.text.toString(),
-                viewHolder.yearView.text.toString().toInt(),
-                quarterNum)
+            var loop = 1//追加する回数
+            if (quarterNum == 5) {//一学期=1,2
+                loop = 2
+                quarterNum = 1
+            }
+            if (quarterNum == 6) {//二学期=3,4
+                loop = 2
+                quarterNum = 3
+            }
+            if (quarterNum == 7){//通年=1,2,3,4
+                loop = 4
+                quarterNum = 1
+            }
+            for(i in 1..loop) {
+                userDB.addRecordTimetable(
+                    entryID,
+                    viewHolder.lectureView.text.toString(),
+                    viewHolder.teacherView.text.toString(),
+                    viewHolder.roomView.text.toString(),
+                    viewHolder.yearView.text.toString().toInt(),
+                    quarterNum
+                )
+                quarterNum += 1
+            }
             // 登録した講義の情報の表示を消去
             this.remove(listItem)
             this.notifyDataSetChanged()

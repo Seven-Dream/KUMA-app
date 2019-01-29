@@ -16,16 +16,18 @@
             android:background="@drawable/button_style_result"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:color="#FFDBC9"
     />
     <!--各項目-->
     <TextView
             android:id="@+id/list_lecture"
             android:text="@string/lecture_name"
-            android:layout_width="190dp"
+            android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:textSize="20sp"
             android:gravity="center_vertical"
+            android:background="#FFDBC9"
     />
     <View
             android:layout_width="0.5dp"
@@ -34,11 +36,12 @@
     <TextView
             android:id="@+id/list_teacher"
             android:text="@string/teacher_name"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
             android:gravity="center"
+            android:background="#FFDBC9"
     />
     <View
             android:layout_width="0.5dp"
@@ -52,6 +55,7 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:gravity="center"
+            android:background="#FFDBC9"
     />
     <View
             android:layout_width="0.5dp"
@@ -60,11 +64,12 @@
     <TextView
             android:id="@+id/list_quarter"
             android:text="@string/held_quarter"
-            android:layout_width="120dp"
+            android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:textSize="20sp"
             android:gravity="center"
+            android:background="#FFDBC9"
     />
     <View
             android:layout_width="0.5dp"
@@ -78,6 +83,7 @@
             android:textSize="20sp"
             android:layout_width="50dp"
             android:gravity="center"
+            android:background="#FFDBC9"
     />
     <View
             android:layout_width="0.5dp"
@@ -91,6 +97,7 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:gravity="center"
+            android:background="#FFDBC9"
     />
     <View
             android:layout_width="0.5dp"
@@ -104,5 +111,6 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:gravity="center"
+            android:background="#FFDBC9"
     />
 </LinearLayout>

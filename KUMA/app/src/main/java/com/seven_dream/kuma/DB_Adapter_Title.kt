@@ -1,26 +1,25 @@
 package com.seven_dream.kuma
 
-
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.util.Log
-//import com.example.androiddev.myapplication.userDB_Helper
 
 class userDB_Adapter_Title(mContext: Context) {
     private val db: SQLiteDatabase
     private val uaerDB : userDB_Helper
     init {
-        uaerDB = userDB_Helper(mContext)  // DB生成
-        db = uaerDB.getWritableDatabase()
+            uaerDB = userDB_Helper(mContext)  // DB生成
+            db = uaerDB.getWritableDatabase()
     }
-    //---------------------insert文---------------------------
+
+//---------------------insert文---------------------------
     //Lecture----------------------
     //lectureにレコードを追加
     fun addRecordLecture(lecture_id:Int,lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
-        val values = ContentValues()
+    val values = ContentValues()
         values.put("lecture_id",lecture_id)
         values.put("lecture_name", lecture_name)
         values.put("teacher", teacher)
@@ -108,7 +107,7 @@ class userDB_Adapter_Title(mContext: Context) {
         values.put("day",day)
         values.put("comment",comment)
         //データの追加
-        //Log.d("opal", "前" + values.toString())
+        Log.d("opal", "前" + values.toString())
         try {
             db.insert("event_uni", null, values)
         } catch (e: SQLiteException) {
@@ -126,14 +125,14 @@ class userDB_Adapter_Title(mContext: Context) {
         values.put("day",day)
         values.put("url",url)
         //データの追加
-        //Log.d("opal", "前" + values.toString())
+        Log.d("opal", "前" + values.toString())
         try {
             db.insert("event_student", null, values)
         } catch (e: SQLiteException) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
-    //-------------------Select文-------------------
+//-------------------Select文-------------------
     //Lecture-------------------------
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
@@ -224,23 +223,4 @@ class userDB_Adapter_Title(mContext: Context) {
             return "Failed executeSQL SQLite -- " + e.message
         }
     }
-
-    // キー(Type,date)を指定してmemoを修正
-    /*
-    fun updateMemo(type : Int, day : Int, memo : String ) {
-        val values : ContentValues = ContentValues()
-        values.put("memo",memo)
-        // 第二引数がupdateする条件
-        // 第三引数の? に第四引数が置き換わる
-        db.update(DB_TABLE_NAME, values, "type=? AND date=? ", arrayOf(type.toString(),day.toString()))
-    }*/
-
-    // キーを指定し、１レコード削除
-    /*
-    fun deleteRecord(type : Int, day : Int) {
-        db.delete(DB_TABLE_NAME, "tepe=? AND date=? ", arrayOf(type.toString(),day.toString()))
-    }*/
-
-
-
 }

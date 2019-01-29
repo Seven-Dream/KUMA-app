@@ -1,6 +1,7 @@
 package com.seven_dream.kuma
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.os.AsyncTask
@@ -24,11 +25,11 @@ class TitleController : AppCompatActivity() {
     private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //データベースを初期化
+        userDB_Helper(this).decDB_VERSION()
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し
         userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.title_controller)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
     }
 
@@ -38,6 +39,7 @@ class TitleController : AppCompatActivity() {
 
         override fun doInBackground(vararg p0: Void?): String? {
             //各グローバル変数にJSONデータを格納する
+
             Log.d("opall", "lectureJson=$lectureJson")
             lectureJson = getHtmlfromURL("http://3.16.216.28/api/lecture")
             testJson = getHtmlfromURL("http://3.16.216.28/api/test")
@@ -63,6 +65,8 @@ class TitleController : AppCompatActivity() {
             //Log.d("opal", "insert:Event_Student")
             insertEvent_student()//Event_Student
             /* ーーーーーーーーーーーー以降に画面遷移を書くーーーーーーーーーーーーーーー*/
+            val intent = Intent(application, Timetable_1q::class.java)
+            startActivity(intent)
         }
     }
 
@@ -80,14 +84,6 @@ class TitleController : AppCompatActivity() {
         for (i in 0..(json.length() - 1)) {
             //lectureテーブルに挿入するためのレコードを取得
             val jsonObj = json.getJSONObject(i)
-            /*本番用
-            val id = jsonObj.getInt("Id")
-            val name = jsonObj.getString("LectureName")
-            val teacher = jsonObj.getString("Teachar")
-            val classroom = jsonObj.getString("ClassRoom")
-            val year = jsonObj.getInt("Year")
-            val quarter = jsonObj.getInt("Quarter")
-            */
             val id = jsonObj.getInt("lecture_id")
             val name = jsonObj.getString("lecture_name")
             val teacher = jsonObj.getString("teacher")
@@ -230,6 +226,7 @@ class TitleController : AppCompatActivity() {
             Log.d("damedesu",e.toString())
             null
         } catch(e : IOException){//もし通信ができなかったとき
+            Log.d("damedesu",e.toString())
             null
         }
     }
