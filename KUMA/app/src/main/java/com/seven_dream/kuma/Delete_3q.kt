@@ -1,4 +1,4 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.content.Intent
@@ -116,6 +116,10 @@ class Delete_3q: AppCompatActivity() {
 
         myListView.setOnItemClickListener { _, view, position, _ ->
             val title = view.findViewById<TextView>(android.R.id.text1).text
+
+            if (position != 0 && "$title" != "") {
+                Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
+            }
 
 
             if (position == 0) {

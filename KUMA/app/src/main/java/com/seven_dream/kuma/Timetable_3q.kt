@@ -1,4 +1,4 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Intent
 import android.content.Context
@@ -8,17 +8,101 @@ import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_3q.*
+import java.util.*
+
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
+private lateinit var userDB_event: userDB_Adapter_Event
 
 class Timetable_3q : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
+        userDB_event = userDB_Adapter_Event(this) // DBの呼び出し
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_3q)
+
+        //初期のリスト項目を設定
+        val arrayAdapter = ArrayAdapter3(this, 0).apply {
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
+                1,
+                "軽音ライブ",
+                2019,
+                1,
+                29,
+                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
+            )
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
+                2,
+                "アカペラライブ",
+                2019,
+                1,
+                29,
+                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
+            )
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
+                3,
+                "ロボ研ガンダムファイト大会予選",
+                2019,
+                1,
+                30,
+                "https://www.yahoo.co.jp"
+            )
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
+                4,
+                "3on3-KUT杯",
+                2019,
+                1,
+                30,
+                "https://www.yahoo.co.jp"
+            )
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
+                5,
+                "ロボ研ガンダムファイト大会準決勝",
+                2019,
+                1,
+                31,
+                "https://www.yahoo.co.jp"
+            )
+            com.seven_dream.kuma.userDB_event.addRecordEventStudent(
+                6,
+                "ロボ研ガンダムファイト大会決勝",
+                2019,
+                1,
+                31,
+                "https://www.yahoo.co.jp"
+            )
+
+            var tmp = 0//格納する配列の場所
+            val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
+            val nen: Int = calendar.get(Calendar.YEAR)
+            val tuki: Int = calendar.get(Calendar.MONTH)
+            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH)
+            for (date in hi..31) {
+                for (cnt in 1..3) {//同じ日にイベントがあった場合
+                    val id = com.seven_dream.kuma.userDB_event.getEvent_id(nen, tuki + 1, date, cnt)
+                    if (id != 0) {
+                        val eventyear = com.seven_dream.kuma.userDB_event.getEvent_year(id)
+                        val eventsla1:String = "/"
+                        val eventmonth = com.seven_dream.kuma.userDB_event.getEvent_month(id)
+                        val eventsla2:String = "/"
+                        val eventday = com.seven_dream.kuma.userDB_event.getEvent_day(id)
+                        val eventname = com.seven_dream.kuma.userDB_event.getEvent_name(id)
+                        //取得した情報をarrayAdapterにいれる
+                        add(ListItem2(eventyear, eventsla1, eventmonth, eventsla2, eventday, eventname))
+                        tmp += 1
+                    } else {
+                        break
+                    }
+                }
+
+            }
+        }
+        val listView: ListView = this.findViewById(R.id.ListView)
+        listView.adapter = arrayAdapter
 
 
 

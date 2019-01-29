@@ -1,4 +1,4 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Intent
 import android.content.Context
@@ -51,15 +51,15 @@ class Timetable_1q : AppCompatActivity() {
             )
             userDB_event.addRecordEventStudent(
                 3,
-                "ロボ研ガンダムファイト大会",
+                "ロボ研ガンダムファイト大会予選",
                 2019,
                 1,
-                29,
+                30,
                 "https://www.yahoo.co.jp"
             )
             userDB_event.addRecordEventStudent(
                 4,
-                "3on3大会",
+                "3on3-KUT杯",
                 2019,
                 1,
                 30,
@@ -67,7 +67,7 @@ class Timetable_1q : AppCompatActivity() {
             )
             userDB_event.addRecordEventStudent(
                 5,
-                "ロボ研ガンダムファイト大会",
+                "ロボ研ガンダムファイト大会準決勝",
                 2019,
                 1,
                 31,
@@ -75,10 +75,10 @@ class Timetable_1q : AppCompatActivity() {
             )
             userDB_event.addRecordEventStudent(
                 6,
-                "ロボ研ガンダムファイト大会",
+                "ロボ研ガンダムファイト大会決勝",
                 2019,
-                2,
                 1,
+                31,
                 "https://www.yahoo.co.jp"
             )
 

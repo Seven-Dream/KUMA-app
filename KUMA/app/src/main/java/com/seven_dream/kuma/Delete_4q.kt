@@ -1,4 +1,4 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.content.Intent
@@ -18,8 +18,8 @@ class Delete_4q: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count_list)
 
-        attendlist.text = "講義削除"
 
+        attendlist.text = "講義削除"
         val fileNameI = "id.txt"
         val fileNameQ = "quarter.txt"
         val quarter = 4
@@ -115,6 +115,11 @@ class Delete_4q: AppCompatActivity() {
 
         myListView.setOnItemClickListener { _, view, position, _ ->
             val title = view.findViewById<TextView>(android.R.id.text1).text
+
+            if (position != 0 && "$title" != "") {
+                Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
+            }
+
 
             if (position == 0) {
                 val intent0 = Intent(application, Timetable_4q::class.java)

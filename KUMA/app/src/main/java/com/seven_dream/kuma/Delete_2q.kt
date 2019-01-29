@@ -1,11 +1,13 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_count_list.*
+import java.io.File
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
 
@@ -22,8 +24,6 @@ class Delete_2q: AppCompatActivity() {
         val quarter = 2
 
         val check = arrayOfNulls<String>(26)
-        check[0] = ""
-
         //2Q
         //月曜日の講義ID
         val mon1 = userDB_timetable.getLecture_id(2018, 2, 1, 1)
@@ -56,7 +56,6 @@ class Delete_2q: AppCompatActivity() {
         val fri4 = userDB_timetable.getLecture_id(2018, 2, 4, 5)
         val fri5 = userDB_timetable.getLecture_id(2018, 2, 5, 5)
 
-        //講義名を配列へ格納
         val Lecture = arrayOf(
             "",
             userDB_timetable.getLecture_name(mon1),
@@ -86,7 +85,6 @@ class Delete_2q: AppCompatActivity() {
             userDB_timetable.getLecture_name(fri5)
         )
 
-        //登録した講義だけを配列に格納
         val lecture = arrayOfNulls<String>(26)
         var temp = 1
         for (id in 1..25) {
@@ -95,7 +93,6 @@ class Delete_2q: AppCompatActivity() {
                 temp++
             }
         }
-
         //登録した講義だけを表示
         val items = List<Map<String, Any?>>(temp, { i ->
             mapOf(
@@ -116,6 +113,10 @@ class Delete_2q: AppCompatActivity() {
 
         myListView.setOnItemClickListener { _, view, position, _ ->
             val title = view.findViewById<TextView>(android.R.id.text1).text
+
+            if (position != 0 && "$title" != "") {
+                Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
+            }
 
 
             if (position == 0) {
