@@ -36,6 +36,8 @@ class TitleController : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //レイアウトファイルの設定
+        setContentView(R.layout.title_controller)
         //データベースを初期化
         userDB_Helper(this).decDB_VERSION()
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し
