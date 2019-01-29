@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_3q.*
 import java.util.*
 
@@ -16,7 +17,20 @@ private lateinit var userDB_timetable: userDB_Adapter_Timetable
 private lateinit var userDB_event: userDB_Adapter_Event
 
 class Timetable_3q : AppCompatActivity() {
-
+    //backを二回押すと終了するようにする
+    // 一度目のBackボタンが押されたかどうかを判定するフラグ
+    private var pressed = false
+    override fun onBackPressed() {
+        // 終了する場合, もう一度タップするようにメッセージを出力する
+        if (!pressed) {
+            // 終了する場合, もう一度タップするようにメッセージを出力する
+            Toast.makeText(this, "終了する場合は、もう一度バックボタンを押してください", Toast.LENGTH_SHORT).show()
+            pressed = true
+        }else{
+            moveTaskToBack(true)
+        }
+    }
+    //------------------
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         userDB_event = userDB_Adapter_Event(this) // DBの呼び出し

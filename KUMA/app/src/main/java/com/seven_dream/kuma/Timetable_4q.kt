@@ -11,12 +11,33 @@ import android.view.View
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_4q.*
 import java.util.*
+import android.widget.Toast
+import android.R.string.cancel
+import android.view.KeyEvent.KEYCODE_BACK
+import android.R.string.cancel
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
+import android.os.CountDownTimer
+import android.R.menu
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
 private lateinit var userDB_event: userDB_Adapter_Event
 
 class Timetable_4q : AppCompatActivity() {
-
+    //backを二回押すと終了するようにする
+    // 一度目のBackボタンが押されたかどうかを判定するフラグ
+    private var pressed = false
+    override fun onBackPressed() {
+        // 終了する場合, もう一度タップするようにメッセージを出力する
+        if (!pressed) {
+            // 終了する場合, もう一度タップするようにメッセージを出力する
+            Toast.makeText(this, "終了する場合は、もう一度バックボタンを押してください", Toast.LENGTH_SHORT).show()
+            pressed = true
+        }else{
+            moveTaskToBack(true)
+        }
+    }
+    //------------------
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
         userDB_event = userDB_Adapter_Event(this) // DBの呼び出し
