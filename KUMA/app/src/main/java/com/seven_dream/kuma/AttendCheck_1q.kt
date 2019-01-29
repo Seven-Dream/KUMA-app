@@ -20,6 +20,7 @@ class AttendCheck_1q: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count_list)
 
+        attendlist.text = "出欠チェック"
 
         val fileNameS = "countS.txt"
         val fileNameK = "countK.txt"
@@ -78,7 +79,7 @@ class AttendCheck_1q: AppCompatActivity() {
         val ab25 = readFiles("countK25.txt")
 
 
-        val check = arrayOf("時間割画面へ戻る","$at1 / $ab1", "$at2 / $ab2","$at3 / $ab3",
+        val check = arrayOf("","$at1 / $ab1", "$at2 / $ab2","$at3 / $ab3",
             "$at4 / $ab4","$at5 / $ab5","$at6 / $ab6","$at7 / $ab7","$at8 / $ab8",
             "$at9 / $ab9","$at10 / $ab10","$at11 / $ab11", "$at12 / $ab12","$at13 / $ab13",
             "$at14 / $ab14","$at15 / $ab15","$at16 / $ab16","$at17 / $ab17","$at18 / $ab18",

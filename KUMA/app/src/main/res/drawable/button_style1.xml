@@ -9,12 +9,6 @@
     <solid
         android:color="#FFA500"
     />
-    <!--
-    <stroke
-        android:width="2dp"
-        android:color="#FFFFFF"
-    />
-    -->
 
     <corners
         android:radius="8dp"

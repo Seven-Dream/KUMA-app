@@ -18,13 +18,12 @@ class Delete_2q: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count_list)
 
+        attendlist.text = "講義削除"
         val fileNameI = "id.txt"
         val fileNameQ = "quarter.txt"
         val quarter = 2
 
         val check = arrayOfNulls<String>(26)
-        check[0] = "時間割画面へ戻る"
-
         //2Q
         //月曜日の講義ID
         val mon1 = userDB_timetable.getLecture_id(2018, 2, 1, 1)
@@ -58,7 +57,7 @@ class Delete_2q: AppCompatActivity() {
         val fri5 = userDB_timetable.getLecture_id(2018, 2, 5, 5)
 
         val Lecture = arrayOf(
-            "時間割画面へ戻る",
+            "",
             userDB_timetable.getLecture_name(mon1),
             userDB_timetable.getLecture_name(mon2),
             userDB_timetable.getLecture_name(mon3),

@@ -8,19 +8,51 @@ import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.seven_dream.kuma.Schedule
-import com.seven_dream.kuma.TimetableSearch
+import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_2q.*
-
-private lateinit var userDB_timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
+import java.util.*
+private lateinit var userDB_timetable: userDB_Adapter_Timetable
+private lateinit var userDB_event: userDB_Adapter_Event
 
 class Timetable_2q : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
+        userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
+        userDB_event = userDB_Adapter_Event(this) // DBの呼び出し
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_2q)
+
+        //初期のリスト項目を設定
+        val arrayAdapter = ArrayAdapter3(this, 0).apply {
+
+            var tmp = 0//格納する配列の場所
+            val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
+            val nen: Int = calendar.get(Calendar.YEAR)
+            val tuki: Int = calendar.get(Calendar.MONTH)
+            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH)
+            for (date in hi..31) {
+                for (cnt in 1..3) {//同じ日にイベントがあった場合
+                    val id = com.seven_dream.kuma.userDB_event.getEvent_id(nen, tuki + 1, date, cnt)
+                    if (id != 0) {
+                        val eventyear = com.seven_dream.kuma.userDB_event.getEvent_year(id)
+                        val eventsla1:String = "/"
+                        val eventmonth = com.seven_dream.kuma.userDB_event.getEvent_month(id)
+                        val eventsla2:String = "/"
+                        val eventday = com.seven_dream.kuma.userDB_event.getEvent_day(id)
+                        val eventname = com.seven_dream.kuma.userDB_event.getEvent_name(id)
+                        //取得した情報をarrayAdapterにいれる
+                        add(ListItem2(eventyear, eventsla1, eventmonth, eventsla2, eventday, eventname))
+                        tmp += 1
+                    } else {
+                        break
+                    }
+                }
+
+            }
+        }
+        val listView: ListView = this.findViewById(R.id.ListView)
+        listView.adapter = arrayAdapter
 
         button.setOnClickListener {
             val intent = Intent(application, TimetableSearch::class.java)

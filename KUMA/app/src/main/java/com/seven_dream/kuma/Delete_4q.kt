@@ -19,12 +19,12 @@ class Delete_4q: AppCompatActivity() {
         setContentView(R.layout.activity_count_list)
 
 
+        attendlist.text = "講義削除"
         val fileNameI = "id.txt"
         val fileNameQ = "quarter.txt"
         val quarter = 4
 
         val check = arrayOfNulls<String>(26)
-        check[0] = "時間割画面へ戻る"
 
         //4Q
         //月曜日の講義ID
@@ -59,7 +59,7 @@ class Delete_4q: AppCompatActivity() {
         val fri5 = userDB_timetable.getLecture_id(2018, 4, 5, 5)
 
         val Lecture = arrayOf(
-            "時間割画面へ戻る",
+            "",
             userDB_timetable.getLecture_name(mon1),
             userDB_timetable.getLecture_name(mon2),
             userDB_timetable.getLecture_name(mon3),

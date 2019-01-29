@@ -1,4 +1,4 @@
-﻿package com.seven_dream.kuma
+package com.seven_dream.kuma
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -25,6 +25,8 @@ class TitleController : AppCompatActivity() {
     private lateinit var userDB_Timetable: userDB_Adapter_Timetable//遅延初期化→プロパティ内でインスタンスにアクセス可能？
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //レイアウトファイルの設定
+        setContentView(R.layout.title_controller)
         //データベースを初期化
         userDB_Helper(this).decDB_VERSION()
         userDB_Title = userDB_Adapter_Title(this)//DBの呼び出し

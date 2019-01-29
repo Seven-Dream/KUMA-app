@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.seven_dream.kuma">
 
@@ -76,6 +76,10 @@
         <activity
                 android:name=".TimetableResult">
         </activity>
+              <activity
+                android:name=".ErrorNonLecture">
+        </activity>
+
         <!--塩田-->
         <activity
             android:name=".Schedule">
