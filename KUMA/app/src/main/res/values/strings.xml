@@ -25,4 +25,8 @@
     <string name="period_time">時限</string>
     <string name="held_year">開講年度</string>
     <string name="ReturnSentence"><u>講義検索画面に戻る</u></string>
+    <string name="move">時間割登録</string>
+    <string name="move2">出欠チェック</string>
+    <string name="event_advertise">今後のイベント</string>
+    <string name="event_name">大学祭１日目の見どころ</string>
 </resources>
