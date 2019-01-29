@@ -11,6 +11,7 @@ import okhttp3.Request
 import org.json.JSONArray
 import java.io.IOException
 import java.net.SocketTimeoutException
+import java.util.*
 
 var lectureJson: String? = null//Jsonデータを入れるグローバル変数
 var testJson: String? = null
@@ -65,8 +66,22 @@ class TitleController : AppCompatActivity() {
             //Log.d("opal", "insert:Event_Student")
             insertEvent_student()//Event_Student
             /* ーーーーーーーーーーーー以降に画面遷移を書くーーーーーーーーーーーーーーー*/
-            val intent = Intent(application, Timetable_1q::class.java)
-            startActivity(intent)
+            val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
+            val month: Int = calendar.get(Calendar.MONTH) + 1
+            val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+            if(month in 4..5 || (month == 6 && day < 6)){
+                val intent = Intent(application, Timetable_1q::class.java)
+                startActivity(intent)
+            }else if(month in 6..9){
+                val intent = Intent(application, Timetable_2q::class.java)
+                startActivity(intent)
+            }else if(month in 10..11 || (month == 12 && day < 10)){
+                val intent = Intent(application, Timetable_3q::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(application, Timetable_4q::class.java)
+                startActivity(intent)
+            }
         }
     }
 
