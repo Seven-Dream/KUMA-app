@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.text.Editable
 import android.util.Log
-import com.example.androiddev.myapplication.userDB_Helper
 
 class DB_Adapter_Search_Timetable(mContext: Context) {
     private val db: SQLiteDatabase

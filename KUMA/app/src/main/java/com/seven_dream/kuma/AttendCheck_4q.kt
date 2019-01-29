@@ -1,4 +1,4 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,10 @@ import android.util.Log
 import android.widget.SimpleAdapter
 import android.widget.TextView
 import android.widget.Toast
+import com.seven_dream.kuma.Count_4q
+import com.seven_dream.kuma.R
+import com.seven_dream.kuma.Timetable_4q
+import com.seven_dream.kuma.userDB_Adapter_Timetable
 import kotlinx.android.synthetic.main.activity_count_list.*
 import java.io.File
 

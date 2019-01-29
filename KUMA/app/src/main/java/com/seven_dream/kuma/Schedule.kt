@@ -3,6 +3,7 @@ package com.seven_dream.kuma
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.CalendarView
 import kotlinx.android.synthetic.main.activity_schedule.*
 import kotlinx.android.synthetic.main.activity_schedule_oneday.*
@@ -31,7 +32,7 @@ class Schedule : AppCompatActivity() {
         // 時間割画面に飛ぶ
         val timeSchedule = findViewById<Button>(R.id.timeTable)
         timeSchedule.setOnClickListener {
-            val intent1 = Intent(this,Timetable_1q::class.java)
+            val intent1 = Intent(this, Timetable_1q::class.java)
             startActivity(intent1)
         }
     }

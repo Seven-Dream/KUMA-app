@@ -1,4 +1,5 @@
 package com.seven_dream.kuma
+
 /* 講義検索画面での動作 */
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -8,7 +9,6 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.view.View
-import com.example.androiddev.myapplication.userDB_Helper
 import java.util.Optional.empty
 import kotlin.math.max
 
@@ -26,8 +26,9 @@ class TimetableSearch :  AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_timetable_search)
         //DBの呼び出し
-        userDB =DB_Adapter_Search_Timetable(this)
-        /* プルダウン機能:開講クウォータ */
+        userDB = DB_Adapter_Search_Timetable(this)
+
+      /* プルダウン機能:開講クウォータ */
         //ArrayAdapter
         val adapterQuarter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, spinnerQuarters)
         adapterQuarter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) //ドロップダウンのレイアウトの指定
@@ -78,7 +79,8 @@ class TimetableSearch :  AppCompatActivity() {
             val resultLecture: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 講義名検索の結果
             val resultTeacher: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 教員名検索の結果
             var resultQuarter: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture()) // 開講クウォータ検索の結果
-            val resultPrint: ArrayList<Int> = arrayListOf()//最終的な検索結果
+            //val resultPrint: Array<Int> = arrayOf(0).copyOfRange(0, userDB.getMaxLecture())//最終的な検索結果
+             val resultPrint: ArrayList<Int> = arrayListOf()//最終的な検索結果
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
@@ -99,8 +101,11 @@ class TimetableSearch :  AppCompatActivity() {
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultLecture.set(insertTemp,cou)
-                    insertTemp += 1
+                    //lecture_idに対する講義が入っていなければ入れない
+                    if(userDB.getLectureById(cou) != "") {
+                        resultLecture.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
@@ -122,8 +127,11 @@ class TimetableSearch :  AppCompatActivity() {
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultTeacher.set(insertTemp,cou)
-                    insertTemp += 1
+                    //lecture_idに対する講義が入っていなければ入れない
+                    if(userDB.getLectureById(cou) != "") {
+                        resultTeacher.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
@@ -139,28 +147,18 @@ class TimetableSearch :  AppCompatActivity() {
                     //format1の結果でえられたIDを格納する配列の宣言
                     resultQuarter.set(insertTemp, quarterLecture)
                     insertTemp += 1
-                }
-                /*
-                var num: Int = userDB.countLectureByQuarter(quarterData) //登録している講義の数を取得
-                num -= 1
-                for (cou in 0..num) {
-                    //quarterDataが"--"以外の場合、講義名にquarterDataの値を含む講義の講義IDをDBから取得
-                    val quarterLecture: Int = userDB.getLectureIdByQuarter(quarterData, cou)
-                        userDB.getLectureIdByQuarter(quarterLecture, cou)//i番目のlecture_idをとってくる
-                    //format1の結果でえられたIDを格納する配列の宣言
-                    resultQuarter.set(num, quarterLecture) //arrayOfの中にIDをいれる
-                    //resultQuarter = arrayOf(quarterLecture) //arrayOfの中にIDをいれる
-
-                }
-                */
+                }               
             } else {
                 //NULLの場合、配列にはデータベース上の講義IDをすべて格納する
                 var max: Int = userDB.getMaxLecture() //登録されている講義の最大値
                 var insertTemp = 0 //結果を入れる配列の場所
                 for(cou in 1..max) {
                     //講義ID
-                    resultQuarter.set(insertTemp,cou)
-                    insertTemp += 1
+                    //lecture_idに対する講義が入っていなければ入れない
+                    if(userDB.getLectureById(cou) != "") {
+                        resultQuarter.set(insertTemp, cou)
+                        insertTemp += 1
+                    }
                 }
             }
 
@@ -173,6 +171,7 @@ class TimetableSearch :  AppCompatActivity() {
                         if (resultQuarter.contains(id)) {
                             //最終的な結果を入れる配列(resultPrint)にidを格納する
                             resultPrint.add(id)
+                            //resultPrint[insertTmp] = id //結果で表示すべき講義の講義IDを格納
                             insertTmp += 1
                         }
                     }
@@ -194,7 +193,9 @@ class TimetableSearch :  AppCompatActivity() {
 
         /* 戻るボタン */
         return_search.setOnClickListener {
+            // val intent = Intent(application, Timetable::class.java)
             finish()
+            //startActivity(intent)
         }
     }
 }

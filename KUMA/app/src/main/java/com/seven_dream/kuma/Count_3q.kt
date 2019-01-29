@@ -1,10 +1,12 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.seven_dream.kuma.AttendCheck_3q
+import com.seven_dream.kuma.R
 import kotlinx.android.synthetic.main.activity_counter.*
 import java.io.File
 

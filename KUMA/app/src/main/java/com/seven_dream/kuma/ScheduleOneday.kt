@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_schedule_oneday.*
 import com.seven_dream.kuma.R.layout.activity_schedule_oneday
+import kotlinx.android.synthetic.main.activity_schedule_oneday.*
 
 
 class ScheduleOneday : AppCompatActivity() {
