@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_count_list.*
-import java.io.File
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
 
@@ -18,12 +16,13 @@ class Delete_1q: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count_list)
 
+        attendlist.text = "講義削除"
+
         val fileNameI = "id.txt"
         val fileNameQ = "quarter.txt"
         val quarter = 1
 
         val check = arrayOfNulls<String>(26)
-        check[0] = "時間割画面へ戻る"
 
         //1Q
         //月曜日の講義ID
@@ -58,7 +57,7 @@ class Delete_1q: AppCompatActivity() {
         val fri5 = userDB_timetable.getLecture_id(2018, 1, 5, 5)
 
         val Lecture = arrayOf(
-            "時間割画面へ戻る",
+            "",
             userDB_timetable.getLecture_name(mon1),
             userDB_timetable.getLecture_name(mon2),
             userDB_timetable.getLecture_name(mon3),
@@ -111,9 +110,6 @@ class Delete_1q: AppCompatActivity() {
         myListView.setOnItemClickListener { _, view, position, _ ->
             val title = view.findViewById<TextView>(android.R.id.text1).text
 
-            if (position != 0 && "$title" != "") {
-                Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
-            }
 
 
             if (position == 0) {

@@ -19,12 +19,13 @@ class Delete_3q: AppCompatActivity() {
         setContentView(R.layout.activity_count_list)
 
 
+        attendlist.text = "講義削除"
         val fileNameI = "id.txt"
         val fileNameQ = "quarter.txt"
         val quarter = 3
 
         val check = arrayOfNulls<String>(26)
-        check[0] = "時間割画面へ戻る"
+        check[0] = ""
 
         //3Q
         //月曜日の講義ID
@@ -59,7 +60,7 @@ class Delete_3q: AppCompatActivity() {
         val fri5 = userDB_timetable.getLecture_id(2018, 3, 5, 5)
 
         val Lecture = arrayOf(
-            "時間割画面へ戻る",
+            "",
             userDB_timetable.getLecture_name(mon1),
             userDB_timetable.getLecture_name(mon2),
             userDB_timetable.getLecture_name(mon3),
@@ -115,10 +116,6 @@ class Delete_3q: AppCompatActivity() {
 
         myListView.setOnItemClickListener { _, view, position, _ ->
             val title = view.findViewById<TextView>(android.R.id.text1).text
-
-            if (position != 0 && "$title" != "") {
-                Toast.makeText(this, "$title", Toast.LENGTH_SHORT).show()
-            }
 
 
             if (position == 0) {
