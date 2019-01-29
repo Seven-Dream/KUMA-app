@@ -180,6 +180,7 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val selectSql: String = "select * from lecture where lecture_name = ?"
         //val selectSql: String = "select * from lecture where lecture_name LIKE '%' + ? + '%'"
         //val selectSql: String = "select * from lecture where lecture_name = ? LIKE '%' + ? + '%'"
+        //val selectSql: String = "select * from lecture where lecture_name = ? LIKE '/%?/%'"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture.toString()))
         var cou :Int = 0
         try {
@@ -340,6 +341,22 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         try {
             if (cursor.moveToNext()) {
                 disp = cursor.getInt(0)
+            }
+        } finally {
+            cursor.close()
+        }
+        return disp
+    }
+    //なんか
+    //講義IDを指定して開講クウォータを取得
+    fun getLectureById(lecture_id: Int): String {
+        val selectSql: String = "select teacher from lecture where lecture_id = ?"
+        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_id.toString()))
+        //Log.d("opal",cursor.toString())
+        var disp  = "" //最終的に表示
+        try {
+            if (cursor.moveToNext()) {
+                disp = cursor.getString(0)
             }
         } finally {
             cursor.close()
