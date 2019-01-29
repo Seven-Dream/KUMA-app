@@ -180,6 +180,7 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         val selectSql: String = "select * from lecture where lecture_name = ?"
         //val selectSql: String = "select * from lecture where lecture_name LIKE '%' + ? + '%'"
         //val selectSql: String = "select * from lecture where lecture_name = ? LIKE '%' + ? + '%'"
+        //val selectSql: String = "select * from lecture where lecture_name = ? LIKE '/%?/%'"
         val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture.toString()))
         var cou :Int = 0
         try {
