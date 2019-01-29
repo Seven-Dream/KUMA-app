@@ -1,24 +1,91 @@
-package com.kuma.timetable
+package com.seven_dream.kuma
 
 import android.content.Intent
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_1q.*
+import java.util.*
 
 private lateinit var userDB_timetable: userDB_Adapter_Timetable
+private lateinit var userDB_event: userDB_Adapter_Event
 
 class Timetable_1q : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         userDB_timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
+        userDB_event = userDB_Adapter_Event(this) // DBの呼び出し
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_1q)
+
+
+
+        //初期のリスト項目を設定
+        val arrayAdapter = ArrayAdapter3(this, 0).apply {
+            userDB_event.addRecordEventStudent(
+                1,
+                "軽音ライブ",
+                2019,
+                1,
+                24,
+                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
+            )
+            userDB_event.addRecordEventStudent(
+                2,
+                "アカペラライブ",
+                2019,
+                1,
+                29,
+                "https://www.neurology-jp.org/Journal/public_pdf/058010015.pdf"
+            )
+            userDB_event.addRecordEventStudent(
+                3,
+                "ロボ研ガンダムファイト大会",
+                2019,
+                1,
+                29,
+                "https://www.yahoo.co.jp"
+            )
+
+            var tmp = 0//格納する配列の場所
+            val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
+            val nen: Int = calendar.get(Calendar.YEAR)
+            val tuki: Int = calendar.get(Calendar.MONTH)
+            val hi: Int = calendar.get(Calendar.DAY_OF_MONTH)
+            for (date in hi..31) {
+                for (cnt in 1..3) {//同じ日にイベントがあった場合
+                    val id = userDB_event.getEvent_id(nen, tuki + 1, date, cnt)
+                    if (id != 0) {
+                        val eventyear = userDB_event.getEvent_year(id)
+                        val eventsla1:String = "/"
+                        val eventmonth = userDB_event.getEvent_month(id)
+                        val eventsla2:String = "/"
+                        val eventday = userDB_event.getEvent_day(id)
+                        val eventname = userDB_event.getEvent_name(id)
+                        //取得した情報をarrayAdapterにいれる
+                        add(ListItem2(eventyear, eventsla1, eventmonth, eventsla2, eventday, eventname))
+                        tmp += 1
+                    } else {
+                        break
+                    }
+                }
+
+            }
+        }
+        val listView: ListView = this.findViewById(R.id.ListView)
+        listView.adapter = arrayAdapter
+
         button.setOnClickListener {
             val intent = Intent(application, TimetableSearch::class.java)
             startActivity(intent)
@@ -273,3 +340,90 @@ class Timetable_1q : AppCompatActivity() {
 }
 
 
+class ListItem2(val yearInfo: Int) {
+    var slaInfo1 : String = "No description"
+    var monthInfo : Int = 0
+    var slaInfo2 : String = "No description"
+    var dayInfo : Int = 0
+    var nameInfo : String = "No description"
+
+    constructor(yearInfo: Int, slaInfo1: String, monthInfo: Int, slaInfo2: String, dayInfo: Int, nameInfo: String) : this(yearInfo) {
+        this.monthInfo = monthInfo
+        this.slaInfo1 = slaInfo1
+        this.dayInfo = dayInfo
+        this.slaInfo2 = slaInfo2
+        this.nameInfo = nameInfo
+    }
+}
+
+data class ViewHolder3(
+    val yearView: TextView,
+    val eventsla1: TextView,
+    val monthView: TextView,
+    val eventsla2: TextView,
+    val dayView: TextView,
+    val nameView: TextView
+)
+
+class ArrayAdapter3 : ArrayAdapter<ListItem2> {
+    private var inflater: LayoutInflater? = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
+
+    var mContext: Context? = null
+    constructor(context: Context, resource: Int) : super(context, resource) {
+        this.mContext = context
+    }
+    // userDB_Adapter_Timetableクラスを定義
+    private lateinit var userDB_event: userDB_Adapter_Event
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        var ViewHolder3: ViewHolder3? = null
+        var view = convertView
+        //DBの呼び出し
+        userDB_event = userDB_Adapter_Event(context)
+// 再利用の設定
+        if (view == null) {
+            view = inflater!!.inflate(R.layout.line_style, parent, false)
+
+            ViewHolder3 = ViewHolder3(
+                view.findViewById(R.id.yearTextView),
+                view.findViewById(R.id.eventsla1),
+                view.findViewById(R.id.monthTextView),
+                view.findViewById(R.id.eventsla2),
+                view.findViewById(R.id.dayTextView),
+                view.findViewById(R.id.event_nameTextView)
+            )
+            view.tag = ViewHolder3
+        } else {
+            ViewHolder3 = view.tag as ViewHolder3
+        }
+
+/* 項目の情報を設定*/
+        val ListItem2 = getItem(position)
+        ViewHolder3.yearView.text = ListItem2.yearInfo.toString()
+        ViewHolder3.eventsla1.text = ListItem2.slaInfo1
+        ViewHolder3.monthView.text = ListItem2.monthInfo.toString()
+        ViewHolder3.eventsla2.text = ListItem2.slaInfo2
+        ViewHolder3.dayView.text = ListItem2.dayInfo.toString()
+        ViewHolder3.nameView.text = ListItem2.nameInfo
+
+        ViewHolder3.nameView.setOnClickListener { _ ->
+            var eventID = userDB_event.getEvent_next(
+                ListItem2.yearInfo,
+                ListItem2.monthInfo,
+                ListItem2.dayInfo,
+                ListItem2.nameInfo
+            )
+            var geturl = userDB_event.getEvent_url(
+                eventID
+            )
+            //val intent = Intent(mContext,Web_Activity::class.java)
+            //intent.putExtra("url",geturl)
+            //mContext!!.startActivity(intent)
+
+            var uri = Uri.parse(geturl)
+            val intent = Intent(Intent.ACTION_VIEW,uri)
+            mContext!!.startActivity(intent)
+        }
+        return view!!
+    }
+}

@@ -1,4 +1,4 @@
-﻿package com.seven_dream.kuma
+package com.seven_dream.kuma
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -28,6 +28,7 @@ class TitleController : AppCompatActivity() {
         userDB_Timetable = userDB_Adapter_Timetable(this)//DBの呼び出し
 
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.title_controller)
         MyAsyncTask().execute()//APIからJSONを取得→データベース格納を行う
     }
 

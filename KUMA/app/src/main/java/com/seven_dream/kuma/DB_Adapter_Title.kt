@@ -1,5 +1,6 @@
 package com.seven_dream.kuma
 
+
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -12,10 +13,10 @@ class userDB_Adapter_Title(mContext: Context) {
     private val db: SQLiteDatabase
     private val uaerDB : userDB_Helper
     init {
-            uaerDB = userDB_Helper(mContext)  // DB生成
-            db = uaerDB.getWritableDatabase()
+        uaerDB = userDB_Helper(mContext)  // DB生成
+        db = uaerDB.getWritableDatabase()
     }
-//---------------------insert文---------------------------
+    //---------------------insert文---------------------------
     //Lecture----------------------
     //lectureにレコードを追加
     fun addRecordLecture(lecture_id:Int,lecture_name:String, teacher:String, classroom:String, year:Int, quarter:Int) {
@@ -132,7 +133,7 @@ class userDB_Adapter_Title(mContext: Context) {
             Log.d("opal", "Failed executeSQL SQLite -- " + e.message)
         }
     }
-//-------------------Select文-------------------
+    //-------------------Select文-------------------
     //Lecture-------------------------
     //lecture_nameを指定して一列を取得
     fun getLecture(lecture_name:String) :String{
