@@ -13,10 +13,12 @@
             android:showWeekNumber="false"
     />
     <Button
-            android:text="@string/timetable"
+            android:text="@string/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/timeTable"
+            android:background="@drawable/button_style1"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="16dp" android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="268dp" android:layout_marginRight="268dp" android:layout_marginBottom="4dp"
