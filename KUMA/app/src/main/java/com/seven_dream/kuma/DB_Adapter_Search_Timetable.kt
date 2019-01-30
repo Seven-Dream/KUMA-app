@@ -121,41 +121,6 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
         return disp
     }
 
-    //lecture_nameとnumを指定してlectureIDを取得
-    fun getLectureIdByName(lecture_name: Editable, max: Int): Int {
-        val selectSql: String = "select lecture_id from lecture where lecture_name = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture_name.toString()))
-        //Log.d("opal",cursor.toString())
-        var id: Int = 0//最終的に表示
-        try {
-            for (i in 0..max){
-                cursor.moveToNext()
-            }
-            id = cursor.getInt(0)
-        } finally {
-            cursor.close()
-        }
-        return id
-    }
-
-    //teacharを指定してlectureIDを取得
-    fun getLectureIdByTeach(teacher: Editable, num: Int): Int {
-        val selectSql: String = "select lecture_id from lecture where teacher = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(teacher.toString()))
-        //Log.d("opal",cursor.toString())
-        var id: Int = 0//最終的に表示
-        try {
-            for (i in 0..num) {
-                if (cursor.moveToNext()) {
-                    id = cursor.getInt(0)
-                }
-            }
-        } finally {
-            cursor.close()
-        }
-        return id
-    }
-
     //quarterを指定してlectureIDを取得
     fun getLectureIdByQuarter(quarter: Int?, num: Int): Int {
         val selectSql: String = "select lecture_id from lecture where quarter = ?"
@@ -175,35 +140,6 @@ class DB_Adapter_Search_Timetable(mContext: Context) {
     }
 
     /* 講義の個数を取得 */
-    //登録されている講義のうち、format1に入力された文字列を含む講義の個数を取得
-    fun countLectureByName(lecture: Editable): Int {
-        val selectSql: String = "select * from lecture where lecture_name = ?"
-        //val selectSql: String = "select * from lecture where lecture_name LIKE '%' + ? + '%'"
-        //val selectSql: String = "select * from lecture where lecture_name = ? LIKE '%' + ? + '%'"
-        //val selectSql: String = "select * from lecture where lecture_name = ? LIKE '/%?/%'"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(lecture.toString()))
-        var cou :Int = 0
-        try {
-            cou = cursor.count
-        } finally {
-            cursor.close()
-        }
-        return cou
-    }
-
-    //登録されている講義のうち、format2に入力された文字列を含む講義の個数を取得
-    fun countLectureByTeacher(teacher: Editable): Int {
-        val selectSql: String = "select * from lecture where teacher = ?"
-        val cursor: Cursor = db.rawQuery(selectSql, arrayOf(teacher.toString()))
-        var cou: Int = 0
-        try {
-            cou = cursor.count
-        } finally {
-            cursor.close()
-        }
-        return cou
-    }
-
     //登録されている講義のうち、pulldownで選択された開講Qと一致する講義の個数を取得
     fun countLectureByQuarter(quarter: Int?): Int {
         val selectSql: String = "select * from lecture where quarter =?"

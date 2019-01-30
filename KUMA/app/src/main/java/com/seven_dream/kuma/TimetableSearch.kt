@@ -4,6 +4,7 @@ package com.seven_dream.kuma
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import kotlinx.android.synthetic.main.layout_timetable_search.*
 import android.widget.AdapterView
 import android.widget.Spinner
@@ -47,8 +48,8 @@ class TimetableSearch :  AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id:Long) {
                 val spinnerParent = parent as Spinner
                 val quarterItem = spinnerParent.selectedItem as String //選択された文字列を取得
+                val selectQuarter: String = quarterItem //新しい変数に選択された文字列を格納
                 if (quarterItem != "--") {
-                    val selectQuarter: String = quarterItem //新しい変数に選択された文字列を格納
                     if(selectQuarter == "1Q") {
                         quarterData = 1
                     } else if(selectQuarter == "2Q") {
@@ -84,16 +85,19 @@ class TimetableSearch :  AppCompatActivity() {
 
             /* format1(講義名)の処理 */
             if (format1.text.toString() != "") {
-                var num: Int = userDB.countLectureByName(format1.text) //検索に引っかかった行数を取得(format1と講義名が一致する講義の数)
+                var max: Int = userDB.getMaxLecture() //登録されている講義の最大値
                 var insertTemp = 0 //結果を入れる配列の場所
-                num -= 1
-                //講義検索の結果を配列に入れる
-                for (cou in 0..num) {
-                    //format1に入力がある場合、講義名にformat1の文字列を含む講義の講義IDをDBから取得
-                    val nameLecture: Int = userDB.getLectureIdByName(format1.text, cou)
-                    //format1の結果でえられたIDを格納する配列の宣言
-                    resultLecture.set(insertTemp,nameLecture)
-                    insertTemp += 1
+                // 講義IDが1～maxまでの講義について、講義名にformat1.textの文字列が含まれていれば結果として扱う
+                for(cou: Int in 1..max) {
+                    val name: String = userDB.getLectureNameById(cou) //講義IDから講義名を取得する
+                    val resurchName = name.contains(format1.text) // 文字列:nameに文字列:format1.textが含まれているか(true/false)
+                    if(resurchName == true) {
+                        //lecture_idに対する講義が入っていなければ入れない
+                        if (userDB.getLectureById(cou) != "") {
+                            resultLecture.set(insertTemp, cou) //講義検索の結果を配列に格納
+                            insertTemp += 1
+                        }
+                    }
                 }
             } else {
                 //NULLの場合、配列にはデータベース上の講義IDをすべて格納する
@@ -111,15 +115,19 @@ class TimetableSearch :  AppCompatActivity() {
 
             /* format2(教員名)の処理 */
             if (format2.text.toString() != "") {
-                var num: Int = userDB.countLectureByTeacher(format2.text) //検索に引っかかった行数を取得(format2と教員名が一致する講義の数)
-                num -= 1
+                var max: Int = userDB.getMaxLecture() //登録されている講義の最大値
                 var insertTemp = 0 //結果を入れる配列の場所
-                for (cou in 0..num) {
-                    //format2に入力がある場合、講義名にformat2の文字列を含む講義の講義IDをDBから取得
-                    val teacherLecture: Int = userDB.getLectureIdByTeach(format2.text, cou)
-                    //format1の結果でえられたIDを格納する配列の宣言
-                    resultTeacher.set(insertTemp, teacherLecture)
-                    insertTemp += 1
+                /* 講義IDが1～maxまでの講義について、講義名にformat.textの文字列が含まれていれば結果として扱う*/
+                for(cou: Int in 1..max) {
+                    val teacher: String = userDB.getTeacherNameById(cou) //講義IDから講義名を取得する
+                    val resurchTeacher = teacher.contains(format2.text) // 文字列:teacherに文字列:format2.textが含まれているか(true/false)
+                    if(resurchTeacher == true) {
+                        //lecture_idに対する講義が入っていなければ入れない
+                        if (userDB.getTeacherNameById(cou) != "") {
+                            resultTeacher.set(insertTemp, cou) //講義検索の結果を配列に格納
+                            insertTemp += 1
+                        }
+                    }
                 }
             } else {
                 //NULLの場合、配列にはデータベース上の講義IDをすべて格納する
@@ -147,7 +155,7 @@ class TimetableSearch :  AppCompatActivity() {
                     //format1の結果でえられたIDを格納する配列の宣言
                     resultQuarter.set(insertTemp, quarterLecture)
                     insertTemp += 1
-                }               
+                }
             } else {
                 //NULLの場合、配列にはデータベース上の講義IDをすべて格納する
                 var max: Int = userDB.getMaxLecture() //登録されている講義の最大値
