@@ -74,8 +74,7 @@ class Timetable_1q : AppCompatActivity() {
 
             }
         }
-
-        val listView: ListView = findViewById(R.id.ListView)
+        val listView: ListView = this.findViewById(R.id.ListView)
         listView.adapter = arrayAdapter
 
         button.setOnClickListener {
@@ -411,7 +410,7 @@ class ArrayAdapter3 : ArrayAdapter<ListItem2> {
             //intent.putExtra("url",geturl)
             //mContext!!.startActivity(intent)
             //明示的なActivity生成(他のファイルでも適応される)
-            var uri = Uri.parse("http://3.16.216.28"  + geturl)
+            var uri = Uri.parse("http://3.16.216.28" +geturl)
             val intent = Intent(Intent.ACTION_VIEW,uri)
             mContext!!.startActivity(intent)
         }
