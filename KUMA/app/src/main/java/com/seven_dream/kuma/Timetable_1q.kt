@@ -53,7 +53,7 @@ class Timetable_1q : AppCompatActivity() {
             val tuki: Int = calendar.get(Calendar.MONTH)
             val hi: Int = calendar.get(Calendar.DAY_OF_MONTH) - 1
             for (date in 0..30) {
-                for (cnt in 1..3) {//同じ日にイベントがあった場合
+                for (cnt in 1..10) {//同じ日にイベントがあった場合
                     val seach_day = (date + hi) % 31 + 1
                     val seach_month = tuki + 1 + ((date + hi) / 31)
                     val id = userDB_event.getEvent_id(nen, seach_month, seach_day, cnt)
@@ -74,7 +74,8 @@ class Timetable_1q : AppCompatActivity() {
 
             }
         }
-        val listView: ListView = this.findViewById(R.id.ListView)
+
+        val listView: ListView = findViewById(R.id.ListView)
         listView.adapter = arrayAdapter
 
         button.setOnClickListener {
@@ -410,7 +411,7 @@ class ArrayAdapter3 : ArrayAdapter<ListItem2> {
             //intent.putExtra("url",geturl)
             //mContext!!.startActivity(intent)
             //明示的なActivity生成(他のファイルでも適応される)
-            var uri = Uri.parse(geturl)
+            var uri = Uri.parse("http://3.16.216.28"  + geturl)
             val intent = Intent(Intent.ACTION_VIEW,uri)
             mContext!!.startActivity(intent)
         }

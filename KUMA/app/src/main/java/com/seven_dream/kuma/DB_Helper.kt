@@ -47,7 +47,7 @@ class userDB_Helper (Context: Context) : SQLiteOpenHelper(Context, DB_NAME, null
 
     override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         onUpgrade(db, oldVersion, newVersion)
-        addDB_VERSION()
+        //addDB_VERSION()
     }
     companion object {
         private const val Lecture = "CREATE TABLE lecture ( " +
