@@ -300,9 +300,6 @@ class Timetable_1q : AppCompatActivity() {
         }
     }
 
-    //端末のBackボタンのハンドリング(無効化)
-    override fun onBackPressed(){}
-
     // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
         private var paint: Paint = Paint()
