@@ -11,10 +11,24 @@ import android.util.Log
 import java.util.*
 
 var oneDate: String? = null//Scheduleから取得した日付
+var years: String? = null
+var months: String? = null
+var dayOfMonths: String? = null
 //var plansId: Int =1
 
 class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, DATABESE_VER) {
 
+
+    //internal lateinit var uaerDB : userDB_Helper
+    private val db1: SQLiteDatabase
+    private val uaerDB : userDB_Helper = userDB_Helper(context)
+
+    //internal lateinit var uaerDB: userDB_Helper
+    init {
+        // DB生成
+       db1 = uaerDB.getWritableDatabase()
+        //db1 = uaerDB.writableDatabase
+    }
 
     companion object {
         private val DATABESE_VER = 1
@@ -27,6 +41,10 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         private val timeend ="timeend"
         private val place ="place"
         private val memo = "memo"
+        private val lecture_id = "lecture_id"
+        private val classroom = "classroom"
+        private val comment = "comment"
+        private val event_name = "event_name"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -55,6 +73,7 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
         val selectQuery = "SELECT * FROM $TABLE_NAME WHERE $date = ?"
         val db =this.writableDatabase
         val cursor = db.rawQuery(selectQuery, arrayOf(oneDate))
+        try{
         if(cursor.moveToFirst()) {
             do {
                 val plans = NewPlan()
@@ -69,6 +88,106 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
                 lstPlans.add(plans)
             }while(cursor.moveToNext())
         }
+    } catch (e: SQLiteException) {
+        Log.d("opal", "Failed >executeSQL SQLite -- " + e.message)
+    }
+        //db.close()
+        val selectQuery1 = "SELECT * FROM lecture_test WHERE $months=? and $dayOfMonths =?"
+        //val db1 =db1.writableDatabase
+       // val db1 = uaerDB.writableDatabase
+        //try{
+        val cursor1 = db1.rawQuery(selectQuery1, arrayOf(months, dayOfMonths))
+        var count = 99
+        count +=1
+        try{
+        if(cursor1.moveToFirst()) {
+
+                // NewPlan構造体に格納
+            do {
+                count +=1
+                val plans = NewPlan()
+                plans.id = count
+                plans.date = date
+                plans.title = cursor1.getString(cursor1.getColumnIndex(lecture_id))
+                plans.timebegin =""
+                plans.timeend = ""
+                plans.place = cursor1.getString(cursor1.getColumnIndex(classroom))
+                plans.memo = cursor1.getString(cursor1.getColumnIndex(comment))
+
+
+                lstPlans.add(plans)
+            }while(cursor1.moveToNext())
+        }
+    } catch (e: SQLiteException) {
+        Log.d("opal", "Failed >executeSQL SQLite -- " + e.message)
+    }
+ /*       val selectQuery2 = "SELECT * FROM lecture_cancel WHERE $months=? and $dayOfMonths =?"
+        //val db1 =db1.writableDatabase
+        val cursor2 = db1.rawQuery(selectQuery2, arrayOf(months, dayOfMonths))
+        try{
+        if(cursor2.moveToFirst()) {
+            do {
+                val plans = NewPlan()
+                plans.id = 0
+                plans.date = date
+                plans.title = cursor2.getString(cursor2.getColumnIndex(lecture_id))
+                plans.timebegin =""
+                plans.timeend = ""
+                plans.place = ""
+                plans.memo = cursor2.getString(cursor2.getColumnIndex(comment))
+
+                lstPlans.add(plans)
+            }while(cursor2.moveToNext()
+
+            )
+        }
+    } catch (e: SQLiteException) {
+        Log.d("opal", "Failed >executeSQL SQLite -- " + e.message)
+    }
+        val selectQuery3 = "SELECT * FROM lecture_change_class WHERE $months=? and $dayOfMonths =?"
+        //val db1 =db1.writableDatabase
+        val cursor3 = db1.rawQuery(selectQuery3, arrayOf(months, dayOfMonths))
+        try{
+        if(cursor3.moveToFirst()) {
+            do {
+                val plans = NewPlan()
+                plans.id = 0
+                plans.date = date
+                plans.title = cursor3.getString(cursor3.getColumnIndex(lecture_id))
+                plans.timebegin =""
+                plans.timeend = ""
+                plans.place = cursor3.getString(cursor3.getColumnIndex(classroom))
+                plans.memo = ""
+
+                lstPlans.add(plans)
+            }while(cursor3.moveToNext())
+        }
+    } catch (e: SQLiteException) {
+        Log.d("opal", "Failed >executeSQL SQLite -- " + e.message)
+    }
+        val selectQuery4 = "SELECT * FROM event_uni WHERE $years=? and $months=? and $dayOfMonths =?"
+        //val db1 =db1.writableDatabase
+        val cursor4 = db1.rawQuery(selectQuery4, arrayOf(months, dayOfMonths))
+        try {
+        if(cursor4.moveToFirst()) {
+            do {
+                val plans = NewPlan()
+                plans.id = 0
+                plans.date = date
+                plans.title = cursor4.getString(cursor4.getColumnIndex(event_name))
+                plans.timebegin =""
+                plans.timeend = ""
+                plans.place = ""
+                plans.memo = cursor.getString(cursor4.getColumnIndex(comment))
+
+                lstPlans.add(plans)
+            }while(cursor4.moveToNext())
+        }
+        } catch (e: SQLiteException) {
+            Log.d("opal", "Failed >executeSQL SQLite -- " + e.message)
+        }*/
+
+        db1.close()
         db.close()
         return lstPlans
     }
@@ -160,6 +279,11 @@ class DBHelper(context:Context):SQLiteOpenHelper(context, DATABESE_NAME, null, D
     // DBHelperで日付を使えるようにする
     fun getDate(date:String){
         oneDate = date
+    }
+    fun getDate1(year:String,month:String, dayOfMonth:String){
+        years = year
+        months = month
+        dayOfMonths =dayOfMonth
     }
 
 }

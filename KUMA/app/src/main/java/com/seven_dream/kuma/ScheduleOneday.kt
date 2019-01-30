@@ -5,13 +5,17 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_schedule_oneday.*
 import com.seven_dream.kuma.R.layout.activity_schedule_oneday
+
+import kotlinx.android.synthetic.main.activity_schedule_oneday.*
+//import com.seven_dream.kuma.R.layout.activity_schedule_oneday
 
 
 class ScheduleOneday : AppCompatActivity() {
 
     internal lateinit var db:DBHelper
+    internal lateinit var uaerDB : userDB_Helper
+    internal lateinit var userDB_Title:userDB_Adapter_Title
     internal var lstNewPlan: List<NewPlan> = ArrayList<NewPlan>()
 
 
@@ -20,6 +24,12 @@ class ScheduleOneday : AppCompatActivity() {
         setContentView(activity_schedule_oneday)
 
         db = DBHelper(this)
+        uaerDB = userDB_Helper(this)
+        /*val year = intent.getStringExtra("year")
+        val month = intent.getStringExtra("month")
+        val dayOfMonth = intent.getStringExtra("dayOfMonth")
+        db.getDate1(year,month, dayOfMonth)*/
+        userDB_Title.addRecordTest(100, 1, 31, "c101", "テストを行います")
         refreshData()
 
         // 登録画面のIDと日付に初期状態から入力させておく
