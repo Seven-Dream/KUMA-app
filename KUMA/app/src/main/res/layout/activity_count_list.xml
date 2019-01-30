@@ -12,7 +12,7 @@
             android:textSize="20sp"
             android:layout_width="180dp"
             android:layout_height="32dp"
-            android:text="@string/back"
+            android:text="@string/ReturnSentence"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
